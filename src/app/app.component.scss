@@ -1,0 +1,5 @@
+@media only screen and (max-width: 520px) {
+  :host ::ng-deep .toastr .p-toast{
+    width: 90% !important;
+  }
+}

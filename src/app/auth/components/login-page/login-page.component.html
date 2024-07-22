@@ -1,0 +1,62 @@
+<div class="overlay">
+
+  <div class="small-screen-section">
+    <div class="image">
+      <p-image
+        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+        previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+        alt="Image"
+        width="250" />
+    </div>
+    <div class="login-container" [formGroup]="loginForm">
+      <div class="input">
+        <label for="email-small-screen">Email adresa</label>
+        <input [placeholder]="'youremail@example.com'" type="text" id="email-small-screen" pInputText formControlName = 'email' />
+      </div>
+
+      <div class="input">
+        <label for="password-small-screen">Lozinka</label>
+        <input [placeholder]="'Lozinka'" type="password" id="password-small-screen" pInputText formControlName = 'password' />
+      </div>
+
+      <div class="login-button">
+        <p-button label="Prijavite se" [raised]="true" [style]="{width: '100%'}" (onClick)="login()"/>
+      </div>
+      <div style="margin-top: 20px">
+        <p>Nemate nalog? <a routerLink="/auth/register">Registrujte se!</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="large-screen">
+    <div class="section-one">
+      <div class="image">
+        <p-image
+          src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+          previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+          alt="Image"
+          width="250" />
+      </div>
+    </div>
+    <div class="section-two">
+      <div class="login-container" [formGroup]="loginForm">
+        <div class="input">
+          <label for="email">Email adresa</label>
+          <input [placeholder]="'youremail@example.com'" type="text" id="email" pInputText formControlName = 'email' />
+        </div>
+
+        <div class="input">
+          <label for="password">Lozinka</label>
+          <input [placeholder]="'Lozinka'" type="password" id="password" pInputText formControlName = 'password' />
+        </div>
+
+        <div class="login-button">
+          <p-button label="Prijavite se" [raised]="true" [style]="{width: '100%'}" (onClick)="login()"/>
+        </div>
+        <div style="margin-top: 20px">
+          <p>Nemate nalog? <a routerLink="/auth/register">Registrujte se!</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

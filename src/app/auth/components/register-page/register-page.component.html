@@ -1,0 +1,41 @@
+<div class="overlay">
+  <div class="section">
+    <div>
+      <p-image
+        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+        previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
+        alt="Image"
+        width="250" />
+    </div>
+    <div class="registration-container" [formGroup]="registrationForm">
+      <div class="left">
+        <div class="input">
+          <label for="email">Ime</label>
+          <input [placeholder]="'Ime'" type="text" id="name" pInputText formControlName = 'firstName' />
+        </div>
+
+        <div class="input">
+          <label for="password">Lozinka</label>
+          <input [placeholder]="'Lozinka'" type="password" id="password" pInputText formControlName = 'password' />
+        </div>
+      </div>
+      <div class="right">
+        <div class="input">
+          <label for="email">Email adresa</label>
+          <input [placeholder]="'youremail@example.com'" type="text" id="email" pInputText formControlName = 'email' />
+        </div>
+
+        <div class="input">
+          <label for="password">Potvrdite lozinku</label>
+          <input [placeholder]="'Potvrdite lozinku'" type="password" id="confirmPassword" pInputText formControlName = 'confirmPassword' />
+        </div>
+      </div>
+      <div class="registration-button">
+        <p-button label="Registruj se" [raised]="true" [style]="{width: '100%'}" (onClick)="register()"/>
+      </div>
+    </div>
+    <div>
+      <p>Već imate nalog? <a routerLink="/auth/login">Prijavite se!</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+.overlay{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+}
+
+.small-screen-section{
+  display: none;
+}
+
+.large-screen{
+  width: 100%;
+  display: flex;
+}
+
+.section-one{
+  width: 55%;
+  background-color: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .image{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.section-two{
+  width: 45%;
+  background-color: #EFEFEF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .login-container{
+    width: 50%;
+    height: 50%;
+    background-color: #DCDCDC;
+    z-index: 1000;
+    border-radius: 20px;
+    box-shadow: 0 0 10px gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+
+    .input{
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .login-button{
+      margin-top: 15px;
+      width: 80%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .login-container{
+    width: 65% !important;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .section-one{
+    width: 40%;
+  }
+
+  .section-two{
+    width: 60%;
+
+    .login-container{
+      width: 65% !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .large-screen{
+    display: none;
+  }
+
+  .overlay{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+  }
+
+  .small-screen-section{
+    width: 100%;
+    background-color: #EFEFEF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+
+    .login-container{
+      width: 50%;
+      height: 50%;
+      background-color: #DCDCDC;
+      z-index: 1000;
+      border-radius: 20px;
+      box-shadow: 0 0 10px gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+
+      .input{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .login-button{
+        margin-top: 15px;
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .login-container{
+    width: 65% !important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .login-container{
+    width: 75% !important;
+  }
+}

@@ -1,0 +1,122 @@
+.overlay{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+}
+
+.section{
+  width: 100%;
+  background-color: #EFEFEF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+
+  .registration-container{
+    width: 40%;
+    height: 40%;
+    background-color: #DCDCDC;
+    z-index: 1000;
+    border-radius: 20px;
+    box-shadow: 0 0 10px gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+
+    .left{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      .input{
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    .right{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      .input{
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    .registration-button{
+      margin-top: 15px;
+      width: 80%
+    }
+  }
+}
+
+@media only screen and (max-width: 1350px) {
+  .registration-container{
+    width: 55% !important;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .registration-container{
+    width: 65% !important;
+  }
+}
+
+@media only screen and (max-width: 810px) {
+  .registration-container{
+    width: 75% !important;
+  }
+}
+
+@media only screen and (max-width: 710px) {
+  .registration-container{
+    width: 85% !important;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .registration-container{
+    height: 62% !important;
+  }
+
+  .left{
+    flex-direction: column;
+    gap: 15px;
+    .input{
+      width: 80% !important;
+      gap: 10px;
+    }
+  }
+
+  .right{
+    flex-direction: column;
+    gap: 15px;
+    .input{
+      width: 80% !important;
+      gap: 10px;
+    }
+  }
+
+  .registration-button{
+    margin-top: 0 !important;
+  }
+}
+
+@media only screen and (max-height: 750px) {
+  .registration-container{
+    height: 55% !important;
+  }
+}
