@@ -10,16 +10,16 @@ import {RouterModule} from "@angular/router";
     FormsModule,
     AsyncPipe,
     SpinnerComponent,
-    RouterModule,
+    RouterModule
   ],
   exports: [
     ReactiveFormsModule,
     FormsModule,
     AsyncPipe,
     SpinnerComponent,
-    RouterModule,
+    RouterModule
   ]
 })
-export class AppCommonModule {
+export class AppSharedModule {
 
 }

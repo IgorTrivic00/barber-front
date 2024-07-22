@@ -10,6 +10,7 @@ import {IconFieldModule} from "primeng/iconfield";
 import {InputIconModule} from "primeng/inputicon";
 import {InputGroupModule} from "primeng/inputgroup";
 import { MenuModule } from 'primeng/menu';
+import {MenubarModule} from "primeng/menubar";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MenuModule } from 'primeng/menu';
     IconFieldModule,
     InputIconModule,
     InputGroupModule,
-    MenuModule
+    MenuModule,
+    MenubarModule
   ],
   exports: [
     ImageModule,
@@ -37,7 +39,8 @@ import { MenuModule } from 'primeng/menu';
     IconFieldModule,
     InputIconModule,
     InputGroupModule,
-    MenuModule
+    MenuModule,
+    MenubarModule
   ]
 })
 export class PrimengModule{

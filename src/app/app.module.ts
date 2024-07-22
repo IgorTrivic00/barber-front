@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterOutlet} from "@angular/router";
 import {PrimengModule} from "./shared/primeng.module";
-import {AppCommonModule} from "./shared/app-common.module";
+import {AppSharedModule} from "./shared/app-shared.module";
 import {AuthModule} from "./auth/auth.module";
 import {CommonModule} from "@angular/common";
 
@@ -11,13 +11,13 @@ import {CommonModule} from "@angular/common";
     AuthModule,
     PrimengModule,
     CommonModule,
-    AppCommonModule,
+    AppSharedModule,
   ],
   exports: [
     AuthModule,
     PrimengModule,
     CommonModule,
-    AppCommonModule,
+    AppSharedModule,
     RouterOutlet
   ]
 })

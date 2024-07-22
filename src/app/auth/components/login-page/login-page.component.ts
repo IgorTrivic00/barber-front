@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PrimengModule} from "../../../shared/primeng.module";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AppCommonModule} from "../../../shared/app-common.module";
+import {AppSharedModule} from "../../../shared/app-shared.module";
 import {Store} from "@ngrx/store";
 import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
@@ -13,7 +13,7 @@ import {login} from "../../store/actions";
   standalone: true,
   imports: [
     PrimengModule,
-    AppCommonModule
+    AppSharedModule
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
