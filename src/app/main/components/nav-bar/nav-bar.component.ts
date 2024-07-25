@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuItem, PrimeIcons} from "primeng/api";
 import {PrimengModule} from "../../../shared/primeng.module";
 
 @Component({
