@@ -11,20 +11,8 @@ import {PrimengModule} from "../../../shared/primeng.module";
 })
 export class NavBarComponent implements OnInit{
 
-  items: MenuItem[] | undefined;
-
-
   ngOnInit(): void {
-    this.items = [
-      {
-        label: 'New',
-        icon: PrimeIcons.PLUS,
-      },
-      {
-        label: 'Delete',
-        icon: PrimeIcons.TRASH
-      }
-    ];
+
   }
 
 

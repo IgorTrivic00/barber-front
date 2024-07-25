@@ -4,10 +4,17 @@ import {loginPageGuard} from "./guards/login-page.guard";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     loadComponent: () =>
       import('./home/components/main-panel/main-panel.component')
         .then(m => m.MainPanelComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'home/about',
+    loadComponent: () =>
+      import('./home/components/about/about.component')
+        .then(m => m.AboutComponent),
     canActivate: [authGuard],
   },
   {
@@ -24,5 +31,5 @@ export const routes: Routes = [
         .then(m => m.RegisterPageComponent),
     canActivate: [loginPageGuard]
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

@@ -20,6 +20,7 @@ import {User} from "../../model/user.model";
 })
 export class RegisterPageComponent implements OnInit{
   registrationForm!: FormGroup;
+  hide = true;
 
   constructor(private formBuilder: FormBuilder,
               private store$: Store) {
