@@ -10,11 +10,11 @@
     <div style="padding: 0 10% 0 10%" class="flex flex-column">
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
     </div>
-    <div class="flex flex-column gap-2">
+    <div (click)="redirectToCall()" class="flex flex-column gap-2">
       <span class="pi pi-phone" style="font-size: 1.5rem"></span>
       <h4>063/893-13-81</h4>
     </div>
-    <div class="flex flex-column gap-2">
+    <div (click)="redirectToInstagram()" class="flex flex-column gap-2">
       <span class="pi pi-instagram" style="font-size: 1.5rem"></span>
       <h4>dusann14</h4>
     </div>
@@ -27,8 +27,12 @@
     </div>
   </div>
   <div class="map-section">
-    <div class="flex flex-column">
+    <div style="text-align: center" class="flex flex-column gap-3">
       <h1>Pronađi nas već danas</h1>
+      <div class="swiper">
+        <app-work-day-swiper></app-work-day-swiper>
+      </div>
+      <h2>Vojvode Vlahovica 35v, Belgrade, Serbia 11147</h2>
     </div>
   </div>
 </div>

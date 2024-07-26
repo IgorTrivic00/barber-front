@@ -11,6 +11,9 @@ import {InputIconModule} from "primeng/inputicon";
 import {InputGroupModule} from "primeng/inputgroup";
 import { MenuModule } from 'primeng/menu';
 import {MenubarModule} from "primeng/menubar";
+import { CarouselModule } from 'primeng/carousel';
+import { ChipModule } from 'primeng/chip';
+
 
 
 @NgModule({
@@ -26,7 +29,9 @@ import {MenubarModule} from "primeng/menubar";
     InputIconModule,
     InputGroupModule,
     MenuModule,
-    MenubarModule
+    MenubarModule,
+    CarouselModule,
+    ChipModule
   ],
   exports: [
     ImageModule,
@@ -40,7 +45,9 @@ import {MenubarModule} from "primeng/menubar";
     InputIconModule,
     InputGroupModule,
     MenuModule,
-    MenubarModule
+    MenubarModule,
+    CarouselModule,
+    ChipModule
   ]
 })
 export class PrimengModule{
