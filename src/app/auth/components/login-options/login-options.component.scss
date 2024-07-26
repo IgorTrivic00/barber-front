@@ -14,7 +14,7 @@
   flex-direction: column;
   gap: 20px;
 
-  .registration-container{
+  .login-options-container{
     width: 40%;
     height: 40%;
     background-color: #DCDCDC;
@@ -54,41 +54,36 @@
         gap: 10px;
       }
     }
-
-    .registration-button{
-      margin-top: 15px;
-      width: 80%
-    }
   }
 }
 
 @media only screen and (max-width: 1350px) {
-  .registration-container{
+  .login-options-container{
     width: 55% !important;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .registration-container{
+  .login-options-container{
     width: 65% !important;
   }
 }
 
 @media only screen and (max-width: 810px) {
-  .registration-container{
+  .login-options-container{
     width: 75% !important;
   }
 }
 
 @media only screen and (max-width: 710px) {
-  .registration-container{
+  .login-options-container{
     width: 85% !important;
   }
 }
 
 @media only screen and (max-width: 520px) {
-  .registration-container{
-    height: 57% !important;
+  .login-options-container{
+    height: 45% !important;
   }
 
   .left{
@@ -108,14 +103,10 @@
       gap: 10px;
     }
   }
-
-  .registration-button{
-    margin-top: 0 !important;
-  }
 }
 
 @media only screen and (max-height: 750px) {
-  .registration-container{
+  .login-options-container{
     height: 55% !important;
   }
 }

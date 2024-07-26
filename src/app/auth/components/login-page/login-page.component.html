@@ -1,13 +1,10 @@
+<div style="padding: 5px">
+  <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" routerLink="/auth/login-options"
+            label="Nazad" [raised]="true" [style]="{'border-radius': '20px'}"/>
+</div>
 <div class="overlay">
 
   <div class="small-screen-section">
-    <div class="image">
-      <p-image
-        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
-        previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
-        alt="Image"
-        width="250" />
-    </div>
     <div class="login-container" [formGroup]="loginForm">
       <div class="input">
         <label for="email-small-screen">Email adresa</label>
@@ -20,7 +17,7 @@
       </div>
 
       <div class="login-button">
-        <p-button label="Prijavite se" [raised]="true" [style]="{width: '100%'}" (onClick)="login()"/>
+        <p-button severity="secondary" label="Prijavite se" [raised]="true" [style]="{width: '100%', 'border-radius': '20px'}" (onClick)="login()"/>
       </div>
       <div style="margin-top: 20px">
         <p>Nemate nalog? <a routerLink="/auth/register">Registrujte se!</a></p>

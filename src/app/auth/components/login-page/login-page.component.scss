@@ -101,7 +101,6 @@
 
   .small-screen-section{
     width: 100%;
-    background-color: #EFEFEF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,7 +111,7 @@
       width: 50%;
       height: 50%;
       background-color: #DCDCDC;
-      z-index: 1000;
+      z-index: 2000;
       border-radius: 20px;
       box-shadow: 0 0 10px gray;
       display: flex;
@@ -139,12 +138,16 @@
 
 @media only screen and (max-width: 600px) {
   .login-container{
-    width: 65% !important;
+    width: 85% !important;
+    height: 45% !important;
+    margin-bottom: 100px;
   }
 }
 
 @media only screen and (max-width: 500px) {
   .login-container{
-    width: 75% !important;
+    width: 85% !important;
+    height: 45% !important;
+    margin-bottom: 100px;
   }
 }

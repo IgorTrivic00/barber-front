@@ -1,12 +1,5 @@
 <div class="overlay">
   <div class="section">
-    <div>
-      <p-image
-        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
-        previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg"
-        alt="Image"
-        width="250" />
-    </div>
     <div class="registration-container" [formGroup]="registrationForm">
       <div class="left">
         <div class="input">
@@ -23,16 +16,16 @@
 
         <div class="input">
           <label for="password">Lozinka</label>
-          <input [placeholder]="'Lozinka'" id="password" pInputText formControlName = 'password' />
+          <input [placeholder]="'Lozinka'" id="password" type="password" pInputText formControlName = 'password' />
         </div>
 
         <div class="input">
           <label for="confirmPassword">Potvrdite lozinku</label>
-          <input [placeholder]="'Potvrdite lozinku'" id="confirmPassword" pInputText formControlName = 'confirmPassword' />
+          <input [placeholder]="'Potvrdite lozinku'" type="password" id="confirmPassword" pInputText formControlName = 'confirmPassword' />
         </div>
       </div>
       <div class="registration-button">
-        <p-button label="Registruj se" [raised]="true" [style]="{width: '100%'}" (onClick)="register()"/>
+        <p-button severity="secondary" label="Registruj se" [raised]="true" [style]="{width: '100%', 'border-radius': '20px', 'margin-top': '20px'}" (onClick)="register()"/>
       </div>
     </div>
     <div>

@@ -94,7 +94,7 @@ export class AuthEffects {
   redirectToLoginPageEffect$ = createEffect(() => this.actions$.pipe(
     ofType(redirectToLoginPage),
     tap(() => {
-      this.router.navigate(['auth', 'login']);
+      this.router.navigate(['auth', 'login-options']);
     })
   ), {dispatch: false});
 

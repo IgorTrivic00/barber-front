@@ -5,6 +5,8 @@ import {ScheduleComponent} from "./components/schedule/schedule.component";
 import {HomeComponent} from "./components/home/home.component";
 import {SettingsComponent} from "./components/settings/settings.component";
 import {NotificationsComponent} from "./components/notifications/notifications.component";
+import {loginPageGuard} from "../guards/login-page.guard";
+import {authGuard} from "../guards/auth.guard";
 
 
 export const mainRoutes: Routes = [
@@ -18,7 +20,8 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'schedule',
-        component: ScheduleComponent
+        component: ScheduleComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'home',
@@ -26,12 +29,19 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'settings',
-        component: SettingsComponent
+        component: SettingsComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'notifications',
-        component: NotificationsComponent
-      }
+        component: NotificationsComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'auth',
+        loadChildren: () => import('../auth/auth.routes').then(mod => mod.authRoutes),
+        canActivate: [loginPageGuard]
+      },
     ],
   },
 ];
