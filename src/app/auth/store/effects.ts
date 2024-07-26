@@ -39,7 +39,7 @@ export class AuthEffects {
         this.localStorageService.setSavedState(response, 'userSession');
         return of(
           loginSuccess({user: response}),
-          redirectAfterLogin({redirectUrl: ['']}),
+          redirectAfterLogin({redirectUrl: ['home']}),
           showMessage({severity: Severity.SUCCESS, detail: 'Uspešna prijava'}),
         )
       })

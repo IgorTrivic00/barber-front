@@ -1,0 +1,34 @@
+.home-parent{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.image{
+  width: 100%;
+  height: 700px;
+  background: #808080;
+
+  img{
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+  }
+}
+
+.info-section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #353935;
+  color: white;
+}
+
+.flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
