@@ -7,12 +7,11 @@
 .image{
   width: 100%;
   height: 700px;
-  background: #808080;
 
   img{
     width: 100%;
     height: 100%;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 }
 
@@ -21,9 +20,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background: #353935;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: #343434;
   color: white;
 }
 
@@ -31,4 +30,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  p{
+    text-align: center;
+  }
+}
+
+p-button{
+  width: 50%;
+}
+
+.map-section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background: white;
+  color: black;
 }
