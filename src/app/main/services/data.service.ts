@@ -1,4 +1,6 @@
 import {Injectable} from "@angular/core";
+import {Barber} from "../model/barber.model";
+import {BarberTitle} from "../model/barber-title.model";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +41,17 @@ export class DataService {
       work: ''
     });
     return items;
+  }
+
+  getMockBarbers(){
+    const barbers: Barber[] = [];
+    barbers.push({
+      uuid: '123',
+      id: 123,
+      name: 'Stefan',
+      title: BarberTitle.MASTER,
+    });
+    return barbers;
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Button} from "primeng/button";
-import {enviroment} from "../../../enviroments/enviroment";
-import {WorkDaySwiperComponent} from "../work-day-swiper/work-day-swiper.component";
+import {enviroment} from "../../../../enviroments/enviroment";
+import {WorkDaySwiperComponent} from "./work-day-swiper/work-day-swiper.component";
 
 @Component({
   selector: 'app-home',

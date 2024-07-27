@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PrimengModule} from "../../../shared/primeng.module";
-import {DataService} from "../../services/data.service";
+import {PrimengModule} from "../../../../../shared/primeng.module";
+import {DataService} from "../../../../services/data.service";
 
 @Component({
   selector: 'app-work-day-swiper',

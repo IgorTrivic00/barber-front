@@ -1,10 +1,10 @@
 import {Routes} from "@angular/router";
-import {MainPanelComponent} from "./components/main-panel/main-panel.component";
-import {ServicesComponent} from "./components/services/services.component";
-import {ScheduleComponent} from "./components/schedule/schedule.component";
-import {HomeComponent} from "./components/home/home.component";
-import {SettingsComponent} from "./components/settings/settings.component";
-import {NotificationsComponent} from "./components/notifications/notifications.component";
+import {MainPanelComponent} from "./components/main/main-panel/main-panel.component";
+import {ServicesComponent} from "./components/menu/services/services.component";
+import {ScheduleComponent} from "./components/menu/schedule/schedule.component";
+import {HomeComponent} from "./components/menu/home/home.component";
+import {SettingsComponent} from "./components/menu/settings/settings.component";
+import {NotificationsComponent} from "./components/menu/notifications/notifications.component";
 import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
 

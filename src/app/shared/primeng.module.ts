@@ -13,7 +13,8 @@ import { MenuModule } from 'primeng/menu';
 import {MenubarModule} from "primeng/menubar";
 import { CarouselModule } from 'primeng/carousel';
 import { ChipModule } from 'primeng/chip';
-
+import { CardModule } from 'primeng/card';
+import { AvatarModule } from 'primeng/avatar';
 
 
 @NgModule({
@@ -31,7 +32,9 @@ import { ChipModule } from 'primeng/chip';
     MenuModule,
     MenubarModule,
     CarouselModule,
-    ChipModule
+    ChipModule,
+    CardModule,
+    AvatarModule
   ],
   exports: [
     ImageModule,
@@ -47,7 +50,9 @@ import { ChipModule } from 'primeng/chip';
     MenuModule,
     MenubarModule,
     CarouselModule,
-    ChipModule
+    ChipModule,
+    CardModule,
+    AvatarModule
   ]
 })
 export class PrimengModule{

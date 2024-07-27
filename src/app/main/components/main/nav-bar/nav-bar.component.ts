@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PrimengModule} from "../../../shared/primeng.module";
+import {PrimengModule} from "../../../../shared/primeng.module";
 
 @Component({
   selector: 'app-nav-bar',
