@@ -1,0 +1,18 @@
+<div>
+  <div class="image">
+    <div style="padding: 10px; position: fixed; z-index: 2000">
+      <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" routerLink="/services-barbers"
+                label="Nazad" [raised]="true" [style]="{'border-radius': '20px'}"/>
+    </div>
+    <img src="../../../../../assets/sitemgr_1%20The%20Fold%20Southern%20Highlands%20Barbers.png">
+    <div class="header">
+      <h1>Zaposleni</h1>
+    </div>
+  </div>
+  <div class="barber-list">
+    <app-service-list
+      [services]="services"
+    >
+    </app-service-list>
+  </div>
+</div>

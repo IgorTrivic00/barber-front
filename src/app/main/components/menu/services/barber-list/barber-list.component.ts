@@ -14,5 +14,6 @@ import {BarberItemComponent} from "./barber-item/barber-item.component";
 export class BarberListComponent {
 
   @Input() barbers: Barber[] | undefined;
+  @Input() callBack: any;
 
 }

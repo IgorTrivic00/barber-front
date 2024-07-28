@@ -1,12 +1,13 @@
 import {Routes} from "@angular/router";
 import {MainPanelComponent} from "./components/main/main-panel/main-panel.component";
-import {ServicesComponent} from "./components/menu/services/services.component";
+import {ServicesBarbersComponent} from "./components/menu/services/services-barbers.component";
 import {ScheduleComponent} from "./components/menu/schedule/schedule.component";
 import {HomeComponent} from "./components/menu/home/home.component";
 import {SettingsComponent} from "./components/menu/settings/settings.component";
 import {NotificationsComponent} from "./components/menu/notifications/notifications.component";
 import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
+import {ServicesComponent} from "./components/menu/services/services/services.component";
 
 
 export const mainRoutes: Routes = [
@@ -15,17 +16,21 @@ export const mainRoutes: Routes = [
     component: MainPanelComponent,
     children: [
       {
-        path: 'services',
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'services-barbers',
+        component: ServicesBarbersComponent
+      },
+      {
+        path: 'services/:barberUuid',
         component: ServicesComponent
       },
       {
         path: 'schedule',
         component: ScheduleComponent,
         canActivate: [authGuard]
-      },
-      {
-        path: 'home',
-        component: HomeComponent
       },
       {
         path: 'settings',
@@ -41,7 +46,7 @@ export const mainRoutes: Routes = [
         path: 'auth',
         loadChildren: () => import('../auth/auth.routes').then(mod => mod.authRoutes),
         canActivate: [loginPageGuard]
-      },
-    ],
-  },
+      }
+    ]
+  }
 ];

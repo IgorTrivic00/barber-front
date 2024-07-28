@@ -1,0 +1,28 @@
+<p-card>
+  <div style="display: flex; gap: 15px; align-items: center">
+    <div class="col-2">
+      <p-avatar
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+        styleClass="mr-2"
+        size="xlarge"/>
+    </div>
+    <div class="col-10">
+      <h2>{{service?.serviceName}}</h2>
+      <p class="m-0">
+        Trajanje: {{getDuration(service?.duration)}} minuta
+      </p>
+      <p class="m-0">
+        Cena: {{getPrice(service?.price)}} RSD
+      </p>
+<!--      <p-button severity="secondary" label="Rezerviši" [raised]="true" [style]="{'border-radius': '20px', 'margin-top': '10px', 'width': '50%'}"/>-->
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div style="display: flex; justify-content: flex-end">
+      <div class="col-5">
+        <p-button iconPos="left" icon="pi pi-calendar" severity="secondary" label="Rezerviši"
+                  [raised]="true" [style]="{'border-radius': '20px', 'width': '100%'}"/>
+      </div>
+    </div>
+  </ng-template>
+</p-card>

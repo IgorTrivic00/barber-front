@@ -9,6 +9,7 @@ export class AuthConfiguration{
   excludedEndPoints = [
     enviroment.baseUrl + '/api/v1/auth/keep-alive',
     enviroment.baseUrl + '/api/v1/auth/logout',
-    enviroment.baseUrl + '/api/v1/barber/find-all'
+    enviroment.baseUrl + '/api/v1/barber/find-all',
+    enviroment.baseUrl + '/api/v1/service/barber/**'
   ]
 }

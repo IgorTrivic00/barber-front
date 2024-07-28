@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {MainApiService} from "../api/main-api.service";
 import {of, switchMap} from "rxjs";
 import {showMessage} from "../../shared/store/actions";
-import {getBarbers, getBarbersSuccess} from "./actions";
+import {getBarbers, getBarberServices, getBarberServicesSuccess, getBarbersSuccess} from "./actions";
 
 @Injectable()
 export class MainEffects {
@@ -18,6 +18,17 @@ export class MainEffects {
       switchMap(response => {
         return of(
           getBarbersSuccess({barbers: response})
+        )
+      })
+    ))
+  ));
+
+  getBarberServicesEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(getBarberServices),
+    switchMap(action => this.mainApi.getBarberServices(action.barberUuid).pipe(
+      switchMap(response => {
+        return of(
+          getBarberServicesSuccess({services: response})
         )
       })
     ))

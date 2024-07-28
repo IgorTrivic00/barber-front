@@ -1,6 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Barber} from "../model/barber.model";
-import {BarberTitle} from "../model/barber-title.model";
 
 @Injectable({
   providedIn: 'root'

@@ -6,23 +6,27 @@ import {Subject, takeUntil} from "rxjs";
 import {selectBarbers} from "../../../store/selectors";
 import {cloneDeep} from "lodash";
 import {getBarbers} from "../../../store/actions";
+import {Router} from "@angular/router";
+import {DataService} from "../../../services/data.service";
+import {AppModule} from "../../../../app.module";
 
 @Component({
-  selector: 'app-services',
+  selector: 'app-services-barbers',
   standalone: true,
   imports: [
     BarberListComponent
   ],
-  templateUrl: './services.component.html',
-  styleUrl: './services.component.scss'
+  templateUrl: './services-barbers.component.html',
+  styleUrl: './services-barbers.component.scss'
 })
-export class ServicesComponent implements OnInit, OnDestroy{
+export class ServicesBarbersComponent implements OnInit, OnDestroy{
 
   barbers: Barber[] | undefined;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private store$: Store) {
+  constructor(private store$: Store,
+              private router: Router) {
     this.selectBarbers();
   }
 
@@ -36,6 +40,10 @@ export class ServicesComponent implements OnInit, OnDestroy{
         this.barbers = cloneDeep(value);
       }
     });
+  }
+
+  redirectToServices(barber: Barber){
+    this.router.navigate(['services', barber.uuid]);
   }
 
   ngOnDestroy(): void {
