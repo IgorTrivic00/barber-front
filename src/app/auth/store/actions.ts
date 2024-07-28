@@ -11,10 +11,10 @@ export const login = createAction(AuthActionsConstants.Login,
 export const loginSuccess = createAction(AuthActionsConstants.LoginSuccess,
   props< {user: UserSession}>());
 
-export const register = createAction(AuthActionsConstants.Register,
+export const registerCustomer = createAction(AuthActionsConstants.Register,
   props< {user: User}>());
 
-export const registerSuccess = createAction(AuthActionsConstants.RegisterSuccess,
+export const registerCustomerSuccess = createAction(AuthActionsConstants.RegisterSuccess,
   props< {user: User}>());
 
 export const extendTokenExpirationDate = createAction(AuthActionsConstants.ExtendTokenExpirationDate,
@@ -35,8 +35,8 @@ export const redirectToLoginPage = createAction(AuthActionsConstants.RedirectToL
 const all = union({
   login,
   loginSuccess,
-  register,
-  registerSuccess,
+  registerCustomer,
+  registerCustomerSuccess,
   extendTokenExpirationDate,
   extendTokenExpirationDateSuccess,
   logout,

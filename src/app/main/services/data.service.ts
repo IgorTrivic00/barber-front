@@ -43,15 +43,4 @@ export class DataService {
     return items;
   }
 
-  getMockBarbers(){
-    const barbers: Barber[] = [];
-    barbers.push({
-      uuid: '123',
-      id: 123,
-      name: 'Stefan',
-      title: BarberTitle.MASTER,
-    });
-    return barbers;
-  }
-
 }

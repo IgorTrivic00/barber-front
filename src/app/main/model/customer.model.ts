@@ -1,10 +1,8 @@
-import {BarberTitle} from "./barber-title.model";
 import {User} from "../../auth/model/user.model";
 
-export interface Barber {
+export interface Customer {
   uuid?: string;
   id?: number;
   name?: string;
-  barberTitle?: BarberTitle;
   user?: User;
 }

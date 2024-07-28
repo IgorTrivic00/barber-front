@@ -23,8 +23,8 @@ export class AuthApiService {
     return this.httpClient.post<UserSession>(this.API_AUTH + "login", user);
   }
 
-  register(user: User) {
-    return this.httpClient.post<User>(this.API_AUTH + "register", user);
+  registerCustomer(user: User) {
+    return this.httpClient.post<User>(this.API_AUTH + "register-customer", user);
   }
 
   logout(userSession: any) {

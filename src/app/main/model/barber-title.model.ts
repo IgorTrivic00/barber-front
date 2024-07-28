@@ -1,3 +1,3 @@
 export enum BarberTitle {
-  MASTER = 'Master Barber'
+  MASTER = 'MASTER'
 }

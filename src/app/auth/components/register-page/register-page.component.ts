@@ -5,7 +5,7 @@ import {AppSharedModule} from "../../../shared/app-shared.module";
 import {PrimengModule} from "../../../shared/primeng.module";
 import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
-import {login, register} from "../../store/actions";
+import {login, registerCustomer} from "../../store/actions";
 import {User} from "../../model/user.model";
 
 @Component({
@@ -20,7 +20,6 @@ import {User} from "../../model/user.model";
 })
 export class RegisterPageComponent implements OnInit{
   registrationForm!: FormGroup;
-  hide = true;
 
   constructor(private formBuilder: FormBuilder,
               private store$: Store) {
@@ -39,12 +38,12 @@ export class RegisterPageComponent implements OnInit{
     })
   }
 
-  register() {
+  registerCustomer() {
     if(!this.formValidation()){
       return;
     }
     const user: User = this.registrationForm.getRawValue();
-    this.store$.dispatch(register({user}));
+    this.store$.dispatch(registerCustomer({user}));
   }
 
   private formValidation() {

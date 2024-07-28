@@ -14,12 +14,18 @@ import {MessageService} from "primeng/api";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthEffects} from "./auth/store/effects";
 import { provideServiceWorker } from '@angular/service-worker';
+import {MainEffects} from "./main/store/effects";
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimations(),
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor, spinnerInterceptor])),
-    provideStore(appReducer), provideEffects([CommonEffects, AuthEffects]), provideStoreDevtools({ maxAge: 25 }), MessageService,
+    provideStore(appReducer),
+    provideEffects([CommonEffects, AuthEffects, MainEffects]),
+    provideStoreDevtools({ maxAge: 25 }), MessageService,
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'

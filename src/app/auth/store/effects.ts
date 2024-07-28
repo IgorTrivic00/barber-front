@@ -7,8 +7,8 @@ import {
   loginSuccess,
   logout,
   logoutSuccess, redirectAfterLogin, redirectToLoginPage,
-  register,
-  registerSuccess
+  registerCustomer,
+  registerCustomerSuccess
 } from "./actions";
 import {concatMap, map, of, switchMap, tap, timeout, withLatestFrom} from "rxjs";
 import {AuthApiService} from "../api/auth-api.service";
@@ -47,11 +47,11 @@ export class AuthEffects {
   ));
 
   registerEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(register),
-    switchMap(action => this.authApiService.register(action.user).pipe(
+    ofType(registerCustomer),
+    switchMap(action => this.authApiService.registerCustomer(action.user).pipe(
       switchMap(response => {
         return of(
-          registerSuccess({user: response}),
+          registerCustomerSuccess({user: response}),
           showMessage({severity: Severity.SUCCESS, detail: 'Uspešna registracija'}),
           redirectToLoginPage(),
         )
