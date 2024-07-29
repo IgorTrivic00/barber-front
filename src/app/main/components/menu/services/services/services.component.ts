@@ -3,7 +3,7 @@ import {BarberListComponent} from "../barber-list/barber-list.component";
 import {Button} from "primeng/button";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {ServiceListComponent} from "./service-list/service-list.component";
-import {Barber} from "../../../../model/barber.model";
+import {Barber} from "../../../../../auth/model/barber.model";
 import {Subject, takeUntil} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {getBarbers, getBarberServices, getBarbersSuccess} from "../../../../store/actions";

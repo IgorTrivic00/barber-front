@@ -7,6 +7,7 @@ import {KeepAliveRequest} from "../model/request_response/keep-alive.request";
 import {KeepAliveResponse} from "../model/request_response/keep-alive.response";
 import {UserSession} from "../model/user-session.model";
 import {HttpClient} from "@angular/common/http";
+import {Customer} from "../model/customer.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class AuthApiService {
     return this.httpClient.post<UserSession>(this.API_AUTH + "login", user);
   }
 
-  registerCustomer(user: User) {
-    return this.httpClient.post<User>(this.API_AUTH + "register-customer", user);
+  registerCustomer(customer: Customer) {
+    return this.httpClient.post<Customer>(this.API_AUTH + "register-customer", customer);
   }
 
   logout(userSession: any) {

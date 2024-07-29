@@ -3,5 +3,8 @@ export enum MainActionsConstants {
   GetBarbersSuccess = '[MainActions] Get Barbers Success',
 
   GetBarberServices = '[MainActions] Get Barber Services',
-  GetBarberServicesSuccess = '[MainActions] Get Barber Services Success'
+  GetBarberServicesSuccess = '[MainActions] Get Barber Services Success',
+
+  UpdateCustomer = '[MainActions] Update Customer',
+  UpdateCustomerSuccess = '[MainActions] Update Customer Success',
 }

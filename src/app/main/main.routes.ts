@@ -4,10 +4,10 @@ import {ServicesBarbersComponent} from "./components/menu/services/services-barb
 import {ScheduleComponent} from "./components/menu/schedule/schedule.component";
 import {HomeComponent} from "./components/menu/home/home.component";
 import {SettingsComponent} from "./components/menu/settings/settings.component";
-import {NotificationsComponent} from "./components/menu/notifications/notifications.component";
 import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
 import {ServicesComponent} from "./components/menu/services/services/services.component";
+import {UserProfileComponent} from "./components/menu/settings/user-profile/user-profile.component";
 
 
 export const mainRoutes: Routes = [
@@ -38,8 +38,8 @@ export const mainRoutes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'notifications',
-        component: NotificationsComponent,
+        path: 'user-profile',
+        component: UserProfileComponent,
         canActivate: [authGuard]
       },
       {

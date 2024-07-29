@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Barber} from "../model/barber.model";
+import {Barber} from "../../auth/model/barber.model";
 import {enviroment} from "../../enviroments/enviroment";
 import {Service} from "../model/service.model";
+import {Customer} from "../../auth/model/customer.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class MainApiService {
 
   private readonly BARBER_API = enviroment.baseUrl + '/api/v1/barber';
   private readonly SERVICE_API = enviroment.baseUrl + '/api/v1/service';
+  private readonly CUSTOMER_API = enviroment.baseUrl + '/api/v1/customer';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -21,5 +23,9 @@ export class MainApiService {
 
   getBarberServices(barberUuid: string) {
     return this.httpClient.get<Service[]>(this.SERVICE_API + '/barber/' + barberUuid);
+  }
+
+  updateCustomer(customer: Customer) {
+    return this.httpClient.post<Customer>(this.CUSTOMER_API + '/update', customer);
   }
 }

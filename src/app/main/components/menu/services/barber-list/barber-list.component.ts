@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Barber} from "../../../../model/barber.model";
+import {Barber} from "../../../../../auth/model/barber.model";
 import {BarberItemComponent} from "./barber-item/barber-item.component";
 
 @Component({

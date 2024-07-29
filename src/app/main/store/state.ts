@@ -1,4 +1,4 @@
-import {Barber} from "../model/barber.model";
+import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../model/service.model";
 
 export interface MainState {

@@ -4,6 +4,7 @@ import {User} from "../model/user.model";
 import {KeepAliveRequest} from "../model/request_response/keep-alive.request";
 import {KeepAliveResponse} from "../model/request_response/keep-alive.response";
 import {UserSession} from "../model/user-session.model";
+import {Customer} from "../model/customer.model";
 
 export const login = createAction(AuthActionsConstants.Login,
   props< {user: User}>());
@@ -12,10 +13,10 @@ export const loginSuccess = createAction(AuthActionsConstants.LoginSuccess,
   props< {user: UserSession}>());
 
 export const registerCustomer = createAction(AuthActionsConstants.Register,
-  props< {user: User}>());
+  props< {customer: Customer}>());
 
 export const registerCustomerSuccess = createAction(AuthActionsConstants.RegisterSuccess,
-  props< {user: User}>());
+  props< {customer: Customer}>());
 
 export const extendTokenExpirationDate = createAction(AuthActionsConstants.ExtendTokenExpirationDate,
   props<{keepAliveRequest: KeepAliveRequest}>());

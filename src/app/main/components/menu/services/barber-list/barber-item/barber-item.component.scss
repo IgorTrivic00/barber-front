@@ -3,6 +3,10 @@
   margin-bottom: 15px;
 }
 
+:host ::ng-deep .p-card:hover {
+  opacity: 0.5;
+}
+
 :host ::ng-deep .p-card-body{
   padding: 10px;
 }

@@ -1,4 +1,4 @@
-import {Barber} from "./barber.model";
+import {Barber} from "../../auth/model/barber.model";
 
 export interface Service {
   id?: number;

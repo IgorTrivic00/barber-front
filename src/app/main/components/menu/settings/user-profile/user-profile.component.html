@@ -1,0 +1,32 @@
+<div>
+  <div style="padding: 10px; position: fixed; z-index: 2000">
+    <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" routerLink="/settings"
+              label="Nazad" [raised]="true" [style]="{'border-radius': '20px'}"/>
+  </div>
+  <div class="image">
+    <img src="../../../../../assets/sitemgr_1%20The%20Fold%20Southern%20Highlands%20Barbers.png">
+    <div class="header">
+      <h1>Korisnički profil</h1>
+    </div>
+  </div>
+  <div style="padding: 20px; margin-top: 20px">
+    <form [formGroup]="form!">
+      <div class="input">
+        <label for="name">Ime i prezime</label>
+        <input [placeholder]="'Ime i prezime'" type="text" id="name" pInputText formControlName = 'name' />
+      </div>
+      <div class="input">
+        <label for="email">Email</label>
+        <input [readOnly]="true" [placeholder]="'Email'" type="text" id="email" pInputText formControlName = 'email' />
+      </div>
+      <div class="input">
+        <label for="mobile">Telefon</label>
+        <input [readOnly]="true" [placeholder]="'Telefon'" type="text" id="mobile" pInputText formControlName = 'mobile' />
+      </div>
+    </form>
+  </div>
+  <div class="save-button">
+    <p-button severity="secondary" label="Sačuvaj izmene" (onClick)="updateCustomer()"
+              [raised]="true" [style]="{'width': '100%', 'border-radius': '20px'}"/>
+  </div>
+</div>

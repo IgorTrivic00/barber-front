@@ -1,5 +1,5 @@
 import {BarberTitle} from "./barber-title.model";
-import {User} from "../../auth/model/user.model";
+import {User} from "./user.model";
 
 export interface Barber {
   uuid?: string;

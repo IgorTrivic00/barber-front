@@ -1,35 +1,28 @@
 <nav class="nav container">
   <div class="nav__menu" id="nav-menu">
     <ul class="nav__list">
-      <li class="nav__item">
+      <li *ngIf="!user || user?.userRole === UserRole.CUSTOMER" class="nav__item">
         <a routerLinkActive="active-link" routerLink="home" class="nav__link active-link">
           <i class='pi pi-home'></i>
           <span class="nav__name">Početna</span>
         </a>
       </li>
 
-      <li class="nav__item">
+      <li *ngIf="!user || user?.userRole === UserRole.CUSTOMER" class="nav__item">
         <a routerLinkActive="active-link" routerLink="services-barbers" class="nav__link">
           <i class='pi pi-cart-arrow-down'></i>
           <span class="nav__name">Usluge</span>
         </a>
       </li>
 
-      <li class="nav__item">
+      <li *ngIf="!user || user?.userRole === UserRole.CUSTOMER" class="nav__item">
         <a routerLinkActive="active-link" routerLink="schedule" class="nav__link">
           <i class='pi pi-calendar'></i>
           <span class="nav__name">Termini</span>
         </a>
       </li>
 
-      <li class="nav__item">
-        <a routerLinkActive="active-link" routerLink="notifications" class="nav__link">
-          <i class='pi pi-bell'></i>
-          <span class="nav__name">Notifikacije</span>
-        </a>
-      </li>
-
-      <li class="nav__item">
+      <li *ngIf="!user || user?.userRole === UserRole.CUSTOMER" class="nav__item">
         <a routerLinkActive="active-link" routerLink="settings" class="nav__link">
           <i class='pi pi-cog'></i>
           <span class="nav__name">Podešavanja</span>

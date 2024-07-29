@@ -48,10 +48,10 @@ export class AuthEffects {
 
   registerEffect$ = createEffect(() => this.actions$.pipe(
     ofType(registerCustomer),
-    switchMap(action => this.authApiService.registerCustomer(action.user).pipe(
+    switchMap(action => this.authApiService.registerCustomer(action.customer).pipe(
       switchMap(response => {
         return of(
-          registerCustomerSuccess({user: response}),
+          registerCustomerSuccess({customer: response}),
           showMessage({severity: Severity.SUCCESS, detail: 'Uspešna registracija'}),
           redirectToLoginPage(),
         )
@@ -68,7 +68,6 @@ export class AuthEffects {
       return this.authApiService.logout(userSession).pipe(
         switchMap(response => of(
           logoutSuccess(),
-          redirectToLoginPage(),
           showMessage({severity: Severity.SUCCESS, detail: 'Uspešna odjava'}),
         )));
     })
@@ -102,6 +101,7 @@ export class AuthEffects {
     ofType(logoutSuccess),
     tap(() => {
       this.localStorageService.setSavedState(null, 'userSession');
+      this.router.navigate(['home']);
     })
   ), {dispatch: false});
 }

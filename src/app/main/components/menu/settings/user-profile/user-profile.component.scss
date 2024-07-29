@@ -21,10 +21,19 @@
   }
 }
 
-.settings-list{
-  padding: 20px 10px 0 10px;
+.input{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-.settings-list:hover{
-  opacity: 0.5;
+.save-button{
+  padding: 10px;
+  position: absolute;
+  bottom: 4.5rem;
+  width: 100%
 }
+

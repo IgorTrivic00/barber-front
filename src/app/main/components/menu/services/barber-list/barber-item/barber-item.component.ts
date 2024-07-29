@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Barber} from "../../../../../model/barber.model";
+import {Barber} from "../../../../../../auth/model/barber.model";
 import {PrimengModule} from "../../../../../../shared/primeng.module";
-import {BarberTitle} from "../../../../../model/barber-title.model";
+import {BarberTitle} from "../../../../../../auth/model/barber-title.model";
 import {Router} from "@angular/router";
 
 @Component({

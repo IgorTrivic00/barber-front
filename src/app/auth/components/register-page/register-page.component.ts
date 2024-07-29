@@ -5,8 +5,9 @@ import {AppSharedModule} from "../../../shared/app-shared.module";
 import {PrimengModule} from "../../../shared/primeng.module";
 import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
-import {login, registerCustomer} from "../../store/actions";
-import {User} from "../../model/user.model";
+import {registerCustomer} from "../../store/actions";
+import {UserRole} from "../../model/user-role.model";
+import {Customer} from "../../model/customer.model";
 
 @Component({
   selector: 'app-register-page',
@@ -33,7 +34,7 @@ export class RegisterPageComponent implements OnInit{
     this.registrationForm = this.formBuilder.group({
       email: [null, Validators.required],
       password: [null, Validators.required],
-      firstName: [null, Validators.required],
+      name: [null, Validators.required],
       confirmPassword: [null, Validators.required]
     })
   }
@@ -42,8 +43,14 @@ export class RegisterPageComponent implements OnInit{
     if(!this.formValidation()){
       return;
     }
-    const user: User = this.registrationForm.getRawValue();
-    this.store$.dispatch(registerCustomer({user}));
+    const customer: Customer = {
+      user: {
+        ...this.registrationForm.getRawValue(),
+        userRole: UserRole.CUSTOMER
+      },
+      name: this.registrationForm.get('name')?.value
+    };
+    this.store$.dispatch(registerCustomer({customer}));
   }
 
   private formValidation() {
