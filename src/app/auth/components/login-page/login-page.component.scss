@@ -1,5 +1,5 @@
 .overlay{
-  height: 100vh;
+  height: calc(100vh - 5rem);
   margin: 0;
   padding: 0;
   width: 100%;
@@ -42,7 +42,6 @@
     width: 50%;
     height: 50%;
     background-color: #DCDCDC;
-    z-index: 1000;
     border-radius: 20px;
     box-shadow: 0 0 10px gray;
     display: flex;
@@ -91,14 +90,6 @@
     display: none;
   }
 
-  .overlay{
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: flex;
-  }
-
   .small-screen-section{
     width: 100%;
     display: flex;
@@ -111,14 +102,13 @@
       width: 50%;
       height: 50%;
       background-color: #DCDCDC;
-      z-index: 2000;
       border-radius: 20px;
       box-shadow: 0 0 10px gray;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
 
       .input{
         width: 80%;
@@ -140,14 +130,12 @@
   .login-container{
     width: 85% !important;
     height: 45% !important;
-    margin-bottom: 100px;
   }
 }
 
 @media only screen and (max-width: 500px) {
   .login-container{
-    width: 85% !important;
-    height: 45% !important;
-    margin-bottom: 100px;
+    width: 90% !important;
+    height: 55% !important;
   }
 }
