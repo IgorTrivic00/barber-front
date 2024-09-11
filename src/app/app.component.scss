@@ -2,4 +2,7 @@
   :host ::ng-deep .toastr .p-toast{
     width: 90% !important;
   }
+  :host ::ng-deep .p-toast .p-component {
+    z-index: 3000 !important;
+  }
 }

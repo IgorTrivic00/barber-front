@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {AppSharedModule} from "../../../shared/app-shared.module";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {ReactiveFormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import {selectLastUrl} from "../../../shared/store/selectors";
+import {Subject, takeUntil} from "rxjs";
+import {showMessage} from "../../../shared/store/actions";
+import {Severity} from "../../../shared/constants/constants";
 
 @Component({
   selector: 'app-login-options',
@@ -18,6 +23,32 @@ import {RouterLink} from "@angular/router";
   templateUrl: './login-options.component.html',
   styleUrl: './login-options.component.scss'
 })
-export class LoginOptionsComponent {
+export class LoginOptionsComponent implements OnDestroy{
 
+  lastUrl: string | undefined;
+
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
+  constructor(private store$: Store,
+              private router: Router) {
+    this.selectLastUrl();
+  }
+
+  private selectLastUrl() {
+    this.store$.pipe(select(selectLastUrl), takeUntil(this.ngUnsubscribe)).subscribe(value => {
+      if (value) {
+        this.lastUrl = value;
+      }
+    });
+  }
+
+  return() {
+    this.store$.dispatch(showMessage({severity: Severity.SUCCESS, detail: 'nesto'}))
+    // this.router.navigate([this.lastUrl]);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

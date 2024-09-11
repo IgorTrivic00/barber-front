@@ -1,4 +1,3 @@
-import {User} from "../model/user.model";
 import {UserSession} from "../model/user-session.model";
 
 export interface AuthState {

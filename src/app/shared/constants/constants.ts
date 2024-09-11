@@ -2,6 +2,7 @@ export enum CommonActions {
   OpenSpinner = '[CommonActions] Open Spinner',
   CloseSpinner = '[CommonActions] Close Spinner',
   SuccessMessage = '[CommonActions] Success Message',
+  UpdateLastUrl = '[CommonActions] Update Last Url',
 }
 
 export enum Severity {

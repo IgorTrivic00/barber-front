@@ -14,7 +14,7 @@ import {UserRole} from "../../../../auth/model/user-role.model";
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent implements OnInit, OnDestroy{
+export class NavBarComponent implements OnDestroy{
 
   user: User | undefined;
 
@@ -22,10 +22,6 @@ export class NavBarComponent implements OnInit, OnDestroy{
 
   constructor(private store$: Store) {
     this.selectLoggedUser();
-  }
-
-  ngOnInit(): void {
-
   }
 
   ngOnDestroy(): void {

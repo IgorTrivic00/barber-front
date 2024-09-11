@@ -8,11 +8,14 @@ export const closeSpinner = createAction(CommonActions.CloseSpinner);
 export const showMessage = createAction(CommonActions.SuccessMessage,
   props< { severity: Severity, detail?: string }>());
 
+export const updateLastUrl = createAction(CommonActions.UpdateLastUrl,
+  props< { lastUrl: string }>());
 
 const all = union({
   openSpinner,
   closeSpinner,
-  showMessage
+  showMessage,
+  updateLastUrl
 });
 
 export type Actions = typeof all;

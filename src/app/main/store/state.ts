@@ -2,11 +2,11 @@ import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../model/service.model";
 
 export interface MainState {
-  barbers: Barber[];
-  barberServices: Service[];
+  barbers: Barber[] | null;
+  barberServices: Service[] | null;
 }
 
 export const INIT_MAIN_STATE: MainState = {
-  barbers: [],
-  barberServices: []
+  barbers: null,
+  barberServices: null
 }

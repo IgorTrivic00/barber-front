@@ -21,6 +21,7 @@ import {KeepAliveResponse} from "../model/request_response/keep-alive.response";
 import {UserSession} from "../model/user-session.model";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
+import {selectLastUrl} from "../../shared/store/selectors";
 
 @Injectable()
 export class AuthEffects {
@@ -34,16 +35,17 @@ export class AuthEffects {
 
   loginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(login),
-    switchMap(action => this.authApiService.login(action.user).pipe(
-      switchMap(response => {
-        this.localStorageService.setSavedState(response, 'userSession');
-        return of(
+    concatMap(action => of(action).pipe(
+      withLatestFrom(this.store$.pipe(select(selectLastUrl)))
+    )),
+    switchMap(([action, lastUrl]) => {
+      return this.authApiService.login(action.user).pipe(
+        switchMap(response => of(
           loginSuccess({user: response}),
-          redirectAfterLogin({redirectUrl: ['home']}),
+          redirectAfterLogin({redirectUrl: lastUrl}),
           showMessage({severity: Severity.SUCCESS, detail: 'Uspešna prijava'}),
-        )
-      })
-    ))
+        )));
+    })
   ));
 
   registerEffect$ = createEffect(() => this.actions$.pipe(
@@ -84,9 +86,8 @@ export class AuthEffects {
 
   redirectAfterLoginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(redirectAfterLogin),
-    map(action => action.redirectUrl),
-    tap(redirectUrl => {
-      this.router.navigate(redirectUrl);
+    tap(action => {
+      this.router.navigate([action.redirectUrl]);
     })
   ), {dispatch: false});
 

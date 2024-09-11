@@ -29,7 +29,7 @@ export const logout = createAction(AuthActionsConstants.Logout);
 export const logoutSuccess = createAction(AuthActionsConstants.LogoutSuccess);
 
 export const redirectAfterLogin = createAction(AuthActionsConstants.RedirectAfterLogin,
-  props<{redirectUrl: string[]}>());
+  props<{redirectUrl: string}>());
 
 export const redirectToLoginPage = createAction(AuthActionsConstants.RedirectToLoginPage);
 
