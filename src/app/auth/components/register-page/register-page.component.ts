@@ -7,7 +7,8 @@ import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
 import {registerCustomer} from "../../store/actions";
 import {UserRole} from "../../model/user-role.model";
-import {Customer} from "../../model/customer.model";
+import {AuthenticationRequest} from "../../model/request_response/authentication-request.model";
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-register-page',
@@ -43,14 +44,18 @@ export class RegisterPageComponent implements OnInit{
     if(!this.formValidation()){
       return;
     }
-    const customer: Customer = {
+    const request: AuthenticationRequest = {
+      customer: {
+        uuid: uuidv4(),
+        name: this.registrationForm.get('name')?.value
+      },
       user: {
         ...this.registrationForm.getRawValue(),
+        uuid: uuidv4(),
         userRole: UserRole.CUSTOMER
-      },
-      name: this.registrationForm.get('name')?.value
-    };
-    this.store$.dispatch(registerCustomer({customer}));
+      }
+    }
+    this.store$.dispatch(registerCustomer({request}));
   }
 
   private formValidation() {

@@ -5,5 +5,4 @@ export interface Customer {
   id?: number;
   name?: string;
   mobile?: User;
-  user?: User;
 }

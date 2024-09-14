@@ -48,9 +48,9 @@ export class AuthEffects {
     })
   ));
 
-  registerEffect$ = createEffect(() => this.actions$.pipe(
+  registerCustomerEffect$ = createEffect(() => this.actions$.pipe(
     ofType(registerCustomer),
-    switchMap(action => this.authApiService.registerCustomer(action.customer).pipe(
+    switchMap(action => this.authApiService.registerCustomer(action.request).pipe(
       switchMap(response => {
         return of(
           registerCustomerSuccess({customer: response}),
