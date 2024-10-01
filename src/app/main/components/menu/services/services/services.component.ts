@@ -38,6 +38,7 @@ export class ServicesComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.store$.dispatch(getBarberServices({barberUuid: this.barberUuid!}));
+ 
   }
 
   private selectBarberService() {
