@@ -32,33 +32,21 @@
 
         <!-- Nove stavke za korisnike sa ulogom BARBER -->
         <li *ngIf="user?.userRole === UserRole.BARBER" class="nav__item">
-          <a routerLinkActive="active-link" routerLink="services/:barberUuid" class="nav__link">
+          <a routerLinkActive="active-link" (click)="navigateToMyService()" class="nav__link">
             <i class='pi pi-cart-arrow-down'></i>
             <span class="nav__name">Usluge</span>
           </a>
         </li>
 
   
-        <li *ngIf="user?.userRole === UserRole.BARBER" class="nav__item">
-          <a routerLinkActive="active-link" routerLink="termini" class="nav__link">
-            <i class='pi pi-calendar'></i>
-            <span class="nav__name">Termini</span>
-          </a>
-        </li>
-  
-        <li *ngIf="user?.userRole === UserRole.BARBER" class="nav__item">
-          <a routerLinkActive="active-link" routerLink="zarada" class="nav__link">
-            <i class='pi pi-money-bill'></i>
-            <span class="nav__name">Zarada</span>
-          </a>
-        </li>
-  
+       
         <li *ngIf="user?.userRole === UserRole.BARBER" class="nav__item">
           <a routerLinkActive="active-link" routerLink="settings" class="nav__link">
             <i class='pi pi-cog'></i>
             <span class="nav__name">Podešavanja</span>
           </a>
-        </li>
+        </li> 
+     
 
     </ul>
   </div>
