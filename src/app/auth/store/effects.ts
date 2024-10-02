@@ -84,6 +84,13 @@ export class AuthEffects {
     ))
   ));
 
+  loginSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(loginSuccess),
+    tap(action => {
+      this.localStorageService.setSavedState(action.user, 'userSession');
+    })
+  ), {dispatch: false});
+
   redirectAfterLoginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(redirectAfterLogin),
     tap(action => {

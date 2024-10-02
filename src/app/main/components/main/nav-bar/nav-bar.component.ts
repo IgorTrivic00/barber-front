@@ -6,9 +6,9 @@ import {Subject, takeUntil} from "rxjs";
 import {selectBarber, selectLoggedUser, selectUserSession} from "../../../../auth/store/selectors";
 import {cloneDeep} from "lodash";
 import {UserRole} from "../../../../auth/model/user-role.model";
-import { UserSession } from '../../../../auth/model/user-session.model';
-import { Router } from '@angular/router';
-import { Barber } from '../../../../auth/model/barber.model';
+import {UserSession} from '../../../../auth/model/user-session.model';
+import {Router} from '@angular/router';
+import {Barber} from '../../../../auth/model/barber.model';
 
 
 @Component({
@@ -18,24 +18,23 @@ import { Barber } from '../../../../auth/model/barber.model';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent implements OnDestroy{
+export class NavBarComponent implements OnDestroy {
 
 
   user: User | undefined;
   userSession: UserSession | undefined;
-  barber:Barber| undefined;
-
+  barber: Barber | undefined;
 
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private store$: Store,
-    private route:Router
+              private route: Router
   ) {
     this.selectLoggedUser();
     this.selectUserSession();
     this.selecBarber();
-    
+
 
   }
 
@@ -44,9 +43,9 @@ export class NavBarComponent implements OnDestroy{
     this.ngUnsubscribe.complete();
   }
 
- private selectLoggedUser() {
-   this.store$.pipe(select(selectLoggedUser), takeUntil(this.ngUnsubscribe)).subscribe(value => {
-      if(value){
+  private selectLoggedUser() {
+    this.store$.pipe(select(selectLoggedUser), takeUntil(this.ngUnsubscribe)).subscribe(value => {
+      if (value) {
         this.user = cloneDeep(value);
       }
     })
@@ -54,23 +53,24 @@ export class NavBarComponent implements OnDestroy{
 
   private selectUserSession() {
     this.store$.pipe(select(selectUserSession), takeUntil(this.ngUnsubscribe)).subscribe(value => {
-       if(value){
-         this.userSession = cloneDeep(value);
-       }
-     })
-   }
+      if (value) {
+        this.userSession = cloneDeep(value);
+      }
+    })
+  }
 
-   private selecBarber() {
+  private selecBarber() {
     this.store$.pipe(select(selectBarber), takeUntil(this.ngUnsubscribe)).subscribe(value => {
-       if(value){
-         this.barber = cloneDeep(value);
-       }
-     })
-   }
-   navigateToMyService() {
-    this.route.navigate(['my-services',this.barber?.uuid])
-    }
-    
+      if (value) {
+        this.barber = cloneDeep(value);
+      }
+    })
+  }
+
+  navigateToMyService() {
+    this.route.navigate(['my-services', this.barber?.uuid])
+  }
+
 
   protected readonly UserRole = UserRole;
 }

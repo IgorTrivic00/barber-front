@@ -4,6 +4,7 @@ import {MainApiService} from "../api/main-api.service";
 import {of, switchMap, tap} from "rxjs";
 import {showMessage} from "../../shared/store/actions";
 import {
+  addService, addServiceSuccess,
   getBarbers,
   getBarberServices,
   getBarberServicesSuccess,
@@ -62,5 +63,17 @@ export class MainEffects {
       this.router.navigate(['settings']);
     })
   ), {dispatch: false});
+
+  addServiceEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(addService),
+    switchMap(action => this.mainApi.addService(action.service).pipe(
+      switchMap(response => {
+        return of(
+          addServiceSuccess({service: response}),
+          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano"}),
+        )
+      })
+    ))
+  ));
 
 }

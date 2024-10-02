@@ -1,6 +1,6 @@
 import {INIT_MAIN_STATE, MainState} from "./state";
 import {createReducer, on} from "@ngrx/store";
-import {getBarberServicesSuccess, getBarbersSuccess, MainActions} from "./actions";
+import {addServiceSuccess, getBarberServicesSuccess, getBarbersSuccess, MainActions} from "./actions";
 
 
 export const _mainReducer = createReducer(INIT_MAIN_STATE,
@@ -11,6 +11,10 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
   on(getBarberServicesSuccess, (state, {services}) => ({
     ...state,
     barberServices: services
+  })),
+  on(addServiceSuccess, (state, {service}) => ({
+    ...state,
+    barberServices: [...state.barberServices, service]
   })),
 );
 

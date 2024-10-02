@@ -21,13 +21,21 @@ export const updateCustomer = createAction(MainActionsConstants.UpdateCustomer,
 export const updateCustomerSuccess = createAction(MainActionsConstants.UpdateCustomerSuccess,
   props< {customer: Customer} >());
 
+export const addService = createAction(MainActionsConstants.AddService,
+  props< {service: Service} >());
+
+export const addServiceSuccess = createAction(MainActionsConstants.AddServiceSuccess,
+  props< {service: Service} >());
+
 const all = union({
   getBarbers,
   getBarbersSuccess,
   getBarberServices,
   getBarberServicesSuccess,
   updateCustomer,
-  updateCustomerSuccess
+  updateCustomerSuccess,
+  addService,
+  addServiceSuccess
 });
 
 export type MainActions = typeof all;
