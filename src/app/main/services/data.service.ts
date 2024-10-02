@@ -36,7 +36,7 @@ export class DataService {
     });
     items.push({
       day: 'NED',
-      work: ''
+      work:`Neradan dan`
     });
     return items;
   }

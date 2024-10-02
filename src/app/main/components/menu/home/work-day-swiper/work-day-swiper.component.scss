@@ -1,8 +1,22 @@
-.p-chip .p-chip-text {
+::ng-deep.p-chip .p-chip-text {
   white-space: pre-line;
   text-align: center;
+  display: flex;
+  justify-content: center;  /*MORAMO MALO DA SREDIMO DA LEPO IZGLEDA */
+  align-items: center;     
+  text-align: center;   
+
 }
 
-.p-chip {
-  font-size: 1em;
+::ng-deep.p-chip {
+ font-size: 1em;
+ width: 130px !important;
+  height: 80px !important;
+
+//OVAJ NG-DEEP KOLIKO SAM CITAO PO NETU TI ZAPRAVO OMOGUCAVA DA PRISTUPIS ZASTICENIM KLASAMA
+// OD NG MODULE KOJE SU UNAPRED DEFINISANE I IMAJU NEKI SVOJ STIL ALI AKO TI SE NE SVIDJA MOZES DA MENJAS VALJDA
+//JEBEM LI GA 
+
+
+
 }

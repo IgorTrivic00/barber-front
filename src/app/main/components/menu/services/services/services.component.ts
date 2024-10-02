@@ -11,6 +11,7 @@ import {cloneDeep} from "lodash";
 import {Service} from "../../../../model/service.model";
 import {selectBarberServices} from "../../../../store/selectors";
 
+
 @Component({
   selector: 'app-services',
   standalone: true,
@@ -38,6 +39,7 @@ export class ServicesComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.store$.dispatch(getBarberServices({barberUuid: this.barberUuid!}));
+ 
   }
 
   private selectBarberService() {
@@ -54,3 +56,5 @@ export class ServicesComponent implements OnInit, OnDestroy{
   }
 
 }
+
+

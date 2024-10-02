@@ -28,4 +28,7 @@ export class MainApiService {
   updateCustomer(customer: Customer) {
     return this.httpClient.post<Customer>(this.CUSTOMER_API + '/update', customer);
   }
+  addService(service: Service){
+    return this.httpClient.post<Service>(this.SERVICE_API + '/add', service);
+  }
 }

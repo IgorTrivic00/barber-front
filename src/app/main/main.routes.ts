@@ -1,6 +1,6 @@
 import {Routes} from "@angular/router";
 import {MainPanelComponent} from "./components/main/main-panel/main-panel.component";
-import {ServicesBarbersComponent} from "./components/menu/services/services-barbers.component";
+
 import {ScheduleComponent} from "./components/menu/schedule/schedule.component";
 import {HomeComponent} from "./components/menu/home/home.component";
 import {SettingsComponent} from "./components/menu/settings/settings.component";
@@ -8,6 +8,9 @@ import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
 import {ServicesComponent} from "./components/menu/services/services/services.component";
 import {UserProfileComponent} from "./components/menu/settings/user-profile/user-profile.component";
+import { barberGuard } from "../guards/barber.guard";
+import { ServicesBarbersComponent } from "./components/menu/services/services-barbers.component"; 
+import { ServicesBarberComponent } from "./components/menu/services/services/services-barber/services-barber.component";
 
 
 export const mainRoutes: Routes = [
@@ -28,6 +31,11 @@ export const mainRoutes: Routes = [
         component: ServicesComponent
       },
       {
+        path: 'my-services/:barberUuid',
+        component:  ServicesBarberComponent, 
+        canActivate: [barberGuard]
+      },
+      {
         path: 'schedule',
         component: ScheduleComponent,
         canActivate: [authGuard]
@@ -42,6 +50,7 @@ export const mainRoutes: Routes = [
         component: UserProfileComponent,
         canActivate: [authGuard]
       },
+    
       {
         path: 'auth',
         loadChildren: () => import('../auth/auth.routes').then(mod => mod.authRoutes),
