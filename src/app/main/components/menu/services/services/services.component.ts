@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BarberListComponent} from "../barber-list/barber-list.component";
+import {BarberListComponent} from "../barbers/barber-list.component";
 import {Button} from "primeng/button";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {ServiceListComponent} from "./service-list/service-list.component";

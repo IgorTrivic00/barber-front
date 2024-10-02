@@ -11,10 +11,14 @@ export const showMessage = createAction(CommonActions.SuccessMessage,
 export const updateLastUrl = createAction(CommonActions.UpdateLastUrl,
   props< { lastUrl: string }>());
 
+export const updateCurrentUrl = createAction(CommonActions.UpdateCurrentUrl,
+  props< { currentUrl: string }>());
+
 const all = union({
   openSpinner,
   closeSpinner,
   showMessage,
+  updateCurrentUrl,
   updateLastUrl
 });
 

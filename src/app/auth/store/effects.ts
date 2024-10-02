@@ -98,6 +98,15 @@ export class AuthEffects {
     })
   ), {dispatch: false});
 
+  loginSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(loginSuccess),
+    map(action => action.user),
+    tap((userSession) => {
+      this.localStorageService.setSavedState(userSession, 'userSession');
+      return of();
+    })
+  ), {dispatch: false});
+
   logoutSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(logoutSuccess),
     tap(() => {

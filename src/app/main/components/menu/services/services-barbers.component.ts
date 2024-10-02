@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BarberListComponent} from "./barber-list/barber-list.component";
+import {BarberListComponent} from "./barbers/barber-list.component";
 import {Barber} from "../../../../auth/model/barber.model";
 import {select, Store} from "@ngrx/store";
 import {Subject, takeUntil} from "rxjs";

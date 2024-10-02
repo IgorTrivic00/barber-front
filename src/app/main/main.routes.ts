@@ -8,6 +8,7 @@ import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
 import {ServicesComponent} from "./components/menu/services/services/services.component";
 import {UserProfileComponent} from "./components/menu/settings/user-profile/user-profile.component";
+import {ReservationComponent} from "./components/menu/reservation/reservation.component";
 
 
 export const mainRoutes: Routes = [
@@ -40,6 +41,11 @@ export const mainRoutes: Routes = [
       {
         path: 'user-profile',
         component: UserProfileComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'reservation',
+        component: ReservationComponent,
         canActivate: [authGuard]
       },
       {

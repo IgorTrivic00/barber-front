@@ -14,13 +14,12 @@
       <p class="m-0">
         Cena: {{getPrice(service?.price)}} RSD
       </p>
-<!--      <p-button severity="secondary" label="Rezerviši" [raised]="true" [style]="{'border-radius': '20px', 'margin-top': '10px', 'width': '50%'}"/>-->
     </div>
   </div>
   <ng-template pTemplate="footer">
     <div style="display: flex; justify-content: flex-end">
       <div class="col-5">
-        <p-button iconPos="left" icon="pi pi-calendar" severity="secondary" label="Rezerviši"
+        <p-button iconPos="left" routerLink="/reservation" icon="pi pi-calendar" severity="secondary" label="Rezerviši"
                   [raised]="true" [style]="{'border-radius': '20px', 'width': '100%'}"/>
       </div>
     </div>

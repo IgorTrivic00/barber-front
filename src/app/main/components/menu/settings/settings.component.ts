@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {BarberListComponent} from "../services/barber-list/barber-list.component";
+import {BarberListComponent} from "../services/barbers/barber-list.component";
 import {Store} from "@ngrx/store";
 import {logout} from "../../../../auth/store/actions";
 import {Router} from "@angular/router";

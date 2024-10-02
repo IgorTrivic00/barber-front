@@ -43,8 +43,7 @@ export class LoginOptionsComponent implements OnDestroy{
   }
 
   return() {
-    this.store$.dispatch(showMessage({severity: Severity.SUCCESS, detail: 'nesto'}))
-    // this.router.navigate([this.lastUrl]);
+    this.router.navigate([this.lastUrl]);
   }
 
   ngOnDestroy(): void {
