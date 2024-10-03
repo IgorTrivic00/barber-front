@@ -32,4 +32,8 @@ export class MainApiService {
   addService(service: Service){
     return this.httpClient.post<Service>(this.SERVICE_API + '/add', service);
   }
+
+  deleteService(serviceUuid: string) {
+    return this.httpClient.delete(this.SERVICE_API + '/' + serviceUuid);
+  }
 }

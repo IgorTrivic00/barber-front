@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {selectBarber} from "../../../../../../auth/store/selectors";
 import {Barber} from "../../../../../../auth/model/barber.model";
 
+
 @Component({
   selector: 'app-services',
   standalone: true,
@@ -25,9 +26,10 @@ import {Barber} from "../../../../../../auth/model/barber.model";
     FormsModule,
     BarberListComponent,
     Button,
-    RouterLink,
-    ServiceListComponent,
-    DialogModule
+    RouterLink,   
+    DialogModule,
+    ServiceListComponent
+    
   ],
   templateUrl: './services-barber.component.html',
   styleUrl: './services-barber.component.scss'
@@ -78,6 +80,7 @@ export class ServicesBarberComponent implements OnInit, OnDestroy {
     ) {
       this.newService.uuid = uuidv4();
       this.newService.barber = this.barber;
+      
       this.store$.dispatch(addService({service: this.newService}));
       this.visible = true;
     } else {

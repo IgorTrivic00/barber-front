@@ -5,6 +5,8 @@ import {of, switchMap, tap} from "rxjs";
 import {showMessage} from "../../shared/store/actions";
 import {
   addService, addServiceSuccess,
+  deleteService,
+  deleteServiceSuccess,
   getBarbers,
   getBarberServices,
   getBarberServicesSuccess,
@@ -72,6 +74,18 @@ export class MainEffects {
           addServiceSuccess({service: response}),
           showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano"}),
         )
+      })
+    ))
+  ));
+ 
+  deleteServiceEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteService),
+    switchMap(action => this.mainApi.deleteService(action.serviceUuid).pipe(
+      switchMap(() => {
+        return of(
+          deleteServiceSuccess({ serviceUuid: action.serviceUuid }),
+          showMessage({ severity: Severity.SUCCESS, detail: "Usluga je uspešno obrisana" })
+        );
       })
     ))
   ));

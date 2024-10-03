@@ -27,6 +27,12 @@ export const addService = createAction(MainActionsConstants.AddService,
 export const addServiceSuccess = createAction(MainActionsConstants.AddServiceSuccess,
   props< {service: Service} >());
 
+export const deleteService = createAction(MainActionsConstants.DeleteService,
+  props<{ serviceUuid: string }>());
+
+export const deleteServiceSuccess = createAction(MainActionsConstants.DeleteServiceSuccess,
+  props<{ serviceUuid: string }>());
+
 const all = union({
   getBarbers,
   getBarbersSuccess,
@@ -35,7 +41,9 @@ const all = union({
   updateCustomer,
   updateCustomerSuccess,
   addService,
-  addServiceSuccess
+  addServiceSuccess,
+  deleteService,
+  deleteServiceSuccess
 });
 
 export type MainActions = typeof all;
