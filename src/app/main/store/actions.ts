@@ -33,6 +33,13 @@ export const deleteService = createAction(MainActionsConstants.DeleteService,
 export const deleteServiceSuccess = createAction(MainActionsConstants.DeleteServiceSuccess,
   props<{ serviceUuid: string }>());
 
+// Dodavanje akcija za ažuriranje usluge
+export const updateService = createAction(MainActionsConstants.UpdateService,
+  props< {service: Service} >());
+
+export const updateServiceSuccess = createAction(MainActionsConstants.UpdateServiceSuccess,
+  props< {service: Service} >());
+
 const all = union({
   getBarbers,
   getBarbersSuccess,
@@ -43,7 +50,10 @@ const all = union({
   addService,
   addServiceSuccess,
   deleteService,
-  deleteServiceSuccess
+  deleteServiceSuccess,
+  updateService,
+  updateServiceSuccess
+
 });
 
 export type MainActions = typeof all;

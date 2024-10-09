@@ -17,6 +17,8 @@ import {Severity} from "../../../../../../shared/constants/constants";
 import { v4 as uuidv4 } from 'uuid';
 import {selectBarber} from "../../../../../../auth/store/selectors";
 import {Barber} from "../../../../../../auth/model/barber.model";
+import { ServiceModalComponent } from "../../../../../../shared/modals/service-modal/service-modal.component";
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -26,11 +28,12 @@ import {Barber} from "../../../../../../auth/model/barber.model";
     FormsModule,
     BarberListComponent,
     Button,
-    RouterLink,   
+    RouterLink,
     DialogModule,
-    ServiceListComponent
-    
-  ],
+    ServiceListComponent,
+    ServiceModalComponent,
+    CommonModule,
+],
   templateUrl: './services-barber.component.html',
   styleUrl: './services-barber.component.scss'
 })
@@ -69,10 +72,13 @@ export class ServicesBarberComponent implements OnInit, OnDestroy {
   }
 
   onAddService() {
-    this.visible = true;
+    this.visible = true;  
+    console.log(this.visible);
   }
 
-  addService() {
+
+  
+  /*addService() {
     if (
       this.newService.serviceName &&
       this.newService.price !== undefined && this.newService.price > 0 &&
@@ -86,6 +92,21 @@ export class ServicesBarberComponent implements OnInit, OnDestroy {
     } else {
       this.store$.dispatch(showMessage({severity: Severity.ERROR, detail: 'Greska!'}));
     }
+  }*/
+    addService(service: any) {
+      if (
+        service.serviceName &&
+        service.price !== undefined && service.price > 0 &&
+        service.duration !== undefined && service.duration > 0
+      ) {
+        service.uuid = uuidv4();
+        service.barber = this.barber;
+        console.log(service);
+        this.store$.dispatch(addService({ service }));
+        this.visible = false;  
+      } else {
+        this.store$.dispatch(showMessage({ severity: Severity.ERROR, detail: 'Greška u unosu podataka!' }));
+      }
   }
 
   private initSelectors() {
@@ -108,4 +129,69 @@ export class ServicesBarberComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+   /* services: Service[] | undefined;
+    barberUuid: string | undefined;
+    visible: boolean = false;  // Kontrolišemo vidljivost modala
+    barber: Barber | undefined;
+    newService: Service = { serviceName: '', price: 0, duration: 0 };
+  
+    private ngUnsubscribe: Subject<void> = new Subject<void>();
+  
+    constructor(private store$: Store,
+                private route: ActivatedRoute, private mainApiService: MainApiService) {
+      this.initSelectors();
+      this.barberUuid = this.route.snapshot.params['barberUuid'];
+    }
+  
+    ngOnInit(): void {
+      this.initDispatch();
+    }
+  
+    ngOnDestroy(): void {
+      this.ngUnsubscribe.next();
+      this.ngUnsubscribe.complete();
+    }
+  
+    // Otvara modal za dodavanje nove usluge
+    onAddService() {
+      this.visible = true;   // Prikazujemo modal
+      this.newService = { serviceName: '', price: 0, duration: 0 };  // Resetujemo podatke
+    }
+  
+    // Dodavanje nove usluge
+    addService(service: any) {
+      if (service.serviceName && service.price > 0 && service.duration > 0) {
+        service.uuid = uuidv4();  // Generišemo UUID za novu uslugu
+        service.barber = this.barber;  // Povezujemo sa barberom
+  
+        this.store$.dispatch(addService({ service }));  // Dispatchujemo akciju sa novom uslugom
+        this.visible = false;  // Zatvaramo modal
+      } else {
+        this.store$.dispatch(showMessage({ severity: Severity.ERROR, detail: 'Greška u unosu podataka!' }));
+      }
+    }
+  
+    // Zatvaranje modala
+    onCancelService() {
+      this.visible = false;
+    }
+  
+    private initSelectors() {
+      this.store$.pipe(select(selectBarberServices), takeUntil(this.ngUnsubscribe)).subscribe(value => {
+        if (value) {
+          this.services = cloneDeep(value);
+        }
+      });
+  
+      this.store$.pipe(select(selectBarber), takeUntil(this.ngUnsubscribe)).subscribe(value => {
+        if (value) {
+          this.barber = cloneDeep(value);
+        }
+      });
+    }
+  
+    private initDispatch() {
+      this.store$.dispatch(getBarberServices({ barberUuid: this.barberUuid! }));
+    }*/
 }

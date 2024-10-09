@@ -12,7 +12,9 @@ import {
   getBarberServicesSuccess,
   getBarbersSuccess,
   updateCustomer,
-  updateCustomerSuccess
+  updateCustomerSuccess,
+  updateService,
+  updateServiceSuccess
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -89,5 +91,18 @@ export class MainEffects {
       })
     ))
   ));
+
+  updateServiceEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(updateService),
+    switchMap(action => this.mainApi.updateService(action.service).pipe(
+      switchMap(response => {
+        return of(
+          updateServiceSuccess({ service: response }),
+          showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana" })
+        );
+      })
+    ))
+  ));
+ 
 
 }

@@ -1,6 +1,6 @@
 
-import { Component, EventEmitter, Output } from '@angular/core';
-import { PrimengModule } from '../primeng.module';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PrimengModule } from '../../primeng.module';
 @Component({
   selector: 'app-confirmation-modal',
   standalone: true,
@@ -9,6 +9,7 @@ import { PrimengModule } from '../primeng.module';
   styleUrl: './confirmation-modal.component.scss'
 })
 export class ConfirmationModalComponent {
+  @Input() label:string | undefined;
   @Output() confirm = new EventEmitter<void>(); 
   @Output() cancel = new EventEmitter<void>(); 
 

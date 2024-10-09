@@ -7,16 +7,24 @@ import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from "rxjs";
 import { cloneDeep } from "lodash";
 import { UserRole } from '../../../../../../../auth/model/user-role.model';
-import { deleteService } from '../../../../../../store/actions';
+import { deleteService, updateService } from '../../../../../../store/actions';
 import { selectLoggedUser } from '../../../../../../../auth/store/selectors';
-import { ConfirmationModalComponent } from "../../../../../../../shared/confirmation-modal/confirmation-modal.component";
-
+import { ConfirmationModalComponent } from "../../../../../../../shared/modals/confirmation-modal/confirmation-modal.component";
+import { AppSharedModule } from '../../../../../../../shared/app-shared.module';
+import { ServiceModalComponent } from '../../../../../../../shared/modals/service-modal/service-modal.component';
+import { v4 as uuidv4 } from 'uuid';
+import { MainApiService } from '../../../../../../api/main-api.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-service-item',
   standalone: true,
   imports: [
     PrimengModule,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    AppSharedModule,
+    ServiceModalComponent
+    
+
 ],
   templateUrl: './service-item.component.html',
   styleUrls: ['./service-item.component.scss'],
@@ -28,9 +36,11 @@ export class ServiceItemComponent {
   
   user: User | undefined;
   confirmationModalVisible = false; 
+  editModalVisible = false;  
+  serviceToEdit: Service | undefined;  
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private decimalPipe: DecimalPipe, private store$: Store) {
+  constructor(private decimalPipe: DecimalPipe, private store$: Store,private route: ActivatedRoute,private mainApiService: MainApiService) {
     this.selectLoggedUser();
   }
 
@@ -68,5 +78,49 @@ export class ServiceItemComponent {
     }
   }
 
+  onEditService(service: Service | undefined) {
+    if (!service || !service.uuid) {
+      console.log('Service is undefined or missing UUID');
+      return;
+    }
+  
+    this.serviceToEdit = { ...service };  
+    console.log(this.serviceToEdit);
+    
+    this.editModalVisible = true; 
+  }
+  
+  updateService(updatedService: Service) {
+  
+  
+   
+    if (!updatedService || !updatedService.serviceName || !updatedService.price || !updatedService.duration) {
+      console.error('Service data is invalid! Missing required fields.');
+      return;
+    }
+  console.log(this.serviceToEdit)
+   //updatedService.uuid=this.serviceToEdit?.uuid;
+    const finalService = {
+      ...this.serviceToEdit,
+      serviceName: updatedService.serviceName,
+      price: updatedService.price,
+      duration: updatedService.duration
+    };
+  
+    console.log('Ažurirani podaci za slanje:', finalService);
+  
+
+    this.store$.dispatch(updateService({ service: finalService }));
+  
+  
+    this.editModalVisible = false;
+  }
+
+
+
+
+
   protected readonly UserRole = UserRole;
 }
+
+

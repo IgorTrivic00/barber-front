@@ -36,4 +36,11 @@ export class MainApiService {
   deleteService(serviceUuid: string) {
     return this.httpClient.delete(this.SERVICE_API + '/' + serviceUuid);
   }
+
+  updateService(service: Service) {
+    return this.httpClient.put<Service>(this.SERVICE_API , service);
+    //return this.httpClient.put<Service>(`${this.SERVICE_API}/${service.uuid}`, service);
+
+
+  }
 }

@@ -1,0 +1,36 @@
+<p-dialog header="{{isEditMode ? 'Izmeni Uslugu' : 'Dodaj Uslugu'}}" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem',height:'28rem' }" [closable]="false">
+  
+  
+  <span class="p-text-secondary block mb-5" style="margin-top: 20px; margin-bottom: 30px;">
+      {{isEditMode ? 'Izmenite informacije o servisu.' : 'Unesite informacije o novom servisu.'}}
+  </span>
+
+  <form [formGroup]="serviceForm">
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="serviceName" class="font-semibold w-8rem" style="margin-right: 15px;margin-top: 45px; color: #007bff;">Naziv servisa</label>
+      <input pInputText id="serviceName" formControlName="serviceName" class="flex-auto" autocomplete="off" style="margin-left: 20px"/>
+    </div>
+
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="servicePrice" class="font-semibold w-8rem" style="margin-right: 78px; color: #007bff;">Cena</label>
+      <input pInputText id="servicePrice" formControlName="price" type="number" class="flex-auto" autocomplete="off" style="margin-left: 20px"/>
+    </div>
+
+    <div class="flex align-items-center gap-3 mb-5">
+      <label for="serviceDuration" class="font-semibold w-8rem" style="margin-right: 15px; color: #007bff;" >Trajanje (min)</label>
+      <input pInputText id="serviceDuration" formControlName="duration" type="number" class="flex-auto" autocomplete="off" style="margin-left: 20px" />
+    </div>
+  </form>
+
+  <!--<p-footer> 
+      <p-button   label="Sačuvaj" icon="pi pi-check" (click)="save()"  [disabled]="!isFormValid()" styleClass="custom-save-button" class="p-button-success" />
+      <p-button label="Otkaži" icon="pi pi-times" (click)="cancel()"    class="p-button-secondary" styleClass="cancel-button" />
+  </p-footer> -->
+
+
+  <div class="button-container">
+    <p-button label="Otkaži" icon="pi pi-times" (click)="cancel()" styleClass="custom-cancel-button p-button-secondary" />
+    <p-button label="Sačuvaj" icon="pi pi-check" (click)="save()" [disabled]="!isFormValid()" 
+    styleClass="custom-save-button p-button-success" />
+  </div>
+</p-dialog>

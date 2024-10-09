@@ -28,21 +28,32 @@
   </div>
     <div *ngIf="user?.userRole === UserRole.BARBER">
       <div style="display: flex; justify-content: flex-end; gap: 10px">
-        <div class="col-2">
+        <div *ngIf="service" class="col-2">
           <p-button iconPos="left" icon="pi pi-pen-to-square" severity="secondary"
-                    [raised]="true" [style]="{'border-radius': '20px', 'width': '100%','background-color': 'blue'}"/>
+          [raised]="true" [style]="{'border-radius': '20px', 'width': '100%','background-color': 'blue'}"
+          (click)="onEditService(service)">
+        </p-button>
         </div>
         <div>
           <p-button icon="pi pi-trash" class="p-button-danger" [style]="{'background-color': 'red','font-size': '1rem','border-radius': '20px'}" (click)="confirmationModalVisible = true"></p-button>
         </div>
       </div>
-
+    </div>
       <app-confirmation-modal 
       *ngIf="confirmationModalVisible" 
+      [label]="'Da li zelite da obrisete?'"
       (confirm)="deleteService(service)" 
       (cancel)="confirmationModalVisible = false">
     </app-confirmation-modal>
 
-      </div>
+
+    <app-service-modal 
+    [(visible)]="editModalVisible"  
+    [isEditMode]="true" 
+    [serviceData]="serviceToEdit"  
+    (onSave)="updateService($event)"  
+    (onCancel)="editModalVisible = false">
+  </app-service-modal>
+     
   </ng-template>
 </p-card>

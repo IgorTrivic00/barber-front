@@ -11,6 +11,7 @@ import {UserProfileComponent} from "./components/menu/settings/user-profile/user
 import { barberGuard } from "../guards/barber.guard";
 import { ServicesBarbersComponent } from "./components/menu/services/services-barbers.component"; 
 import { ServicesBarberComponent } from "./components/menu/services/services/services-barber/services-barber.component";
+import { ServiceItemComponent } from "./components/menu/services/services/service-list/service-item/service-item.component";
 
 
 export const mainRoutes: Routes = [
