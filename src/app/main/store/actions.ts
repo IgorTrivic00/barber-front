@@ -21,13 +21,39 @@ export const updateCustomer = createAction(MainActionsConstants.UpdateCustomer,
 export const updateCustomerSuccess = createAction(MainActionsConstants.UpdateCustomerSuccess,
   props< {customer: Customer} >());
 
+export const addService = createAction(MainActionsConstants.AddService,
+  props< {service: Service} >());
+
+export const addServiceSuccess = createAction(MainActionsConstants.AddServiceSuccess,
+  props< {service: Service} >());
+
+export const deleteService = createAction(MainActionsConstants.DeleteService,
+  props<{ serviceUuid: string }>());
+
+export const deleteServiceSuccess = createAction(MainActionsConstants.DeleteServiceSuccess,
+  props<{ serviceUuid: string }>());
+
+// Dodavanje akcija za ažuriranje usluge
+export const updateService = createAction(MainActionsConstants.UpdateService,
+  props< {service: Service} >());
+
+export const updateServiceSuccess = createAction(MainActionsConstants.UpdateServiceSuccess,
+  props< {service: Service} >());
+
 const all = union({
   getBarbers,
   getBarbersSuccess,
   getBarberServices,
   getBarberServicesSuccess,
   updateCustomer,
-  updateCustomerSuccess
+  updateCustomerSuccess,
+  addService,
+  addServiceSuccess,
+  deleteService,
+  deleteServiceSuccess,
+  updateService,
+  updateServiceSuccess
+
 });
 
 export type MainActions = typeof all;

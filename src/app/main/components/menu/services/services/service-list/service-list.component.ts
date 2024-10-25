@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Service} from "../../../../../model/service.model";
 import {ServiceItemComponent} from "./service-item/service-item.component";
 
+
 @Component({
   selector: 'app-service-list',
   standalone: true,

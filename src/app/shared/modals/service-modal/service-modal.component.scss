@@ -1,0 +1,39 @@
+//::ng-deep .custom-save-button {
+   //
+   
+//margin-right: 100px; /* Sada margin radi ispravno */
+//}
+::ng-deep .button-container {
+  display: flex;
+  justify-content: space-around; 
+  margin-top: 20px;
+}
+
+::ng-deep .custom-save-button,
+::ng-deep .custom-cancel-button {
+  width: 120px; 
+  height: 40px; 
+  border-radius: 8px; 
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+
+::ng-deep .custom-save-button {
+  background-color: #28a745 !important; 
+  color: white !important;
+  border: none;
+}
+
+
+::ng-deep .custom-cancel-button {
+  background-color: #dc3545 !important; 
+  color: white !important;
+  border: none;
+}
+
+
+::ng-deep .custom-save-button:hover,
+::ng-deep .custom-cancel-button:hover {
+  opacity: 0.9; 
+}

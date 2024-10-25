@@ -7,4 +7,13 @@ export enum MainActionsConstants {
 
   UpdateCustomer = '[MainActions] Update Customer',
   UpdateCustomerSuccess = '[MainActions] Update Customer Success',
+
+  AddService = '[MainActions] Add Service',
+  AddServiceSuccess = '[MainActions] Add Service Success',
+
+  DeleteService = '[MainActions] Delete Service',
+  DeleteServiceSuccess = '[MainActions] Delete Service Success',
+
+  UpdateService = '[MainActions]  Update Service',
+  UpdateServiceSuccess = '[MainActions]  Update Service Success',
 }
