@@ -1,0 +1,32 @@
+import {Component, Input} from '@angular/core';
+import {Router} from "@angular/router";
+import {PrimengModule} from "../../../../shared/primeng.module";
+import {Barber} from "../../../../auth/model/barber.model";
+import {BarberTitle} from "../../../../auth/model/barber-title.model";
+
+@Component({
+  selector: 'app-barber-item',
+  standalone: true,
+  imports: [PrimengModule],
+  templateUrl: './barber-item.component.html',
+  styleUrl: './barber-item.component.scss'
+})
+export class BarberItemComponent {
+
+  @Input() barber: Barber | undefined;
+  @Input() callBack: any;
+
+  constructor(private router: Router) {
+  }
+
+  getBarberTitle(barberTitle: BarberTitle) {
+    switch (barberTitle){
+      case BarberTitle.MASTER:
+        return 'Master Barber';
+    }
+  }
+
+  callCallBack() {
+    this.callBack(this.barber);
+  }
+}

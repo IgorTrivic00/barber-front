@@ -1,18 +1,17 @@
 import {Routes} from "@angular/router";
-import {MainPanelComponent} from "./components/main/main-panel/main-panel.component";
+import {MainPanelComponent} from "../shared/components/main-panel/main-panel.component";
 
-import {ScheduleComponent} from "./components/menu/schedule/schedule.component";
-import {HomeComponent} from "./components/menu/home/home.component";
-import {SettingsComponent} from "./components/menu/settings/settings.component";
+import {SchedulePageComponent} from "./pages/schedule-page/schedule-page.component";
+import {HomePageComponent} from "./pages/home-page/home-page.component";
+import {SettingsPageComponent} from "./pages/settings-page/settings-page.component";
 import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
-import {ServicesComponent} from "./components/menu/services/services/services.component";
-import {UserProfileComponent} from "./components/menu/settings/user-profile/user-profile.component";
-import { barberGuard } from "../guards/barber.guard";
-import { ServicesBarbersComponent } from "./components/menu/services/services-barbers.component";
-import { ServicesBarberComponent } from "./components/menu/services/services/services-barber/services-barber.component";
-import { ServiceItemComponent } from "./components/menu/services/services/service-list/service-item/service-item.component";
-import {ReservationComponent} from "./components/menu/reservation/reservation.component";
+import {AppointmentPageComponent} from "./pages/appointment-page/appointment-page.component";
+import {BarbersPageComponent} from "./pages/barbers-page/barbers-page.component";
+import {ServicesPageComponent} from "./pages/services-page/services-page.component";
+import {BarberDashboardComponent} from "./pages/barber-dashboard-page/barber-dashboard.component";
+import {barberGuard} from "../guards/barber.guard";
+import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 
 
 export const mainRoutes: Routes = [
@@ -22,29 +21,29 @@ export const mainRoutes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent
+        component: HomePageComponent
       },
       {
-        path: 'services-barbers',
-        component: ServicesBarbersComponent
+        path: 'barbers',
+        component: BarbersPageComponent
       },
       {
         path: 'services/:barberUuid',
-        component: ServicesComponent
+        component: ServicesPageComponent
       },
       {
         path: 'my-services/:barberUuid',
-        component:  ServicesBarberComponent,
-        canActivate: [barberGuard]
+        component:  BarberDashboardComponent,
+        canActivate: [authGuard, barberGuard]
       },
       {
         path: 'schedule',
-        component: ScheduleComponent,
+        component: SchedulePageComponent,
         canActivate: [authGuard]
       },
       {
         path: 'settings',
-        component: SettingsComponent,
+        component: SettingsPageComponent,
         canActivate: [authGuard]
       },
       {
@@ -54,7 +53,7 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'reservation',
-        component: ReservationComponent,
+        component: AppointmentPageComponent,
         canActivate: [authGuard]
       },
       {

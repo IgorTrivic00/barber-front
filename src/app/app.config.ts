@@ -1,4 +1,4 @@
-import {ApplicationConfig, provideZoneChangeDetection, isDevMode} from '@angular/core';
+import {provideZoneChangeDetection, isDevMode, Provider, EnvironmentProviders, ApplicationConfig} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,11 +10,13 @@ import {CommonEffects} from "./shared/store/effects";
 import {authInterceptor} from "./interceptors/auth-interceptor";
 import {spinnerInterceptor} from "./interceptors/spinner-interceptor";
 import {provideStoreDevtools} from "@ngrx/store-devtools";
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthEffects} from "./auth/store/effects";
 import { provideServiceWorker } from '@angular/service-worker';
 import {MainEffects} from "./main/store/effects";
+import {DecimalPipe} from "@angular/common";
+import {DialogService} from "primeng/dynamicdialog";
 
 
 export const appConfig: ApplicationConfig = {
@@ -25,7 +27,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor, spinnerInterceptor])),
     provideStore(appReducer),
     provideEffects([CommonEffects, AuthEffects, MainEffects]),
-    provideStoreDevtools({ maxAge: 25 }), MessageService,
+    provideStoreDevtools({ maxAge: 25 }),
+    MessageService,
+    DecimalPipe,
+    DialogService,
+    ConfirmationService,
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'

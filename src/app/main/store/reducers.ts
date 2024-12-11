@@ -16,16 +16,16 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
     ...state,
     barberServices: [...state.barberServices || [], service]
   })),
-  on(deleteServiceSuccess, (state, {serviceUuid}) => ({
+  on(deleteServiceSuccess, (state, {service}) => ({
     ...state,
     barberServices: state.barberServices
-      ? state.barberServices.filter(service => service.uuid !== serviceUuid)
+      ? state.barberServices.filter(service1 => service1.uuid !== service.uuid)
       : []
   })),
   on(updateServiceSuccess, (state, {service}) => ({
     ...state,
     barberServices: state.barberServices
-      ? state.barberServices.map(s => s.uuid === service.uuid ? service : s)  
+      ? state.barberServices.map(s => s.uuid === service.uuid ? service : s)
       : []
   })),
 

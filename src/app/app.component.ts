@@ -5,11 +5,12 @@ import {select, Store} from "@ngrx/store";
 import {LocalStorageService} from "./shared/service/local-storage.service";
 import {selectSpinner} from "./shared/store/selectors";
 import {NavigationService} from "./shared/service/navigation.service";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppModule],
+  imports: [AppModule, ConfirmDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

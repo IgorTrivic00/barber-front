@@ -79,13 +79,13 @@ export class MainEffects {
       })
     ))
   ));
- 
+
   deleteServiceEffect$ = createEffect(() => this.actions$.pipe(
     ofType(deleteService),
-    switchMap(action => this.mainApi.deleteService(action.serviceUuid).pipe(
-      switchMap(() => {
+    switchMap(action => this.mainApi.deleteService(action.uuid).pipe(
+      switchMap((response) => {
         return of(
-          deleteServiceSuccess({ serviceUuid: action.serviceUuid }),
+          deleteServiceSuccess({ service: response }),
           showMessage({ severity: Severity.SUCCESS, detail: "Usluga je uspešno obrisana" })
         );
       })
@@ -103,6 +103,4 @@ export class MainEffects {
       })
     ))
   ));
- 
-
 }
