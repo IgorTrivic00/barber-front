@@ -1,14 +1,13 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppSharedModule} from "../../../shared/app-shared.module";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {ReactiveFormsModule} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
-import {select, Store} from "@ngrx/store";
+import {Store} from "@ngrx/store";
 import {selectLastUrl} from "../../../shared/store/selectors";
-import {Subject, takeUntil} from "rxjs";
-import {showMessage} from "../../../shared/store/actions";
-import {Severity} from "../../../shared/constants/constants";
+import {filter, Subject, takeUntil} from "rxjs";
+import {hideNavBar} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-login-options',
@@ -23,7 +22,7 @@ import {Severity} from "../../../shared/constants/constants";
   templateUrl: './login-options.component.html',
   styleUrl: './login-options.component.scss'
 })
-export class LoginOptionsComponent implements OnDestroy{
+export class LoginOptionsComponent implements OnInit, OnDestroy{
 
   lastUrl: string | undefined;
 
@@ -35,11 +34,9 @@ export class LoginOptionsComponent implements OnDestroy{
   }
 
   private selectLastUrl() {
-    this.store$.pipe(select(selectLastUrl), takeUntil(this.ngUnsubscribe)).subscribe(value => {
-      if (value) {
-        this.lastUrl = value;
-      }
-    });
+    this.store$.select(selectLastUrl)
+      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
+      .subscribe(value => this.lastUrl = value);
   }
 
   return() {
@@ -49,5 +46,9 @@ export class LoginOptionsComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+  }
+
+  ngOnInit(): void {
+    this.store$.dispatch(hideNavBar());
   }
 }
