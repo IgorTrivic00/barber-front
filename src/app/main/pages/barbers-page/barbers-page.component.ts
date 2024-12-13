@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {getBarbers} from "../../store/actions";
 import {cloneDeep} from "lodash";
 import {selectBarbers} from "../../store/selectors";
+import {hideNavBar, showNavBar} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-barbers',
@@ -29,6 +30,7 @@ export class BarbersPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    this.store$.dispatch(showNavBar());
     this.store$.dispatch(getBarbers());
   }
 
@@ -40,7 +42,8 @@ export class BarbersPageComponent implements OnInit, OnDestroy{
     });
   }
 
-  redirectToServices(barber: Barber){
+  redirectToServices = (barber: Barber) => {
+    this.store$.dispatch(hideNavBar());
     this.router.navigate(['services', barber.uuid]);
   }
 

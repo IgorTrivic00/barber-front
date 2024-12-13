@@ -36,7 +36,7 @@ export class NavBarComponent implements OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  navigateToMyService() {
+  navigateToMyServices() {
     this.route.navigate(['my-services', this.barber?.uuid])
   }
 

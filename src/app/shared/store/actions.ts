@@ -14,12 +14,18 @@ export const updateLastUrl = createAction(CommonActions.UpdateLastUrl,
 export const updateCurrentUrl = createAction(CommonActions.UpdateCurrentUrl,
   props< { currentUrl: string }>());
 
+export const showNavBar = createAction(CommonActions.ShowNavBar);
+
+export const hideNavBar = createAction(CommonActions.HideNavBar);
+
 const all = union({
   openSpinner,
   closeSpinner,
   showMessage,
   updateCurrentUrl,
-  updateLastUrl
+  updateLastUrl,
+  showNavBar,
+  hideNavBar
 });
 
 export type Actions = typeof all;

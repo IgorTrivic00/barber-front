@@ -37,16 +37,16 @@ export class UserService {
 
   private selectLoggedUser() {
     this._user$ = this.store$.select(selectLoggedUser)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe));
+      .pipe(takeUntil(this.ngUnsubscribe));
   }
 
   private selectCustomer() {
     this._customer$ = this.store$.select(selectCustomer)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe));
+      .pipe(takeUntil(this.ngUnsubscribe));
   }
 
   private selectBarber() {
     this._barber$ = this.store$.select(selectBarber)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe));
+      .pipe(takeUntil(this.ngUnsubscribe));
   }
 }

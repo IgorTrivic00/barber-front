@@ -33,7 +33,7 @@ export const mainRoutes: Routes = [
       },
       {
         path: 'my-services/:barberUuid',
-        component:  BarberDashboardComponent,
+        component: BarberDashboardComponent,
         canActivate: [authGuard, barberGuard]
       },
       {
@@ -52,7 +52,7 @@ export const mainRoutes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'reservation',
+        path: 'appointment',
         component: AppointmentPageComponent,
         canActivate: [authGuard]
       },
