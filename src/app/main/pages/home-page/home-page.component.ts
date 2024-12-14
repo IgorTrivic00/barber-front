@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {enviroment} from "../../../enviroments/enviroment";
 import {WorkDaySwiperComponent} from "../../components/work-day-swiper/work-day-swiper.component";
+import {Store} from "@ngrx/store";
+import {showNavBar} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-home-page',
@@ -13,38 +15,30 @@ import {WorkDaySwiperComponent} from "../../components/work-day-swiper/work-day-
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
 
   redirectToInstagram() {
-
-    // ovo je obrisan deo ne treba ti
-   /* const url = 'instagram://user?username=' + enviroment.instagramUserName;
-    window.location.href = url;*/
-
     const instagramUserName = enviroment.instagramUserName;
-
-    // Prov radimo proveru da li je korisnik na mobilnom uredjaju ili nije
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     if (isMobile) {
-      // AAko jeste onda pokusava da dje na aplikaciju ako je imas instaliranu ako ne ,
-      const appUrl = `instagram://user?username=${instagramUserName}`;
-      window.location.href = appUrl;
-
-      //  otvorice ti  web verziju
+      window.location.href = `instagram://user?username=${instagramUserName}`;
       setTimeout(() => {
-        const webUrl = `https://www.instagram.com/${instagramUserName}/`;
-        window.location.href = webUrl;
+        window.location.href = `https://www.instagram.com/${instagramUserName}/`;
       }, 500);
     } else {
-      // Ako nije mobilni uređaj, preusmeri direktno na web verziju
-      const webUrl = `https://www.instagram.com/${instagramUserName}/`;
-      window.location.href = webUrl;
+      window.location.href = `https://www.instagram.com/${instagramUserName}/`;
     }
   }
 
+  constructor(private store$: Store) {
+  }
+
   redirectToCall() {
-    const url = `tel:${enviroment.mobileNumber}`;
-    window.location.href = url;
+    window.location.href = `tel:${enviroment.mobileNumber}`;
+  }
+
+  ngOnInit(): void {
+    this.store$.dispatch(showNavBar());
   }
 }

@@ -9,6 +9,7 @@ import {select, Store} from "@ngrx/store";
 import {selectBarberServices} from "../../store/selectors";
 import {Subject, takeUntil} from "rxjs";
 import {cloneDeep} from "lodash";
+import {hideNavBar, returnToPreviousPage, showNavBar} from "../../../shared/store/actions";
 
 
 @Component({
@@ -37,7 +38,7 @@ export class ServicesPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(getBarberServices({barberUuid: this.barberUuid!}));
+    this.initDispatch();
   }
 
   private selectBarberService() {
@@ -53,6 +54,14 @@ export class ServicesPageComponent implements OnInit, OnDestroy{
     this.ngUnsubscribe.complete();
   }
 
+  private initDispatch() {
+    this.store$.dispatch(hideNavBar());
+    this.store$.dispatch(getBarberServices({barberUuid: this.barberUuid!}));
+  }
+
+  return() {
+    this.store$.dispatch(returnToPreviousPage());
+  }
 }
 
 

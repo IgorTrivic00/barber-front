@@ -3,7 +3,7 @@ import {PrimengModule} from "../../../shared/primeng.module";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppSharedModule} from "../../../shared/app-shared.module";
 import {Store} from "@ngrx/store";
-import {showMessage} from "../../../shared/store/actions";
+import {returnToPreviousPage, showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
 import {User} from "../../model/user.model";
 import {login} from "../../store/actions";
@@ -55,5 +55,9 @@ export class LoginPageComponent implements OnInit{
       return false;
     }
     return true;
+  }
+
+  return() {
+    this.store$.dispatch(returnToPreviousPage());
   }
 }

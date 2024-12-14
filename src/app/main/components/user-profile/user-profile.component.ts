@@ -11,7 +11,7 @@ import {Customer} from "../../../auth/model/customer.model";
 import {AvatarModule} from "primeng/avatar";
 import {updateCustomer} from "../../store/actions";
 import {UserService} from "../../../auth/service/user.service";
-import {hideNavBar, showNavBar} from "../../../shared/store/actions";
+import {hideNavBar, returnToPreviousPage, showNavBar} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-user-profile',
@@ -66,5 +66,9 @@ export class UserProfileComponent implements OnInit, OnDestroy{
       name: this.form?.get('name')?.value
     };
     this.store$.dispatch(updateCustomer({customer: this.customer!}));
+  }
+
+  return() {
+    this.store$.dispatch(returnToPreviousPage());
   }
 }

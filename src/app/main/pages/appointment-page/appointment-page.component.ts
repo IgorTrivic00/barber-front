@@ -5,6 +5,7 @@ import {select, Store} from "@ngrx/store";
 import {Subject, takeUntil} from "rxjs";
 import {selectLastUrl} from "../../../shared/store/selectors";
 import {CalendarModule} from "primeng/calendar";
+import {returnToPreviousPage} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-reservation',
@@ -17,37 +18,17 @@ import {CalendarModule} from "primeng/calendar";
   templateUrl: './appointment-page.component.html',
   styleUrl: './appointment-page.component.scss'
 })
-export class AppointmentPageComponent implements OnDestroy{
+export class AppointmentPageComponent {
 
   lastUrl: string | undefined;
   minDate: Date;
 
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(private store$: Store,
-              private router: Router) {
+  constructor(private store$: Store) {
     this.minDate = new Date();
-    this.initSelectors();
   }
 
   return() {
-    this.router.navigate([this.lastUrl]);
+    this.store$.dispatch(returnToPreviousPage());
   }
 
-  private initSelectors() {
-    this.selectLastUrl();
-  }
-
-  private selectLastUrl() {
-    this.store$.pipe(select(selectLastUrl), takeUntil(this.ngUnsubscribe)).subscribe(value => {
-      if(value){
-        this.lastUrl = value;
-      }
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
 }

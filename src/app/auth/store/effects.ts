@@ -21,7 +21,7 @@ import {KeepAliveResponse} from "../model/request_response/keep-alive.response";
 import {UserSession} from "../model/user-session.model";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
-import {selectLastUrl} from "../../shared/store/selectors";
+import {selectCurrentUrl, selectLastUrl} from "../../shared/store/selectors";
 
 @Injectable()
 export class AuthEffects {
@@ -36,13 +36,13 @@ export class AuthEffects {
   loginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(login),
     concatMap(action => of(action).pipe(
-      withLatestFrom(this.store$.pipe(select(selectLastUrl)))
+      withLatestFrom(this.store$.pipe(select(selectCurrentUrl)))
     )),
-    switchMap(([action, lastUrl]) => {
+    switchMap(([action, currentUrl]) => {
       return this.authApiService.login(action.user).pipe(
         switchMap(response => of(
           loginSuccess({user: response}),
-          redirectAfterLogin({redirectUrl: lastUrl}),
+          redirectAfterLogin({redirectUrl: currentUrl}),
           showMessage({severity: Severity.SUCCESS, detail: 'Uspešna prijava'}),
         )));
     })

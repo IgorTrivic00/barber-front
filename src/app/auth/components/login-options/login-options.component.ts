@@ -7,7 +7,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {selectLastUrl} from "../../../shared/store/selectors";
 import {filter, Subject, takeUntil} from "rxjs";
-import {hideNavBar} from "../../../shared/store/actions";
+import {hideNavBar, returnToPreviousPage} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-login-options',
@@ -22,30 +22,13 @@ import {hideNavBar} from "../../../shared/store/actions";
   templateUrl: './login-options.component.html',
   styleUrl: './login-options.component.scss'
 })
-export class LoginOptionsComponent implements OnInit, OnDestroy{
+export class LoginOptionsComponent implements OnInit{
 
-  lastUrl: string | undefined;
-
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(private store$: Store,
-              private router: Router) {
-    this.selectLastUrl();
-  }
-
-  private selectLastUrl() {
-    this.store$.select(selectLastUrl)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.lastUrl = value);
+  constructor(private store$: Store) {
   }
 
   return() {
-    this.router.navigate([this.lastUrl]);
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.store$.dispatch(returnToPreviousPage());
   }
 
   ngOnInit(): void {

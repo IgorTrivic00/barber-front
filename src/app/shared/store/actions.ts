@@ -18,6 +18,8 @@ export const showNavBar = createAction(CommonActions.ShowNavBar);
 
 export const hideNavBar = createAction(CommonActions.HideNavBar);
 
+export const returnToPreviousPage = createAction(CommonActions.ReturnToPreviousPage);
+
 const all = union({
   openSpinner,
   closeSpinner,
@@ -25,7 +27,8 @@ const all = union({
   updateCurrentUrl,
   updateLastUrl,
   showNavBar,
-  hideNavBar
+  hideNavBar,
+  returnToPreviousPage
 });
 
 export type Actions = typeof all;

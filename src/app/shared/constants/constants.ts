@@ -6,6 +6,7 @@ export enum CommonActions {
   UpdateCurrentUrl = '[CommonActions] Update Currnet Url',
   ShowNavBar = '[CommonActions] Show Nav Bar',
   HideNavBar = '[CommonActions] Hide Nav Bar',
+  ReturnToPreviousPage = '[CommonActions] Return To Previous Page',
 }
 
 export enum Severity {
