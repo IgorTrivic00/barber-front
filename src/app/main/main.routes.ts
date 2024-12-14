@@ -12,6 +12,7 @@ import {ServicesPageComponent} from "./pages/services-page/services-page.compone
 import {BarberDashboardComponent} from "./pages/barber-dashboard-page/barber-dashboard.component";
 import {barberGuard} from "../guards/barber.guard";
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
+import {customerGuard} from "../guards/customer.guard";
 
 
 export const mainRoutes: Routes = [
@@ -39,7 +40,7 @@ export const mainRoutes: Routes = [
       {
         path: 'schedule',
         component: SchedulePageComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard, customerGuard]
       },
       {
         path: 'settings',
@@ -54,7 +55,7 @@ export const mainRoutes: Routes = [
       {
         path: 'appointment',
         component: AppointmentPageComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard, customerGuard]
       },
       {
         path: 'auth',

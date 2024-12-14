@@ -1,6 +1,14 @@
 import {INIT_MAIN_STATE, MainState} from "./state";
 import {createReducer, on} from "@ngrx/store";
-import {addServiceSuccess, deleteServiceSuccess, getBarberServicesSuccess, getBarbersSuccess, MainActions, updateServiceSuccess} from "./actions";
+import {
+  addServiceSuccess,
+  deleteServiceSuccess,
+  getBarberServicesSuccess,
+  getBarbersSuccess,
+  getBarberSuccess,
+  MainActions,
+  updateServiceSuccess
+} from "./actions";
 
 
 export const _mainReducer = createReducer(INIT_MAIN_STATE,
@@ -28,7 +36,10 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
       ? state.barberServices.map(s => s.uuid === service.uuid ? service : s)
       : []
   })),
-
+  on(getBarberSuccess, (state, {barber}) => ({
+    ...state,
+    barber
+  })),
 );
 
 export function authReducer(state: MainState | undefined, action: MainActions): MainState {

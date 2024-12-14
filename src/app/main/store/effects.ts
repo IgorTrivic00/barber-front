@@ -6,11 +6,11 @@ import {showMessage} from "../../shared/store/actions";
 import {
   addService, addServiceSuccess,
   deleteService,
-  deleteServiceSuccess,
+  deleteServiceSuccess, getBarber,
   getBarbers,
   getBarberServices,
   getBarberServicesSuccess,
-  getBarbersSuccess,
+  getBarbersSuccess, getBarberSuccess,
   updateCustomer,
   updateCustomerSuccess,
   updateService,
@@ -99,6 +99,17 @@ export class MainEffects {
         return of(
           updateServiceSuccess({ service: response }),
           showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana" })
+        );
+      })
+    ))
+  ));
+
+  getBarberEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(getBarber),
+    switchMap(action => this.mainApi.getBarber(action.barberUuid).pipe(
+      switchMap(response => {
+        return of(
+          getBarberSuccess({ barber: response })
         );
       })
     ))

@@ -16,4 +16,7 @@ export enum MainActionsConstants {
 
   UpdateService = '[MainActions]  Update Service',
   UpdateServiceSuccess = '[MainActions]  Update Service Success',
+
+  GetBarber = '[MainActions] Get Barber',
+  GetBarberSuccess = '[MainActions]  Get Barber Success',
 }

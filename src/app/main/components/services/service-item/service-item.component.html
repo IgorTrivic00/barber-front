@@ -25,11 +25,11 @@
         </div>
       </div>
     </div>
-    <div *ngIf="user?.userRole === UserRole.BARBER">
-      <div style="display: flex; justify-content: flex-end; gap: 10px">
+    <div *ngIf="user?.userRole === UserRole.BARBER || user?.userRole === UserRole.ADMIN">
+      <div style="display: flex; justify-content: flex-end;">
         <div *ngIf="service" class="col-2">
           <p-button iconPos="left" icon="pi pi-pen-to-square" severity="secondary"
-                    [raised]="true" [style]="{'border-radius': '0.25rem', 'width': '100%','background-color': '#3B82F6'}"
+                    [raised]="true" [style]="{'border-radius': '0.25rem','background-color': '#3B82F6'}"
                     (click)="onEditService()"
           >
           </p-button>

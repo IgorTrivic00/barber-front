@@ -40,4 +40,8 @@ export class MainApiService {
   updateService(service: Service) {
     return this.httpClient.put<Service>(this.SERVICE_API , service);
   }
+
+  getBarber(barberUuid: string) {
+    return this.httpClient.get<Barber>(this.BARBER_API + '/' + barberUuid);
+  }
 }

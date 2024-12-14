@@ -16,7 +16,7 @@ export class BarberItemComponent {
   @Input() barber: Barber | undefined;
   @Input() callBack: any;
 
-  constructor(private router: Router) {
+  constructor() {
   }
 
   getBarberTitle(barberTitle: BarberTitle) {

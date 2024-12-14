@@ -90,12 +90,14 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   }
 
   addService(service: Service) {
-    service = {
-      ...service,
-      uuid: uuidv4(),
-      barber: this.barber
-    };
-    this.store$.dispatch(addService({ service }));
+    if (this.barber){
+      service = {
+        ...service,
+        uuid: uuidv4(),
+        barber: this.barber
+      };
+      this.store$.dispatch(addService({ service }));
+    }
   }
 
   private initSelectors() {

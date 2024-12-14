@@ -12,7 +12,7 @@ import { UserRole } from '../auth/model/user-role.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuardService  {
+export class CustomerGuardService  {
 
   constructor(private store: Store, private router: Router) {}
 
@@ -20,7 +20,7 @@ export class AdminGuardService  {
     return this.store.pipe(
       select(selectLoggedUser),
       map((user: User) => {
-        if (!user || user.userRole !== UserRole.ADMIN) {
+        if (!user || user.userRole !== UserRole.CUSTOMER) {
           this.router.navigate(['home']);
           return false;
         }
@@ -36,7 +36,7 @@ export class AdminGuardService  {
   }
 }
 
-export const adminGuard: CanActivateFn = (route, state) => {
-  const adminGuardService = inject(AdminGuardService);
-  return adminGuardService.canActivate(route, state);
+export const customerGuard: CanActivateFn = (route, state) => {
+  const customerGuardService = inject(CustomerGuardService);
+  return customerGuardService.canActivate(route, state);
 };

@@ -27,7 +27,7 @@ export class NavigationService {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart && !this.checkExcludedUrl(event.url)) {
         this.store$.dispatch(updateLastUrl({lastUrl: this._currentUrl}));
-        this.localStorageService.setSavedState(event.url, 'lastUrl');
+        this.localStorageService.setSavedState(this._currentUrl, 'lastUrl');
         this._currentUrl = event.url;
         this.store$.dispatch(updateCurrentUrl({currentUrl: event.url}));
         this.localStorageService.setSavedState(event.url, 'currentUrl');
