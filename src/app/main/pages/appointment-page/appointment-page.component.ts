@@ -1,11 +1,11 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {Router, RouterLink} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {Subject, takeUntil} from "rxjs";
 import {selectLastUrl} from "../../../shared/store/selectors";
 import {CalendarModule} from "primeng/calendar";
-import {returnToPreviousPage} from "../../../shared/store/actions";
+import {returnToPreviousPage, showNavBar} from "../../../shared/store/actions";
 
 @Component({
   selector: 'app-reservation',
@@ -18,7 +18,7 @@ import {returnToPreviousPage} from "../../../shared/store/actions";
   templateUrl: './appointment-page.component.html',
   styleUrl: './appointment-page.component.scss'
 })
-export class AppointmentPageComponent {
+export class AppointmentPageComponent implements OnInit{
 
   lastUrl: string | undefined;
   minDate: Date;
@@ -27,8 +27,8 @@ export class AppointmentPageComponent {
     this.minDate = new Date();
   }
 
-  return() {
-    this.store$.dispatch(returnToPreviousPage());
+  ngOnInit() {
+    this.store$.dispatch(showNavBar());
   }
 
 }
