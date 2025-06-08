@@ -10,7 +10,7 @@ import {Store} from "@ngrx/store";
 import {Customer} from "../../../auth/model/customer.model";
 import {AvatarModule} from "primeng/avatar";
 import {updateCustomer} from "../../store/actions";
-import {UserService} from "../../../auth/service/user.service";
+import {AuthService} from "../../../auth/service/auth.service";
 import {hideNavBar, returnToPreviousPage, showNavBar} from "../../../shared/store/actions";
 
 @Component({
@@ -37,9 +37,9 @@ export class UserProfileComponent implements OnInit, OnDestroy{
 
   constructor(private store$: Store,
               private formBuilder: FormBuilder,
-              private userService: UserService) {
-    this.userService.getUser()?.subscribe(value => this.user = value);
-    this.userService.getCustomer()?.subscribe(value => this.customer = value);
+              private userService: AuthService) {
+    this.userService.getLoggedUser()?.subscribe(value => this.user = value);
+    this.userService.getLoggedCustomer()?.subscribe(value => this.customer = value);
   }
 
   ngOnInit(): void {

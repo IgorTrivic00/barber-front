@@ -3,17 +3,21 @@ import {MainActionsConstants} from "../constants/constants";
 import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../model/service.model";
 import {Customer} from "../../auth/model/customer.model";
+import {ServiceFilter} from "../model/service-filter.model";
+import {SearchResponse} from "../model/search-response.model";
 
 export const getBarbers = createAction(MainActionsConstants.GetBarbers);
 
 export const getBarbersSuccess = createAction(MainActionsConstants.GetBarbersSuccess,
   props< {barbers: Barber[]} >());
 
-export const getBarberServices = createAction(MainActionsConstants.GetBarberServices,
-  props< {barberUuid: string} >());
+export const searchServices = createAction(MainActionsConstants.SearchServices,
+  props< {filter: ServiceFilter} >());
 
-export const getBarberServicesSuccess = createAction(MainActionsConstants.GetBarberServicesSuccess,
-  props< {services: Service[]} >());
+export const searchServicesSuccess = createAction(MainActionsConstants.SearchServicesSuccess,
+  props< {searchResponse: SearchResponse<Service>} >());
+
+export const clearServiceSearch = createAction(MainActionsConstants.ClearServiceSearch);
 
 export const updateCustomer = createAction(MainActionsConstants.UpdateCustomer,
   props< {customer: Customer} >());
@@ -39,17 +43,11 @@ export const updateService = createAction(MainActionsConstants.UpdateService,
 export const updateServiceSuccess = createAction(MainActionsConstants.UpdateServiceSuccess,
   props< {service: Service} >());
 
-export const getBarber = createAction(MainActionsConstants.GetBarber,
-  props< {barberUuid: string} >());
-
-export const getBarberSuccess = createAction(MainActionsConstants.GetBarberSuccess,
-  props< {barber: Barber} >());
-
 const all = union({
   getBarbers,
   getBarbersSuccess,
-  getBarberServices,
-  getBarberServicesSuccess,
+  searchServices,
+  searchServicesSuccess,
   updateCustomer,
   updateCustomerSuccess,
   addService,
@@ -57,9 +55,7 @@ const all = union({
   deleteService,
   deleteServiceSuccess,
   updateService,
-  updateServiceSuccess,
-  getBarber,
-  getBarberSuccess
+  updateServiceSuccess
 });
 
 export type MainActions = typeof all;

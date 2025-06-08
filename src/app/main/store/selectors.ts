@@ -2,11 +2,11 @@ import {createFeatureSelector, createSelector, MemoizedSelector} from "@ngrx/sto
 import {MainState} from "./state";
 
 export const getBarbers = (state: MainState) => state.barbers;
-export const getBarberServices = (state: MainState) => state.barberServices;
-export const getBarber = (state: MainState) => state.barber;
+export const getServiceSearchResponse = (state: MainState) => state.serviceSearchResponse;
+export const getServices = (state: MainState) => state.serviceSearchResponse?.data;
 
 export const selectMainState: MemoizedSelector<object, any> = createFeatureSelector<MainState>('main');
 
 export const selectBarbers: MemoizedSelector<object, any> = createSelector(selectMainState, getBarbers);
-export const selectBarberServices: MemoizedSelector<object, any> = createSelector(selectMainState, getBarberServices);
-export const selectBarber: MemoizedSelector<object, any> = createSelector(selectMainState, getBarber);
+export const selectServiceSearchResponse: MemoizedSelector<object, any> = createSelector(selectMainState, getServiceSearchResponse);
+export const selectServices: MemoizedSelector<object, any> = createSelector(selectMainState, getServices);

@@ -6,7 +6,7 @@ import {Subject} from "rxjs";
 import {UserRole} from "../../../auth/model/user-role.model";
 import {Router} from '@angular/router';
 import {Barber} from '../../../auth/model/barber.model';
-import {UserService} from "../../../auth/service/user.service";
+import {AuthService} from "../../../auth/service/auth.service";
 
 
 @Component({
@@ -25,10 +25,10 @@ export class NavBarComponent implements OnDestroy {
 
   constructor(private store$: Store,
               private route: Router,
-              private userService: UserService
+              private userService: AuthService
   ) {
-    this.userService.getUser()?.subscribe(value => this.user = value);
-    this.userService.getBarber()?.subscribe(value => this.barber = value);
+    this.userService.getLoggedUser()?.subscribe(value => this.user = value);
+    this.userService.getLoggedBarber()?.subscribe(value => this.barber = value);
   }
 
   ngOnDestroy(): void {

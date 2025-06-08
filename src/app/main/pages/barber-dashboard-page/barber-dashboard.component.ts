@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {ServiceListComponent} from '../../components/services/service-list.component';
-import {Subject, takeUntil} from "rxjs";
+import {filter, Subject, takeUntil} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import { CommonModule } from '@angular/common';
 import {BarberListComponent} from "../../components/barber/barber-list.component";
@@ -12,12 +12,12 @@ import {DialogModule} from "primeng/dialog";
 import {ServiceModalComponent} from "../../modal/service-modal/service-modal.component";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
-import {selectBarberServices} from "../../store/selectors";
+import {selectServices} from "../../store/selectors";
 import { v4 as uuidv4 } from 'uuid';
-import {addService, getBarberServices} from "../../store/actions";
+import {addService, clearServiceSearch, searchServices} from "../../store/actions";
 import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
-import {UserService} from "../../../auth/service/user.service";
+import {AuthService} from "../../../auth/service/auth.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 
 
@@ -48,9 +48,9 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   constructor(private store$: Store,
               private route: ActivatedRoute,
               private dialogService: DialogService,
-              private userService: UserService) {
+              private userService: AuthService) {
     this.initSelectors();
-    this.userService.getBarber()?.subscribe(value => this.barber = value);
+    this.userService.getLoggedBarber()?.subscribe(value => this.barber = value);
     this.barberUuid = this.route.snapshot.params['barberUuid'];
   }
 
@@ -59,14 +59,13 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   }
 
   private selectBarberService() {
-    this.store$.pipe(select(selectBarberServices), takeUntil(this.ngUnsubscribe)).subscribe(value => {
-      if (value) {
-        this.services = cloneDeep(value);
-      }
-    });
+    this.store$.select(selectServices)
+      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
+      .subscribe(value => this.services = cloneDeep(value));
   }
 
   ngOnDestroy(): void {
+    this.store$.dispatch(clearServiceSearch());
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -105,11 +104,11 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   }
 
   private initDispatch() {
-    this.getBarberServices();
+    this.searchServices();
   }
 
-  private getBarberServices() {
-    this.store$.dispatch(getBarberServices({barberUuid: this.barberUuid!}));
+  private searchServices() {
+    this.store$.dispatch(searchServices({filter: {barberUuids: [this.barberUuid!]}}));
   }
 
 }

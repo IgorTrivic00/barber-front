@@ -11,6 +11,6 @@ export const selectAuthState: MemoizedSelector<object, any> = createFeatureSelec
 
 export const selectUserSession: MemoizedSelector<object, any> = createSelector(selectAuthState, getUserSession);
 export const selectLoggedUser: MemoizedSelector<object, any> = createSelector(selectAuthState, getLoggedUser);
-export const selectCustomer: MemoizedSelector<object, any> = createSelector(selectAuthState, getCustomer);
-export const selectBarber: MemoizedSelector<object, any> = createSelector(selectAuthState, getBarber);
+export const selectLoggedCustomer: MemoizedSelector<object, any> = createSelector(selectAuthState, getCustomer);
+export const selectLoggedBarber: MemoizedSelector<object, any> = createSelector(selectAuthState, getBarber);
 export const selectToken: MemoizedSelector<object, any> = createSelector(selectAuthState, getToken);

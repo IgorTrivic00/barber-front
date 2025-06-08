@@ -6,7 +6,7 @@ import {DecimalPipe} from "@angular/common";
 import {Service} from "../../../model/service.model";
 import {User} from "../../../../auth/model/user.model";
 import {Store} from "@ngrx/store";
-import {UserService} from "../../../../auth/service/user.service";
+import {AuthService} from "../../../../auth/service/auth.service";
 import {deleteService, updateService} from "../../../store/actions";
 import {UserRole} from "../../../../auth/model/user-role.model";
 import {DialogService} from "primeng/dynamicdialog";
@@ -32,11 +32,11 @@ export class ServiceItemComponent {
   user: User | undefined;
 
   constructor(private decimalPipe: DecimalPipe,
-              private userService: UserService,
+              private userService: AuthService,
               private confirmationService: ConfirmationService,
               private dialogService: DialogService,
               private store$: Store) {
-    this.userService.getUser()?.subscribe(value => this.user = value);
+    this.userService.getLoggedUser()?.subscribe(value => this.user = value);
   }
 
   getPrice(price: number | undefined) {

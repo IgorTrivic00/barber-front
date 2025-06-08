@@ -1,14 +1,13 @@
 import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../model/service.model";
+import {SearchResponse} from "../model/search-response.model";
 
 export interface MainState {
   barbers: Barber[] | null;
-  barberServices: Service[] | null;
-  barber: Barber | null;
+  serviceSearchResponse: SearchResponse<Service> | null;
 }
 
 export const INIT_MAIN_STATE: MainState = {
   barbers: null,
-  barberServices: null,
-  barber: null
+  serviceSearchResponse: null
 }

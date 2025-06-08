@@ -3,11 +3,10 @@ import {createReducer, on} from "@ngrx/store";
 import {
   addServiceSuccess,
   deleteServiceSuccess,
-  getBarberServicesSuccess,
+  searchServicesSuccess,
   getBarbersSuccess,
-  getBarberSuccess,
   MainActions,
-  updateServiceSuccess
+  updateServiceSuccess, clearServiceSearch
 } from "./actions";
 
 
@@ -16,30 +15,14 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
     ...state,
     barbers
   })),
-  on(getBarberServicesSuccess, (state, {services}) => ({
+  on(searchServicesSuccess, (state, {searchResponse}) => ({
     ...state,
-    barberServices: services
+    serviceSearchResponse: searchResponse
   })),
-  on(addServiceSuccess, (state, {service}) => ({
+  on(clearServiceSearch, (state, {}) => ({
     ...state,
-    barberServices: [...state.barberServices || [], service]
-  })),
-  on(deleteServiceSuccess, (state, {service}) => ({
-    ...state,
-    barberServices: state.barberServices
-      ? state.barberServices.filter(service1 => service1.uuid !== service.uuid)
-      : []
-  })),
-  on(updateServiceSuccess, (state, {service}) => ({
-    ...state,
-    barberServices: state.barberServices
-      ? state.barberServices.map(s => s.uuid === service.uuid ? service : s)
-      : []
-  })),
-  on(getBarberSuccess, (state, {barber}) => ({
-    ...state,
-    barber
-  })),
+    serviceSearchResponse: null
+  }))
 );
 
 export function authReducer(state: MainState | undefined, action: MainActions): MainState {

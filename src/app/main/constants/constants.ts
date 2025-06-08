@@ -2,8 +2,9 @@ export enum MainActionsConstants {
   GetBarbers = '[MainActions] Get Barbers',
   GetBarbersSuccess = '[MainActions] Get Barbers Success',
 
-  GetBarberServices = '[MainActions] Get Barber Services',
-  GetBarberServicesSuccess = '[MainActions] Get Barber Services Success',
+  SearchServices = '[MainActions] Search Services',
+  SearchServicesSuccess = '[MainActions] Search Services Success',
+  ClearServiceSearch = '[MainActions] Clear Service Search',
 
   UpdateCustomer = '[MainActions] Update Customer',
   UpdateCustomerSuccess = '[MainActions] Update Customer Success',
@@ -15,8 +16,5 @@ export enum MainActionsConstants {
   DeleteServiceSuccess = '[MainActions] Delete Service Success',
 
   UpdateService = '[MainActions]  Update Service',
-  UpdateServiceSuccess = '[MainActions]  Update Service Success',
-
-  GetBarber = '[MainActions] Get Barber',
-  GetBarberSuccess = '[MainActions]  Get Barber Success',
+  UpdateServiceSuccess = '[MainActions]  Update Service Success'
 }

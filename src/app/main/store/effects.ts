@@ -6,11 +6,11 @@ import {showMessage} from "../../shared/store/actions";
 import {
   addService, addServiceSuccess,
   deleteService,
-  deleteServiceSuccess, getBarber,
+  deleteServiceSuccess,
   getBarbers,
-  getBarberServices,
-  getBarberServicesSuccess,
-  getBarbersSuccess, getBarberSuccess,
+  searchServices,
+  searchServicesSuccess,
+  getBarbersSuccess,
   updateCustomer,
   updateCustomerSuccess,
   updateService,
@@ -38,12 +38,12 @@ export class MainEffects {
     ))
   ));
 
-  getBarberServicesEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(getBarberServices),
-    switchMap(action => this.mainApi.getBarberServices(action.barberUuid).pipe(
+  searchServicesEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(searchServices),
+    switchMap(action => this.mainApi.searchServices(action.filter).pipe(
       switchMap(response => {
         return of(
-          getBarberServicesSuccess({services: response})
+          searchServicesSuccess({searchResponse: response})
         )
       })
     ))
@@ -99,17 +99,6 @@ export class MainEffects {
         return of(
           updateServiceSuccess({ service: response }),
           showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana" })
-        );
-      })
-    ))
-  ));
-
-  getBarberEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(getBarber),
-    switchMap(action => this.mainApi.getBarber(action.barberUuid).pipe(
-      switchMap(response => {
-        return of(
-          getBarberSuccess({ barber: response })
         );
       })
     ))
