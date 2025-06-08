@@ -14,7 +14,7 @@ import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectServices} from "../../store/selectors";
 import { v4 as uuidv4 } from 'uuid';
-import {addService, clearServiceSearch, searchServices} from "../../store/actions";
+import {addService, clearServiceSearch, findMyServices, searchServices} from "../../store/actions";
 import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
 import {AuthService} from "../../../auth/service/auth.service";
@@ -40,7 +40,6 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 export class BarberDashboardComponent implements OnInit, OnDestroy {
 
   services: Service[] | undefined;
-  barberUuid: string | undefined;
   barber: Barber | undefined;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -51,14 +50,13 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
               private userService: AuthService) {
     this.initSelectors();
     this.userService.getLoggedBarber()?.subscribe(value => this.barber = value);
-    this.barberUuid = this.route.snapshot.params['barberUuid'];
   }
 
   ngOnInit(): void {
     this.initDispatch();
   }
 
-  private selectBarberService() {
+  private selectServices() {
     this.store$.select(selectServices)
       .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
       .subscribe(value => this.services = cloneDeep(value));
@@ -100,15 +98,15 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   }
 
   private initSelectors() {
-    this.selectBarberService();
+    this.selectServices();
   }
 
   private initDispatch() {
-    this.searchServices();
+    this.findMyServices();
   }
 
-  private searchServices() {
-    this.store$.dispatch(searchServices({filter: {barberUuids: [this.barberUuid!]}}));
+  private findMyServices() {
+    this.store$.dispatch(findMyServices());
   }
 
 }

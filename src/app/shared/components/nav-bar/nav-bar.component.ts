@@ -24,11 +24,10 @@ export class NavBarComponent implements OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private store$: Store,
-              private route: Router,
+              private router: Router,
               private userService: AuthService
   ) {
     this.userService.getLoggedUser()?.subscribe(value => this.user = value);
-    this.userService.getLoggedBarber()?.subscribe(value => this.barber = value);
   }
 
   ngOnDestroy(): void {
@@ -37,7 +36,7 @@ export class NavBarComponent implements OnDestroy {
   }
 
   navigateToMyServices() {
-    this.route.navigate(['my-services', this.barber?.uuid])
+    this.router.navigate(['my-services'])
   }
 
 

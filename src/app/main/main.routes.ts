@@ -33,7 +33,7 @@ export const mainRoutes: Routes = [
         component: ServicesPageComponent
       },
       {
-        path: 'my-services/:barberUuid',
+        path: 'my-services',
         component: BarberDashboardComponent,
         canActivate: [authGuard, barberGuard]
       },

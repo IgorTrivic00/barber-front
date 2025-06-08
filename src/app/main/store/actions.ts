@@ -17,6 +17,8 @@ export const searchServices = createAction(MainActionsConstants.SearchServices,
 export const searchServicesSuccess = createAction(MainActionsConstants.SearchServicesSuccess,
   props< {searchResponse: SearchResponse<Service>} >());
 
+export const findMyServices = createAction(MainActionsConstants.FindMyServices);
+
 export const clearServiceSearch = createAction(MainActionsConstants.ClearServiceSearch);
 
 export const updateCustomer = createAction(MainActionsConstants.UpdateCustomer,

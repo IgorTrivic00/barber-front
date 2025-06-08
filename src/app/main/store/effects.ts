@@ -14,7 +14,7 @@ import {
   updateCustomer,
   updateCustomerSuccess,
   updateService,
-  updateServiceSuccess
+  updateServiceSuccess, findMyServices
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -41,6 +41,17 @@ export class MainEffects {
   searchServicesEffect$ = createEffect(() => this.actions$.pipe(
     ofType(searchServices),
     switchMap(action => this.mainApi.searchServices(action.filter).pipe(
+      switchMap(response => {
+        return of(
+          searchServicesSuccess({searchResponse: response})
+        )
+      })
+    ))
+  ));
+
+  findMyServicesEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(findMyServices),
+    switchMap(action => this.mainApi.findMyServices().pipe(
       switchMap(response => {
         return of(
           searchServicesSuccess({searchResponse: response})

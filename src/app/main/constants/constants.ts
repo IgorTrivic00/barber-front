@@ -4,6 +4,7 @@ export enum MainActionsConstants {
 
   SearchServices = '[MainActions] Search Services',
   SearchServicesSuccess = '[MainActions] Search Services Success',
+  FindMyServices = '[MainActions] Find My Services',
   ClearServiceSearch = '[MainActions] Clear Service Search',
 
   UpdateCustomer = '[MainActions] Update Customer',

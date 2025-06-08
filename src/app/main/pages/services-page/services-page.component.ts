@@ -40,7 +40,7 @@ export class ServicesPageComponent implements OnInit, OnDestroy{
               private router: Router,
               private authService: AuthService,
               private route: ActivatedRoute) {
-    this.selectBarberService();
+    this.selectServices();
     this.barberUuid = this.route.snapshot.params['barberUuid'];
   }
 
@@ -48,7 +48,7 @@ export class ServicesPageComponent implements OnInit, OnDestroy{
     this.initDispatch();
   }
 
-  private selectBarberService() {
+  private selectServices() {
     this.store$.select(selectServices)
       .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
       .subscribe(value => this.services = cloneDeep(value));

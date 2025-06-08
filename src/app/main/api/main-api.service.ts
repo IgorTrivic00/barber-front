@@ -42,4 +42,8 @@ export class MainApiService {
   updateService(service: Service) {
     return this.httpClient.put<Service>(this.SERVICE_API , service);
   }
+
+  findMyServices() {
+    return this.httpClient.get<SearchResponse<Service>>(this.SERVICE_API + '/my-services');
+  }
 }
