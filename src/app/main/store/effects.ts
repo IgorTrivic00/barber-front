@@ -66,7 +66,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           updateCustomerSuccess({customer: response}),
-          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano"}),
+          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano!"}),
         )
       })
     ))
@@ -85,7 +85,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           addServiceSuccess({service: response}),
-          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano"}),
+          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano!"}),
         )
       })
     ))
@@ -97,7 +97,7 @@ export class MainEffects {
       switchMap((response) => {
         return of(
           deleteServiceSuccess({ service: response }),
-          showMessage({ severity: Severity.SUCCESS, detail: "Usluga je uspešno obrisana" })
+          showMessage({ severity: Severity.SUCCESS, detail: "Usluga je uspešno obrisana!" })
         );
       })
     ))
@@ -109,7 +109,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           updateServiceSuccess({ service: response }),
-          showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana" })
+          showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana!" })
         );
       })
     ))

@@ -6,7 +6,7 @@ import {
   searchServicesSuccess,
   getBarbersSuccess,
   MainActions,
-  updateServiceSuccess, clearServiceSearch
+  updateServiceSuccess, clearServiceSearch, searchServices
 } from "./actions";
 
 
@@ -14,6 +14,10 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
   on(getBarbersSuccess, (state, {barbers}) => ({
     ...state,
     barbers
+  })),
+  on(searchServices, (state, {filter}) => ({
+    ...state,
+    lastServiceFilter: filter
   })),
   on(searchServicesSuccess, (state, {searchResponse}) => ({
     ...state,

@@ -38,11 +38,6 @@ export const mainRoutes: Routes = [
         canActivate: [authGuard, barberGuard]
       },
       {
-        path: 'schedule',
-        component: SchedulePageComponent,
-        canActivate: [authGuard, customerGuard]
-      },
-      {
         path: 'settings',
         component: SettingsPageComponent,
         canActivate: [authGuard]
