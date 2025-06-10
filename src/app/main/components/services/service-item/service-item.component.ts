@@ -7,11 +7,12 @@ import {Service} from "../../../model/service.model";
 import {User} from "../../../../auth/model/user.model";
 import {Store} from "@ngrx/store";
 import {AuthService} from "../../../../auth/service/auth.service";
-import {deleteService, updateService} from "../../../store/actions";
 import {UserRole} from "../../../../auth/model/user-role.model";
 import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {Router} from "@angular/router";
+import {selectService} from "../../../store/actions";
 
 @Component({
   selector: 'app-service-item',
@@ -38,7 +39,8 @@ export class ServiceItemComponent {
               private userService: AuthService,
               private confirmationService: ConfirmationService,
               private dialogService: DialogService,
-              private store$: Store) {
+              private store$: Store,
+              private router: Router) {
     this.userService.getLoggedUser()?.subscribe(value => this.user = value);
   }
 
@@ -115,6 +117,11 @@ export class ServiceItemComponent {
     }else {
       return Math.round(duration / 60) + " minuta";
     }
+  }
+
+  navigate(route: string) {
+    this.store$.dispatch(selectService({service: this.service!}));
+    this.router.navigate([route]);
   }
 }
 

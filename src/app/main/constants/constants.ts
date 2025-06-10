@@ -16,6 +16,15 @@ export enum MainActionsConstants {
   DeleteService = '[MainActions] Delete Service',
   DeleteServiceSuccess = '[MainActions] Delete Service Success',
 
-  UpdateService = '[MainActions]  Update Service',
-  UpdateServiceSuccess = '[MainActions]  Update Service Success'
+  UpdateService = '[MainActions] Update Service',
+  UpdateServiceSuccess = '[MainActions] Update Service Success',
+
+  SearchSlots = '[MainActions] Search Slots',
+  SearchSlotsSuccess = '[MainActions] Search Slots Success',
+  ClearSlotSearch = '[MainActions] Clear Slot Search',
+
+  SelectBarber = '[MainActions] Select Barber',
+  SelectService = '[MainActions] Select Service',
+  ClearSelectService = '[MainActions] Clear Select Service',
+  ClearSelectBarber = '[MainActions] Clear Select Barber'
 }

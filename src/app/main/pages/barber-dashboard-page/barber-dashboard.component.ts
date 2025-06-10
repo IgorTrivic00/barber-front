@@ -45,7 +45,6 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private store$: Store,
-              private route: ActivatedRoute,
               private dialogService: DialogService,
               private userService: AuthService) {
     this.initSelectors();
@@ -116,5 +115,4 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   findMyServices = () => {
     this.store$.dispatch(findMyServices());
   }
-
 }

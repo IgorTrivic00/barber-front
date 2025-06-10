@@ -5,7 +5,7 @@ import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {SettingsPageComponent} from "./pages/settings-page/settings-page.component";
 import {loginPageGuard} from "../guards/login-page.guard";
 import {authGuard} from "../guards/auth.guard";
-import {AppointmentPageComponent} from "./pages/appointment-page/appointment-page.component";
+import {ReservationPageComponent} from "./pages/appointment-page/reservation-page.component";
 import {BarbersPageComponent} from "./pages/barbers-page/barbers-page.component";
 import {ServicesPageComponent} from "./pages/services-page/services-page.component";
 import {BarberDashboardComponent} from "./pages/barber-dashboard-page/barber-dashboard.component";
@@ -47,8 +47,8 @@ export const mainRoutes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'appointment',
-        component: AppointmentPageComponent,
+        path: 'reservation',
+        component: ReservationPageComponent,
         canActivate: [authGuard, customerGuard]
       },
       {

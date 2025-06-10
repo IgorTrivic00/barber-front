@@ -1,12 +1,16 @@
 import {INIT_MAIN_STATE, MainState} from "./state";
 import {createReducer, on} from "@ngrx/store";
 import {
-  addServiceSuccess,
-  deleteServiceSuccess,
   searchServicesSuccess,
   getBarbersSuccess,
   MainActions,
-  updateServiceSuccess, clearServiceSearch, searchServices
+  clearServiceSearch,
+  searchServices,
+  searchSlotsSuccess,
+  clearSlotSearch,
+  selectBarber,
+  selectService,
+  clearSelectService
 } from "./actions";
 
 
@@ -26,6 +30,26 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
   on(clearServiceSearch, (state, {}) => ({
     ...state,
     serviceSearchResponse: null
+  })),
+  on(searchSlotsSuccess, (state, {searchResponse}) => ({
+    ...state,
+    slotSearchResponse: searchResponse
+  })),
+  on(clearSlotSearch, (state, {}) => ({
+    ...state,
+    slotSearchResponse: null
+  })),
+  on(selectBarber, (state, {barber}) => ({
+    ...state,
+    selectedBarber: barber
+  })),
+  on(selectService, (state, {service}) => ({
+    ...state,
+    selectedService: service
+  })),
+  on(clearSelectService, (state, {}) => ({
+    ...state,
+    selectedService: null
   }))
 );
 

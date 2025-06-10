@@ -3,6 +3,7 @@
     <p-calendar
       class="max-w-full"
       [inline]="true"
+      (onSelect)="onCalendarChange($event)"
       [minDate]="minDate"/>
   </div>
 </div>

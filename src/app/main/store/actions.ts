@@ -5,6 +5,8 @@ import {Service} from "../model/service.model";
 import {Customer} from "../../auth/model/customer.model";
 import {ServiceFilter} from "../model/service-filter.model";
 import {SearchResponse} from "../model/search-response.model";
+import {SlotFilter} from "../model/slot-filter.model";
+import {Slot} from "../model/slot.model";
 
 export const getBarbers = createAction(MainActionsConstants.GetBarbers);
 
@@ -45,6 +47,25 @@ export const updateService = createAction(MainActionsConstants.UpdateService,
 export const updateServiceSuccess = createAction(MainActionsConstants.UpdateServiceSuccess,
   props< {service: Service, callbackFn?: () => any} >());
 
+export const searchSlots = createAction(MainActionsConstants.SearchSlots,
+  props< {filter: SlotFilter} >());
+
+export const searchSlotsSuccess = createAction(MainActionsConstants.SearchSlotsSuccess,
+  props< {searchResponse: SearchResponse<Slot>} >());
+
+export const clearSlotSearch = createAction(MainActionsConstants.ClearSlotSearch);
+
+export const selectBarber = createAction(MainActionsConstants.SelectBarber,
+  props< {barber: Barber} >());
+
+export const clearSelectBarber = createAction(MainActionsConstants.ClearSelectBarber);
+
+export const selectService = createAction(MainActionsConstants.SelectService,
+  props< {service: Service} >());
+
+export const clearSelectService = createAction(MainActionsConstants.ClearSelectService);
+
+
 const all = union({
   getBarbers,
   getBarbersSuccess,
@@ -57,7 +78,14 @@ const all = union({
   deleteService,
   deleteServiceSuccess,
   updateService,
-  updateServiceSuccess
+  updateServiceSuccess,
+  searchSlots,
+  searchSlotsSuccess,
+  clearSlotSearch,
+  selectBarber,
+  selectService,
+  clearSelectBarber,
+  clearSelectService
 });
 
 export type MainActions = typeof all;

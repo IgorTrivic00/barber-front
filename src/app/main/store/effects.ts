@@ -14,7 +14,7 @@ import {
   updateCustomer,
   updateCustomerSuccess,
   updateService,
-  updateServiceSuccess, findMyServices
+  updateServiceSuccess, findMyServices, searchSlots, searchSlotsSuccess
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -141,4 +141,15 @@ export class MainEffects {
       }
     })
   ), {dispatch: false});
+
+  searchSlotsEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(searchSlots),
+    switchMap(action => this.mainApi.searchSlots(action.filter).pipe(
+      switchMap(response => {
+        return of(
+          searchSlotsSuccess({searchResponse: response})
+        )
+      })
+    ))
+  ));
 }
