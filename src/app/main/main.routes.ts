@@ -1,7 +1,6 @@
 import {Routes} from "@angular/router";
 import {MainPanelComponent} from "../shared/components/main-panel/main-panel.component";
 
-import {SchedulePageComponent} from "./pages/schedule-page/schedule-page.component";
 import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {SettingsPageComponent} from "./pages/settings-page/settings-page.component";
 import {loginPageGuard} from "../guards/login-page.guard";

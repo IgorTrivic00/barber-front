@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ServiceItemComponent} from "./service-item/service-item.component";
 import {Service} from "../../model/service.model";
 
@@ -15,5 +15,16 @@ import {Service} from "../../model/service.model";
 export class ServiceListComponent {
 
   @Input() services: Service[] | undefined;
+
+  @Output() deleteEmitter: EventEmitter<Service> = new EventEmitter<Service>();
+  @Output() updateEmitter: EventEmitter<Service> = new EventEmitter<Service>();
+
+  updateService(service: Service) {
+    this.updateEmitter.emit(service);
+  }
+
+  deleteService(service: Service) {
+    this.deleteEmitter.emit(service);
+  }
 
 }

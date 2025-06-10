@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {PrimengModule} from "../../../../shared/primeng.module";
 import {AppSharedModule} from "../../../../shared/app-shared.module";
 import {ServiceModalComponent} from "../../../modal/service-modal/service-modal.component";
@@ -29,6 +29,9 @@ export class ServiceItemComponent {
 
   @Input() service: Service | undefined;
 
+  @Output() deleteEmitter: EventEmitter<Service> = new EventEmitter<Service>();
+  @Output() updateEmitter: EventEmitter<Service> = new EventEmitter<Service>();
+
   user: User | undefined;
 
   constructor(private decimalPipe: DecimalPipe,
@@ -48,7 +51,7 @@ export class ServiceItemComponent {
   }
 
   deleteService() {
-    this.store$.dispatch(deleteService({uuid: this.service?.uuid}));
+    this.deleteEmitter.emit(this.service);
   }
 
   onEditService() {
@@ -75,7 +78,7 @@ export class ServiceItemComponent {
       ...this.service,
       ...updatedService
     };
-    this.store$.dispatch(updateService({ service }));
+    this.updateEmitter.emit(service);
   }
 
   confirmDelete() {
@@ -94,6 +97,25 @@ export class ServiceItemComponent {
   }
 
   protected readonly UserRole = UserRole;
+
+  // @ts-ignore
+  getDuration(duration: number | undefined) {
+    if (!duration){
+      return;
+    }
+    if(duration > 3600) {
+      let hour = duration / 3600;
+      let minutes = duration % 60;
+      if(hour && !minutes){
+        return Math.round(hour) + " sat/a"
+      }
+      else if(hour && minutes) {
+        return Math.round(hour) + " sat/a i " + Math.round(minutes) + " minuta"
+      }
+    }else {
+      return Math.round(duration / 60) + " minuta";
+    }
+  }
 }
 
 

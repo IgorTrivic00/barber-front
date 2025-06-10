@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {MainApiService} from "../api/main-api.service";
-import {of, switchMap, tap} from "rxjs";
+import {map, of, switchMap, tap} from "rxjs";
 import {showMessage} from "../../shared/store/actions";
 import {
   addService, addServiceSuccess,
@@ -84,34 +84,61 @@ export class MainEffects {
     switchMap(action => this.mainApi.addService(action.service).pipe(
       switchMap(response => {
         return of(
-          addServiceSuccess({service: response}),
+          addServiceSuccess({ service: response, callbackFn: action.callbackFn }),
           showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano!"}),
         )
       })
     ))
   ));
 
+  addServiceSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(addServiceSuccess),
+    map(action => {
+      if(action.callbackFn){
+        action.callbackFn();
+      }
+    })
+  ), {dispatch: false});
+
   deleteServiceEffect$ = createEffect(() => this.actions$.pipe(
     ofType(deleteService),
     switchMap(action => this.mainApi.deleteService(action.uuid).pipe(
       switchMap((response) => {
         return of(
-          deleteServiceSuccess({ service: response }),
+          deleteServiceSuccess({ service: response, callbackFn: action.callbackFn }),
           showMessage({ severity: Severity.SUCCESS, detail: "Usluga je uspešno obrisana!" })
         );
       })
     ))
   ));
 
+  deleteServiceSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(deleteServiceSuccess),
+    map(action => {
+      if(action.callbackFn){
+        action.callbackFn();
+      }
+    })
+  ), {dispatch: false});
+
   updateServiceEffect$ = createEffect(() => this.actions$.pipe(
     ofType(updateService),
     switchMap(action => this.mainApi.updateService(action.service).pipe(
       switchMap(response => {
         return of(
-          updateServiceSuccess({ service: response }),
+          updateServiceSuccess({ service: response, callbackFn: action.callbackFn }),
           showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana!" })
         );
       })
     ))
   ));
+
+  updateServiceSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(updateServiceSuccess),
+    map(action => {
+      if(action.callbackFn){
+        action.callbackFn();
+      }
+    })
+  ), {dispatch: false});
 }

@@ -28,22 +28,22 @@ export const updateCustomerSuccess = createAction(MainActionsConstants.UpdateCus
   props< {customer: Customer} >());
 
 export const addService = createAction(MainActionsConstants.AddService,
-  props< {service: Service} >());
+  props< {service: Service, callbackFn?: () => any} >());
 
 export const addServiceSuccess = createAction(MainActionsConstants.AddServiceSuccess,
-  props< {service: Service} >());
+  props< {service: Service, callbackFn?: () => any} >());
 
 export const deleteService = createAction(MainActionsConstants.DeleteService,
-  props<{ uuid: string | undefined }>());
+  props<{uuid: string | undefined, callbackFn?: () => any}>());
 
 export const deleteServiceSuccess = createAction(MainActionsConstants.DeleteServiceSuccess,
-  props<{ service: Service }>());
+  props<{service: Service, callbackFn?: () => any} >());
 
 export const updateService = createAction(MainActionsConstants.UpdateService,
-  props< {service: Service} >());
+  props< {service: Service, callbackFn?: () => any} >());
 
 export const updateServiceSuccess = createAction(MainActionsConstants.UpdateServiceSuccess,
-  props< {service: Service} >());
+  props< {service: Service, callbackFn?: () => any} >());
 
 const all = union({
   getBarbers,

@@ -17,6 +17,8 @@
     <div class="barber-list">
       <app-service-list
         [services]="services"
+        (deleteEmitter)="deleteService($event)"
+        (updateEmitter)="updateService($event)"
       >
       </app-service-list>
     </div>

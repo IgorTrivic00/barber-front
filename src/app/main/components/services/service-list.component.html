@@ -2,6 +2,8 @@
   @for (service of services; track service) {
     <app-service-item
       [service]="service"
+      (deleteEmitter)="deleteService($event)"
+      (updateEmitter)="updateService($event)"
     >
     </app-service-item>
   }

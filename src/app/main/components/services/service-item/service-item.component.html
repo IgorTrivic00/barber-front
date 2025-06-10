@@ -8,8 +8,8 @@
     </div>
     <div class="col-10">
       <h2>{{service?.serviceName}}</h2>
-      <p class="m-0">
-        Trajanje: {{service?.duration}} minuta
+      <p class="m-0" *ngIf="service?.duration">
+        Trajanje: {{getDuration(service?.duration)}}
       </p>
       <p class="m-0">
         Cena: {{getPrice(service?.price)}} RSD

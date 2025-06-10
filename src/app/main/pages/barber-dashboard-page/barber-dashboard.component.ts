@@ -14,7 +14,7 @@ import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectServices} from "../../store/selectors";
 import { v4 as uuidv4 } from 'uuid';
-import {addService, clearServiceSearch, findMyServices, searchServices} from "../../store/actions";
+import {addService, clearServiceSearch, deleteService, findMyServices, searchServices, updateService} from "../../store/actions";
 import {showMessage} from "../../../shared/store/actions";
 import {Severity} from "../../../shared/constants/constants";
 import {AuthService} from "../../../auth/service/auth.service";
@@ -93,8 +93,16 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
         uuid: uuidv4(),
         barber: this.barber
       };
-      this.store$.dispatch(addService({ service }));
+      this.store$.dispatch(addService({ service, callbackFn: this.findMyServices }));
     }
+  }
+
+  updateService(service: Service) {
+    this.store$.dispatch(updateService({ service, callbackFn: this.findMyServices }));
+  }
+
+  deleteService(service: Service) {
+    this.store$.dispatch(deleteService({uuid: service.uuid, callbackFn: this.findMyServices }));
   }
 
   private initSelectors() {
@@ -105,7 +113,7 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
     this.findMyServices();
   }
 
-  private findMyServices() {
+  findMyServices = () => {
     this.store$.dispatch(findMyServices());
   }
 
