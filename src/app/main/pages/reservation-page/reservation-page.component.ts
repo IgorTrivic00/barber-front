@@ -4,7 +4,7 @@ import {RouterLink} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {filter, Subject, takeUntil} from "rxjs";
 import {CalendarModule} from "primeng/calendar";
-import {hideNavBar, showNavBar} from "../../../shared/store/actions";
+import {hideNavBar} from "../../../shared/store/actions";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectedBarber, selectedService, selectSlots} from "../../store/selectors";
@@ -14,6 +14,8 @@ import {DatePipe} from "@angular/common";
 import {Slot} from "../../model/slot.model";
 import {AppModule} from "../../../app.module";
 import {cloneDeep} from "lodash";
+import {SlotListComponent} from "../../components/slots/slot-list.component";
+import {SlotState} from "../../model/slot-state.enum";
 
 @Component({
   selector: 'app-reservation',
@@ -23,6 +25,7 @@ import {cloneDeep} from "lodash";
     RouterLink,
     CalendarModule,
     AppModule,
+    SlotListComponent,
   ],
   templateUrl: './reservation-page.component.html',
   styleUrl: './reservation-page.component.scss',
@@ -60,10 +63,11 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   }
 
   onCalendarChange($event: Date) {
+    let date = cloneDeep($event);
     this.filter = {
       ...this.filter,
-      from: this.datePipe.transform($event, 'yyyy-MM-dd')!,
-      to: this.datePipe.transform($event.setDate($event.getDate() + 1), 'yyyy-MM-dd')!,
+      from: this.datePipe.transform(date, 'yyyy-MM-dd')!,
+      to: this.datePipe.transform(date.setDate(date.getDate() + 1), 'yyyy-MM-dd')!,
     }
     this.searchSlots();
   }
@@ -105,12 +109,13 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
     this.filter = {
       from: this.from,
       to: this.to,
+      states: [SlotState.FREE],
       barberUuids: [this.barber?.uuid!]
     }
   }
 
   bookAppointment() {
-
+    
   }
 
   selectSlot(slot: Slot){

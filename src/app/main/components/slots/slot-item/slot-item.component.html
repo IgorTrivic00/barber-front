@@ -3,6 +3,6 @@
     (click)="selectSlot()"
     class="time-slot"
     [class.selected]="slot?.selected">
-    {{ slot?.start | date: dateTimeFormat}}
+    {{ slot?.start | date: dateTimeFormat: 'UTC'}}
   </button>
 </div>

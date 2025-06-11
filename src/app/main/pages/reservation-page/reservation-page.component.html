@@ -4,11 +4,11 @@
     <p-calendar
       class="max-w-full"
       [inline]="true"
+      selectionMode="single"
       (onSelect)="onCalendarChange($event)"
       [minDate]="nowDate"/>
   </div>
 
-  <!-- Time Slots -->
   <app-slot-list
     [slots]="slots"
     (selectEmitter)="selectSlot($event)"

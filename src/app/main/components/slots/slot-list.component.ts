@@ -1,9 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Slot} from "../../model/slot.model";
+import {SlotItemComponent} from "./slot-item/slot-item.component";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-slot-list',
   templateUrl: './slot-list.component.html',
+  standalone: true,
+  imports: [
+    SlotItemComponent,
+    CommonModule
+  ],
   styleUrls: ['./slot-list.component.scss']
 })
 export class SlotListComponent implements OnInit {

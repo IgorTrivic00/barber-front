@@ -1,9 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Slot} from "../../../model/slot.model";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-slot-item',
+  standalone: true,
   templateUrl: './slot-item.component.html',
+  imports: [
+    DatePipe
+  ],
   styleUrls: ['./slot-item.component.scss']
 })
 export class SlotItemComponent implements OnInit {
@@ -12,7 +17,7 @@ export class SlotItemComponent implements OnInit {
 
   @Output() selectEmitter: EventEmitter<Slot> = new EventEmitter<Slot>();
 
-  dateTimeFormat = 'hh:mm';
+  dateTimeFormat = 'HH:mm';
 
   constructor() { }
 
