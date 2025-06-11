@@ -1,0 +1,22 @@
+<div class="appointment-dialog-content">
+  <div class="detail">
+    <span class="label">Frizer:</span>
+    <span class="value">{{ appointment?.barber?.name }} ({{ appointment?.barber?.barberTitle }})</span>
+  </div>
+
+  <div class="detail">
+    <span class="label">Usluga:</span>
+    <span class="value">{{ appointment?.service?.serviceName }} - {{ appointment?.service?.duration }} min - {{ appointment?.service?.price }} RSD</span>
+  </div>
+
+  <div class="detail">
+    <span class="label">Termin:</span>
+    <span class="value">{{ appointment?.slot?.start | date: dateFormat: 'UTC' }} - {{ appointment?.slot?.end | date: dateFormat: 'UTC' }}</span>
+  </div>
+
+  <div class="button-container">
+    <p-button label="Otkaži" icon="pi pi-times" (click)="cancel()" styleClass="custom-cancel-button p-button-secondary" />
+    <p-button label="Potvrdi" icon="pi pi-check" (click)="confirm()" styleClass="custom-save-button p-button-success" />
+  </div>
+</div>
+

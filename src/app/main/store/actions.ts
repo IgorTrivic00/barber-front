@@ -7,6 +7,7 @@ import {ServiceFilter} from "../model/service-filter.model";
 import {SearchResponse} from "../model/search-response.model";
 import {SlotFilter} from "../model/slot-filter.model";
 import {Slot} from "../model/slot.model";
+import {Appointment} from "../model/appointment.model";
 
 export const getBarbers = createAction(MainActionsConstants.GetBarbers);
 
@@ -65,6 +66,12 @@ export const selectService = createAction(MainActionsConstants.SelectService,
 
 export const clearSelectService = createAction(MainActionsConstants.ClearSelectService);
 
+export const scheduleAppointment = createAction(MainActionsConstants.ScheduleAppointment,
+  props< {appointment: Appointment} >());
+
+export const scheduleAppointmentSuccess = createAction(MainActionsConstants.ScheduleAppointmentSuccess,
+  props< {appointment: Appointment} >());
+
 
 const all = union({
   getBarbers,
@@ -85,7 +92,9 @@ const all = union({
   selectBarber,
   selectService,
   clearSelectBarber,
-  clearSelectService
+  clearSelectService,
+  scheduleAppointment,
+  scheduleAppointmentSuccess
 });
 
 export type MainActions = typeof all;

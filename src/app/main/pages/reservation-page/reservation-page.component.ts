@@ -8,14 +8,24 @@ import {hideNavBar} from "../../../shared/store/actions";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectedBarber, selectedService, selectSlots} from "../../store/selectors";
-import {clearSelectService, searchSlots} from "../../store/actions";
+import {clearSelectService, scheduleAppointment, searchSlots} from "../../store/actions";
 import {SlotFilter} from "../../model/slot-filter.model";
 import {DatePipe} from "@angular/common";
 import {Slot} from "../../model/slot.model";
 import {AppModule} from "../../../app.module";
 import {cloneDeep} from "lodash";
 import {SlotListComponent} from "../../components/slots/slot-list.component";
-import {SlotState} from "../../model/slot-state.enum";
+import {SlotState} from "../../model/enums/slot-state.enum";
+import {Appointment} from "../../model/appointment.model";
+import {v4 as uuidv4} from 'uuid';
+import {AppointmentState} from "../../model/enums/appointment-state.enum";
+import {AuthService} from "../../../auth/service/auth.service";
+import {Customer} from "../../../auth/model/customer.model";
+import {DialogService} from "primeng/dynamicdialog";
+import {
+  ConfirmAppointmentModalComponent
+} from "../../modal/confirm-appointment-modal/confirm-appointment-modal.component";
+import {resolve} from "@angular/compiler-cli";
 
 @Component({
   selector: 'app-reservation',
@@ -38,6 +48,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   nowDate = new Date();
   service: Service | undefined;
   barber: Barber | undefined;
+  loggedCustomer: Customer | undefined;
   slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
   selectedTimeSlot: Slot | undefined;
@@ -45,9 +56,10 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private store$: Store,
+              private authService: AuthService,
+              private dialogService: DialogService,
               private datePipe: DatePipe) {
-    this.from = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-    this.to = this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
+    this.setCalendar();
     this.initSelectors();
   }
 
@@ -81,6 +93,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
     this.selectedService();
     this.selectedBarber();
     this.selectSlots();
+    this.authService.getLoggedCustomer()?.subscribe(value => this.loggedCustomer = value);
   }
 
   private selectedService() {
@@ -109,13 +122,36 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
     this.filter = {
       from: this.from,
       to: this.to,
-      states: [SlotState.FREE],
+      states: [SlotState.FREE, SlotState.CANCELED],
       barberUuids: [this.barber?.uuid!]
     }
   }
 
-  bookAppointment() {
-    
+  scheduleAppointment() {
+    const appointment: Appointment = {
+      uuid: uuidv4(),
+      barber: this.barber,
+      appointmentState: AppointmentState.SCHEDULED,
+      slot: this.selectedTimeSlot,
+      service: this.service,
+      customerUuid: this.loggedCustomer?.uuid
+    };
+    this.dialogService.open(ConfirmAppointmentModalComponent, {
+      header: 'Zakažite termin',
+      width: '85%',
+      height: 'auto',
+      contentStyle: {
+        overflow: 'auto'
+      },
+      baseZIndex: 10000,
+      data: {
+        appointment
+      }
+    }).onClose.subscribe(response => {
+      if (response){
+        this.store$.dispatch(scheduleAppointment({appointment}));
+      }
+    })
   }
 
   selectSlot(slot: Slot){
@@ -124,5 +160,10 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       return slot1;
     });
     this.selectedTimeSlot = slot;
+  }
+
+  private setCalendar() {
+    this.from = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.to = this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
   }
 }

@@ -8,6 +8,7 @@ import {ServiceFilter} from "../model/service-filter.model";
 import {SearchResponse} from "../model/search-response.model";
 import {SlotFilter} from "../model/slot-filter.model";
 import {Slot} from "../model/slot.model";
+import {Appointment} from "../model/appointment.model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class MainApiService {
   private readonly SERVICE_API = enviroment.baseUrl + '/api/v1/service';
   private readonly SLOT_API = enviroment.baseUrl + '/api/v1/slot';
   private readonly CUSTOMER_API = enviroment.baseUrl + '/api/v1/customer';
+  private readonly APPOINTMENT_API = enviroment.baseUrl + '/api/v1/appointment';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -52,5 +54,9 @@ export class MainApiService {
 
   searchSlots(filter: SlotFilter) {
     return this.httpClient.post<SearchResponse<Slot>>(this.SLOT_API + '/search', filter);
+  }
+
+  scheduleAppointment(appointment: Appointment) {
+    return this.httpClient.post<Appointment>(this.APPOINTMENT_API + '/schedule', appointment);
   }
 }

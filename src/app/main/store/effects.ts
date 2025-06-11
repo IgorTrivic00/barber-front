@@ -22,7 +22,7 @@ import {
   selectBarber,
   selectService,
   clearSelectBarber,
-  clearSelectService
+  clearSelectService, scheduleAppointment, scheduleAppointmentSuccess
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -201,4 +201,16 @@ export class MainEffects {
       this.storageService.setSavedState(null, "selectedService");
     })
   ), {dispatch: false});
+
+  scheduleAppointmentEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(scheduleAppointment),
+    switchMap(action => this.mainApi.scheduleAppointment(action.appointment).pipe(
+      switchMap(response => {
+        return of(
+          scheduleAppointmentSuccess({ appointment: response }),
+          showMessage({ severity: Severity.SUCCESS, detail: "Uspešno ste zakazali termin!" })
+        );
+      })
+    ))
+  ));
 }

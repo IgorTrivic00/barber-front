@@ -1,5 +1,5 @@
-import {SlotType} from "./slot-type.enum";
-import {SlotState} from "./slot-state.enum";
+import {SlotType} from "./enums/slot-type.enum";
+import {SlotState} from "./enums/slot-state.enum";
 
 export interface Slot {
   uuid: string;

@@ -1,4 +1,4 @@
-import {SlotState} from "./slot-state.enum";
+import {SlotState} from "./enums/slot-state.enum";
 
 export interface SlotFilter {
   barberUuids?: string[];
