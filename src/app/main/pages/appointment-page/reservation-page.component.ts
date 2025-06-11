@@ -7,9 +7,11 @@ import {CalendarModule} from "primeng/calendar";
 import {hideNavBar, showNavBar} from "../../../shared/store/actions";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
-import {selectedBarber, selectedService} from "../../store/selectors";
+import {selectedBarber, selectedService, selectSlots} from "../../store/selectors";
 import {clearSelectService, searchSlots} from "../../store/actions";
 import {SlotFilter} from "../../model/slot-filter.model";
+import {DatePipe} from "@angular/common";
+import {Slot} from "../../model/slot.model";
 
 @Component({
   selector: 'app-reservation',
@@ -20,21 +22,25 @@ import {SlotFilter} from "../../model/slot-filter.model";
     CalendarModule,
   ],
   templateUrl: './reservation-page.component.html',
-  styleUrl: './reservation-page.component.scss'
+  styleUrl: './reservation-page.component.scss',
+  providers: [DatePipe]
 })
 export class ReservationPageComponent implements OnInit, OnDestroy{
 
-  lastUrl: string | undefined;
-  minDate: Date;
+  from: any;
+  to: any;
+  nowDate = new Date();
   service: Service | undefined;
   barber: Barber | undefined;
+  slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private store$: Store) {
-    this.minDate = new Date();
-    this.initFilter();
+  constructor(private store$: Store,
+              private datePipe: DatePipe) {
+    this.from = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.to = this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
     this.initSelectors();
   }
 
@@ -45,11 +51,17 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    this.initFilter();
     this.initDispatch();
   }
 
   onCalendarChange($event: Date) {
-    
+    this.filter = {
+      ...this.filter,
+      from: this.datePipe.transform($event, 'yyyy-MM-dd')!,
+      to: this.datePipe.transform($event.setDate($event.getDate() + 1), 'yyyy-MM-dd')!,
+    }
+    this.searchSlots();
   }
 
   private initDispatch() {
@@ -74,13 +86,21 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       .subscribe(value => this.barber = value);
   }
 
+  private selectSlots() {
+    this.store$.select(selectSlots)
+      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
+      .subscribe(value => this.slots = value);
+  }
+
   searchSlots(){
     this.store$.dispatch(searchSlots({filter: this.filter!}));
   }
 
   private initFilter() {
     this.filter = {
-      from: this.minDate
+      from: this.from,
+      to: this.to,
+      barberUuids: [this.barber?.uuid!]
     }
   }
 }

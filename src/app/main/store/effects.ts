@@ -4,7 +4,8 @@ import {MainApiService} from "../api/main-api.service";
 import {map, of, switchMap, tap} from "rxjs";
 import {showMessage} from "../../shared/store/actions";
 import {
-  addService, addServiceSuccess,
+  addService,
+  addServiceSuccess,
   deleteService,
   deleteServiceSuccess,
   getBarbers,
@@ -14,16 +15,25 @@ import {
   updateCustomer,
   updateCustomerSuccess,
   updateService,
-  updateServiceSuccess, findMyServices, searchSlots, searchSlotsSuccess
+  updateServiceSuccess,
+  findMyServices,
+  searchSlots,
+  searchSlotsSuccess,
+  selectBarber,
+  selectService,
+  clearSelectBarber,
+  clearSelectService
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
+import {LocalStorageService} from "../../shared/service/local-storage.service";
 
 @Injectable()
 export class MainEffects {
 
   constructor(private actions$: Actions,
               private mainApi: MainApiService,
+              private storageService: LocalStorageService,
               private router: Router) {
   }
 
@@ -152,4 +162,32 @@ export class MainEffects {
       })
     ))
   ));
+
+  selectBarberEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(selectBarber),
+    map(action => {
+      this.storageService.setSavedState(action.barber, "selectedBarber");
+    })
+  ), {dispatch: false});
+
+  selectServiceEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(selectService),
+    map(action => {
+      this.storageService.setSavedState(action.service, "selectedService");
+    })
+  ), {dispatch: false});
+
+  clearSelectBarberEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(clearSelectBarber),
+    map(action => {
+      this.storageService.setSavedState(null, "selectedBarber");
+    })
+  ), {dispatch: false});
+
+  clearSelectServiceEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(clearSelectService),
+    map(action => {
+      this.storageService.setSavedState(null, "selectedService");
+    })
+  ), {dispatch: false});
 }
