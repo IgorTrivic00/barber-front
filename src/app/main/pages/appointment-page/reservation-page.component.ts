@@ -12,6 +12,8 @@ import {clearSelectService, searchSlots} from "../../store/actions";
 import {SlotFilter} from "../../model/slot-filter.model";
 import {DatePipe} from "@angular/common";
 import {Slot} from "../../model/slot.model";
+import {AppModule} from "../../../app.module";
+import {cloneDeep} from "lodash";
 
 @Component({
   selector: 'app-reservation',
@@ -20,6 +22,7 @@ import {Slot} from "../../model/slot.model";
     Button,
     RouterLink,
     CalendarModule,
+    AppModule,
   ],
   templateUrl: './reservation-page.component.html',
   styleUrl: './reservation-page.component.scss',
@@ -34,6 +37,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   barber: Barber | undefined;
   slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
+  selectedTimeSlot: Slot | undefined;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -72,6 +76,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   private initSelectors() {
     this.selectedService();
     this.selectedBarber();
+    this.selectSlots();
   }
 
   private selectedService() {
@@ -89,7 +94,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   private selectSlots() {
     this.store$.select(selectSlots)
       .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.slots = value);
+      .subscribe(value => this.slots = cloneDeep(value));
   }
 
   searchSlots(){
@@ -102,5 +107,17 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       to: this.to,
       barberUuids: [this.barber?.uuid!]
     }
+  }
+
+  bookAppointment() {
+
+  }
+
+  selectSlot(slot: Slot){
+    this.slots = this.slots?.map(slot1 => {
+      slot1.uuid === slot.uuid ? slot1.selected = true : slot1.selected = false;
+      return slot1;
+    });
+    this.selectedTimeSlot = slot;
   }
 }

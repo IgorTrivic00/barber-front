@@ -1,0 +1,8 @@
+<div style="margin-bottom: 20px">
+  <button
+    (click)="selectSlot()"
+    class="time-slot"
+    [class.selected]="slot?.selected">
+    {{ slot?.start | date: dateTimeFormat}}
+  </button>
+</div>

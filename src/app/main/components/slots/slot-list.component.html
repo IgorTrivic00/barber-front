@@ -1,0 +1,16 @@
+<div class="time-slots-section">
+  <div class="time-slots">
+    <ng-container *ngIf="slots?.length > 0">
+      <ng-container *ngFor="let slot of slots">
+        <app-slot-item
+          [slot]="slot"
+          (selectEmitter)="selectSlot($event)"
+        >
+        </app-slot-item>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="slots?.length === 0">
+      <h4>Nema slobodnih mesta za ovaj datum</h4>
+    </ng-container>
+  </div>
+</div>

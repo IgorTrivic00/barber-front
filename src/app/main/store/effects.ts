@@ -155,6 +155,17 @@ export class MainEffects {
   searchSlotsEffect$ = createEffect(() => this.actions$.pipe(
     ofType(searchSlots),
     switchMap(action => this.mainApi.searchSlots(action.filter).pipe(
+      map(response => {
+        return {
+          ...response,
+          data: response.data.map(slot => {
+            return {
+              ...slot,
+              selected: false
+            }
+          })
+        };
+      }),
       switchMap(response => {
         return of(
           searchSlotsSuccess({searchResponse: response})

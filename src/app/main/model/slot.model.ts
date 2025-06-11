@@ -8,4 +8,5 @@ export interface Slot {
   start: Date;
   end: Date;
   barberUuid: string;
+  selected?: boolean;
 }
