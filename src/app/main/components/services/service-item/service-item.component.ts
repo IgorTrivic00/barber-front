@@ -13,6 +13,7 @@ import {ConfirmationService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {Router} from "@angular/router";
 import {selectService} from "../../../store/actions";
+import {DataService} from "../../../services/data.service";
 
 @Component({
   selector: 'app-service-item',
@@ -40,6 +41,7 @@ export class ServiceItemComponent {
               private confirmationService: ConfirmationService,
               private dialogService: DialogService,
               private store$: Store,
+              private dataService: DataService,
               private router: Router) {
     this.userService.getLoggedUser()?.subscribe(value => this.user = value);
   }
@@ -100,28 +102,13 @@ export class ServiceItemComponent {
 
   protected readonly UserRole = UserRole;
 
-  // @ts-ignore
-  getDuration(duration: number | undefined) {
-    if (!duration){
-      return;
-    }
-    if(duration > 3600) {
-      let hour = duration / 3600;
-      let minutes = duration % 60;
-      if(hour && !minutes){
-        return Math.round(hour) + " sat/a"
-      }
-      else if(hour && minutes) {
-        return Math.round(hour) + " sat/a i " + Math.round(minutes) + " minuta"
-      }
-    }else {
-      return Math.round(duration / 60) + " minuta";
-    }
-  }
-
   navigate(route: string) {
     this.store$.dispatch(selectService({service: this.service!}));
     this.router.navigate([route]);
+  }
+
+  getDuration(duration: number | undefined) {
+    return this.dataService.getDuration(duration);
   }
 }
 

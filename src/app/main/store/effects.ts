@@ -22,7 +22,12 @@ import {
   selectBarber,
   selectService,
   clearSelectBarber,
-  clearSelectService, scheduleAppointment, scheduleAppointmentSuccess
+  clearSelectService,
+  scheduleAppointment,
+  selectAppointment,
+  clearSelectedAppointment,
+  findAppointmentByUuid,
+  scheduleAppointmentSuccess, findAppointmentByUuidSuccess
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -207,8 +212,42 @@ export class MainEffects {
     switchMap(action => this.mainApi.scheduleAppointment(action.appointment).pipe(
       switchMap(response => {
         return of(
+          selectAppointment({ appointment: response }),
           scheduleAppointmentSuccess({ appointment: response }),
           showMessage({ severity: Severity.SUCCESS, detail: "Uspešno ste zakazali termin!" })
+        );
+      })
+    ))
+  ));
+
+  scheduleAppointmentSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(scheduleAppointmentSuccess),
+    map(action => {
+      this.router.navigate(['appointment', action.appointment.uuid]);
+    })
+  ), {dispatch: false});
+
+  selectAppointmentEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(selectAppointment),
+    map(action => {
+      this.storageService.setSavedState(action.appointment, "selectedAppointment");
+    })
+  ), {dispatch: false});
+
+  clearSelectedAppointmentEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(clearSelectedAppointment),
+    map(action => {
+      this.storageService.setSavedState(null, "selectedAppointment");
+    })
+  ), {dispatch: false});
+
+  findAppointmentByUuidEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(findAppointmentByUuid),
+    switchMap(action => this.mainApi.findAppointmentByUuid(action.appointmentUuid).pipe(
+      switchMap(response => {
+        return of(
+          findAppointmentByUuidSuccess({ appointment: response }),
+          selectAppointment({ appointment: response })
         );
       })
     ))

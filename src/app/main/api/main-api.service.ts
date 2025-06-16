@@ -59,4 +59,8 @@ export class MainApiService {
   scheduleAppointment(appointment: Appointment) {
     return this.httpClient.post<Appointment>(this.APPOINTMENT_API + '/schedule', appointment);
   }
+
+  findAppointmentByUuid(appointmentUuid: string) {
+    return this.httpClient.get<Appointment>(this.APPOINTMENT_API + '/uuid/' + appointmentUuid);
+  }
 }

@@ -6,7 +6,7 @@
 
   <div class="detail">
     <span class="label">Usluga:</span>
-    <span class="value">{{ appointment?.service?.serviceName }} - {{ appointment?.service?.duration }} min - {{ appointment?.service?.price }} RSD</span>
+    <span class="value">{{ appointment?.service?.serviceName }} - {{getDuration(appointment?.service?.duration)}} - {{ appointment?.service?.price }} RSD</span>
   </div>
 
   <div class="detail">

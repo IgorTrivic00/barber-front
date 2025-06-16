@@ -72,6 +72,17 @@ export const scheduleAppointment = createAction(MainActionsConstants.ScheduleApp
 export const scheduleAppointmentSuccess = createAction(MainActionsConstants.ScheduleAppointmentSuccess,
   props< {appointment: Appointment} >());
 
+export const selectAppointment = createAction(MainActionsConstants.SelectAppointment,
+  props< {appointment: Appointment} >());
+
+export const clearSelectedAppointment = createAction(MainActionsConstants.ClearSelectedAppointment);
+
+export const findAppointmentByUuid = createAction(MainActionsConstants.FindAppointmentByUuid,
+  props< {appointmentUuid: string} >());
+
+export const findAppointmentByUuidSuccess = createAction(MainActionsConstants.FindAppointmentByUuidSuccess,
+  props< {appointment: Appointment} >());
+
 
 const all = union({
   getBarbers,
@@ -94,7 +105,10 @@ const all = union({
   clearSelectBarber,
   clearSelectService,
   scheduleAppointment,
-  scheduleAppointmentSuccess
+  selectAppointment,
+  clearSelectedAppointment,
+  findAppointmentByUuid,
+  findAppointmentByUuidSuccess
 });
 
 export type MainActions = typeof all;

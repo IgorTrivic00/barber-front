@@ -3,6 +3,7 @@ import {Service} from "../model/service.model";
 import {SearchResponse} from "../model/search-response.model";
 import {ServiceFilter} from "../model/service-filter.model";
 import {Slot} from "../model/slot.model";
+import {Appointment} from "../model/appointment.model";
 
 export interface MainState {
   barbers: Barber[] | null;
@@ -11,6 +12,7 @@ export interface MainState {
   slotSearchResponse: SearchResponse<Slot> | null;
   selectedBarber: Barber | null;
   selectedService: Service | null;
+  selectedAppointment: Appointment | null;
 }
 
 export const INIT_MAIN_STATE: MainState = {
@@ -19,5 +21,6 @@ export const INIT_MAIN_STATE: MainState = {
   serviceSearchResponse: null,
   slotSearchResponse: null,
   selectedBarber: null,
-  selectedService: null
+  selectedService: null,
+  selectedAppointment: null
 }

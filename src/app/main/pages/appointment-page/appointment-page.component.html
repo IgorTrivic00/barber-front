@@ -1,0 +1,58 @@
+<div class="appointment-page" *ngIf="scheduledAppointment">
+  <div class="container" [@fadeInUp]>
+
+    <div class="header-section">
+      <h1>Termin</h1>
+    </div>
+
+    <div class="status-section">
+      <div class="status-badge" [ngClass]="getStatusColor(scheduledAppointment.appointmentState)">
+        <span class="status-icon">{{ getStatusIcon(scheduledAppointment.appointmentState) }}</span>
+        <span class="status-text">{{ translateAppointmentState(scheduledAppointment.appointmentState) | titlecase }}</span>
+      </div>
+    </div>
+
+    <div class="main-card" [@fadeInUp]>
+      <div class="card-header">
+        <div class="date-time-section">
+          <div class="date">{{scheduledAppointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
+          <div class="time">{{scheduledAppointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{scheduledAppointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="service-details">
+          <div class="service-avatar">✂️</div>
+          <div class="service-info">
+            <h3>{{ scheduledAppointment.service?.serviceName }}</h3>
+            <div class="service-meta">
+              <span>⏱️ {{ getDuration(scheduledAppointment.service?.duration) }}</span>
+              <span>💰 {{ scheduledAppointment.service?.price }} RSD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="barber-details">
+          <div class="barber-avatar">👨‍💼</div>
+          <div class="barber-info">
+            <h4>{{ scheduledAppointment.barber?.name }}</h4>
+            <p>{{ scheduledAppointment.barber?.barberTitle }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-section">
+        <div class="action-buttons">
+          <button class="btn btn-success" (click)="onCheck()">
+            <span class="btn-icon">✅</span>
+            Potvrdi
+          </button>
+          <button class="btn btn-danger" (click)="onCancel()">
+            <span class="btn-icon">❌</span>
+            Otkaži termin
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

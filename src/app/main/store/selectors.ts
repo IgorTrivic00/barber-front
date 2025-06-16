@@ -9,6 +9,7 @@ export const getSlotSearchResponse = (state: MainState) => state.slotSearchRespo
 export const getSlots = (state: MainState) => state.slotSearchResponse?.data;
 export const getSelectedBarber = (state: MainState) => state.selectedBarber;
 export const getSelectedService = (state: MainState) => state.selectedService;
+export const getSelectedAppointment = (state: MainState) => state.selectedAppointment;
 
 export const selectMainState: MemoizedSelector<object, any> = createFeatureSelector<MainState>('main');
 
@@ -20,3 +21,4 @@ export const selectSlotSearchResponse: MemoizedSelector<object, any> = createSel
 export const selectSlots: MemoizedSelector<object, any> = createSelector(selectMainState, getSlots);
 export const selectedBarber: MemoizedSelector<object, any> = createSelector(selectMainState, getSelectedBarber);
 export const selectedService: MemoizedSelector<object, any> = createSelector(selectMainState, getSelectedService);
+export const selectedAppointment: MemoizedSelector<object, any> = createSelector(selectMainState, getSelectedAppointment);
