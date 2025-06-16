@@ -13,6 +13,7 @@ export interface MainState {
   selectedBarber: Barber | null;
   selectedService: Service | null;
   selectedAppointment: Appointment | null;
+  appointmentSearchResponse: SearchResponse<Appointment> | null;
 }
 
 export const INIT_MAIN_STATE: MainState = {
@@ -22,5 +23,6 @@ export const INIT_MAIN_STATE: MainState = {
   slotSearchResponse: null,
   selectedBarber: null,
   selectedService: null,
-  selectedAppointment: null
+  selectedAppointment: null,
+  appointmentSearchResponse: null
 }

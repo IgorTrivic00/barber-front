@@ -35,5 +35,9 @@ export enum MainActionsConstants {
   ClearSelectedAppointment = '[MainActions] Clear Selected Appointment',
 
   FindAppointmentByUuid = '[MainActions] Find Appointment By Uuid',
-  FindAppointmentByUuidSuccess = '[MainActions] Find Appointment By Uuid Success'
+  FindAppointmentByUuidSuccess = '[MainActions] Find Appointment By Uuid Success',
+
+  FindMyAppointments = '[MainActions] Find My Appointments',
+  SearchAppointmentsSuccess = '[MainActions] Search Appointments Success',
+  ClearAppointmentSearch = '[MainActions] Clear Appointment Search'
 }

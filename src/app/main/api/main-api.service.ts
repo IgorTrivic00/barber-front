@@ -9,6 +9,7 @@ import {SearchResponse} from "../model/search-response.model";
 import {SlotFilter} from "../model/slot-filter.model";
 import {Slot} from "../model/slot.model";
 import {Appointment} from "../model/appointment.model";
+import {AppointmentFilter} from "../model/appointment-filter.model";
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,9 @@ export class MainApiService {
 
   findAppointmentByUuid(appointmentUuid: string) {
     return this.httpClient.get<Appointment>(this.APPOINTMENT_API + '/uuid/' + appointmentUuid);
+  }
+
+  findMyAppointments(filter: AppointmentFilter) {
+    return this.httpClient.post<SearchResponse<Appointment>>(this.APPOINTMENT_API + '/my-appointments', filter);
   }
 }

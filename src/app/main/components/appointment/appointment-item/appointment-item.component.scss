@@ -1,0 +1,68 @@
+:host ::ng-deep .p-card {
+  box-shadow: 0 0 8px gray;
+  margin-bottom: 15px;
+}
+
+:host ::ng-deep .p-card:hover {
+  opacity: 0.5;
+}
+
+:host ::ng-deep .p-card-body{
+  padding: 10px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-meta{
+  display: flex;
+  flex-direction: column;
+}
+
+.status-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+
+    &.status-pending {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    &.status-completed {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    &.status-cancelled {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    &.status-default {
+      background-color: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .status-icon {
+      font-size: 1rem;
+    }
+  }
+}

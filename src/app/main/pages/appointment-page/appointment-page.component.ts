@@ -24,23 +24,6 @@ import {ActivatedRoute, Router} from "@angular/router";
         animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ])
     ]),
-    trigger('staggerIn', [
-      transition('* => *', [
-        query(':enter', [
-          style({ opacity: 0, transform: 'translateY(20px)' }),
-          stagger(100, [
-            animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-          ])
-        ], { optional: true })
-      ])
-    ]),
-    trigger('scaleIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'scale(0.8)' }),
-        animate('500ms cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-          style({ opacity: 1, transform: 'scale(1)' }))
-      ])
-    ]),
     trigger('slideInLeft', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(-50px)' }),
@@ -51,7 +34,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class AppointmentPageComponent implements OnInit, OnDestroy {
 
-  scheduledAppointment!: Appointment;
+  selectedAppointment!: Appointment;
   appointmentUuid!: string;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -83,26 +66,16 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
     this.store$.select(selectedAppointment)
       .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
       .subscribe(value => {
-        this.scheduledAppointment = value;
+        this.selectedAppointment = value;
       });
   }
 
   getStatusColor(state: AppointmentState): string {
-    switch(state) {
-      case AppointmentState.SCHEDULED: return 'status-pending';
-      case AppointmentState.COMPLETED: return 'status-completed';
-      case AppointmentState.CANCELLED: return 'status-cancelled';
-      default: return 'status-default';
-    }
+    return this.dataService.getAppointmentStateColor(state);
   }
 
   getStatusIcon(state: AppointmentState): string {
-    switch(state) {
-      case AppointmentState.SCHEDULED: return '⏳';
-      case AppointmentState.COMPLETED: return '✅';
-      case AppointmentState.CANCELLED: return '✗';
-      default: return '📅';
-    }
+    return this.dataService.getAppointmentStatusIcon(state);
   }
 
   onCheck(): void {
@@ -110,7 +83,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   }
 
   onCancel(): void {
-    console.log('Cancel appointment:', this.scheduledAppointment.uuid);
+    console.log('Cancel appointment:', this.selectedAppointment.uuid);
   }
 
   translateAppointmentState(appointmentState: AppointmentState) {

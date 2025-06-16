@@ -8,6 +8,7 @@ import {SearchResponse} from "../model/search-response.model";
 import {SlotFilter} from "../model/slot-filter.model";
 import {Slot} from "../model/slot.model";
 import {Appointment} from "../model/appointment.model";
+import {AppointmentFilter} from "../model/appointment-filter.model";
 
 export const getBarbers = createAction(MainActionsConstants.GetBarbers);
 
@@ -83,6 +84,14 @@ export const findAppointmentByUuid = createAction(MainActionsConstants.FindAppoi
 export const findAppointmentByUuidSuccess = createAction(MainActionsConstants.FindAppointmentByUuidSuccess,
   props< {appointment: Appointment} >());
 
+export const findMyAppointments = createAction(MainActionsConstants.FindMyAppointments,
+  props< {filter: AppointmentFilter} >());
+
+export const searchAppointmentsSuccess = createAction(MainActionsConstants.SearchAppointmentsSuccess,
+  props< {response: SearchResponse<Appointment>} >());
+
+export const clearAppointmentSearch = createAction(MainActionsConstants.ClearAppointmentSearch);
+
 
 const all = union({
   getBarbers,
@@ -108,7 +117,10 @@ const all = union({
   selectAppointment,
   clearSelectedAppointment,
   findAppointmentByUuid,
-  findAppointmentByUuidSuccess
+  findAppointmentByUuidSuccess,
+  findMyAppointments,
+  searchAppointmentsSuccess,
+  clearAppointmentSearch
 });
 
 export type MainActions = typeof all;

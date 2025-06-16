@@ -10,7 +10,7 @@ import {
   clearSlotSearch,
   selectBarber,
   selectService,
-  clearSelectService, selectAppointment, clearSelectedAppointment
+  clearSelectService, selectAppointment, clearSelectedAppointment, searchAppointmentsSuccess, clearAppointmentSearch
 } from "./actions";
 
 
@@ -58,6 +58,14 @@ export const _mainReducer = createReducer(INIT_MAIN_STATE,
   on(clearSelectedAppointment, (state, {}) => ({
     ...state,
     selectedAppointment: null
+  })),
+  on(searchAppointmentsSuccess, (state, {response}) => ({
+    ...state,
+    appointmentSearchResponse: response
+  })),
+  on(clearAppointmentSearch, (state, {}) => ({
+    ...state,
+    appointmentSearchResponse: null
   }))
 );
 

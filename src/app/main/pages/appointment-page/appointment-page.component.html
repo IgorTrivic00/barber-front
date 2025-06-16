@@ -1,4 +1,4 @@
-<div class="appointment-page" *ngIf="scheduledAppointment">
+<div class="appointment-page" *ngIf="selectedAppointment">
   <div class="container" [@fadeInUp]>
 
     <div class="header-section">
@@ -6,17 +6,17 @@
     </div>
 
     <div class="status-section">
-      <div class="status-badge" [ngClass]="getStatusColor(scheduledAppointment.appointmentState)">
-        <span class="status-icon">{{ getStatusIcon(scheduledAppointment.appointmentState) }}</span>
-        <span class="status-text">{{ translateAppointmentState(scheduledAppointment.appointmentState) | titlecase }}</span>
+      <div class="status-badge" [ngClass]="getStatusColor(selectedAppointment.appointmentState)">
+        <span class="status-icon">{{ getStatusIcon(selectedAppointment.appointmentState) }}</span>
+        <span class="status-text">{{ translateAppointmentState(selectedAppointment.appointmentState) | titlecase }}</span>
       </div>
     </div>
 
     <div class="main-card" [@fadeInUp]>
       <div class="card-header">
         <div class="date-time-section">
-          <div class="date">{{scheduledAppointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
-          <div class="time">{{scheduledAppointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{scheduledAppointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
+          <div class="date">{{selectedAppointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
+          <div class="time">{{selectedAppointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{selectedAppointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
         </div>
       </div>
 
@@ -24,10 +24,10 @@
         <div class="service-details">
           <div class="service-avatar">✂️</div>
           <div class="service-info">
-            <h3>{{ scheduledAppointment.service?.serviceName }}</h3>
+            <h3>{{ selectedAppointment.service?.serviceName }}</h3>
             <div class="service-meta">
-              <span>⏱️ {{ getDuration(scheduledAppointment.service?.duration) }}</span>
-              <span>💰 {{ scheduledAppointment.service?.price }} RSD</span>
+              <span>⏱️ {{ getDuration(selectedAppointment.service?.duration) }}</span>
+              <span>💰 {{ selectedAppointment.service?.price }} RSD</span>
             </div>
           </div>
         </div>
@@ -35,8 +35,8 @@
         <div class="barber-details">
           <div class="barber-avatar">👨‍💼</div>
           <div class="barber-info">
-            <h4>{{ scheduledAppointment.barber?.name }}</h4>
-            <p>{{ scheduledAppointment.barber?.barberTitle }}</p>
+            <h4>{{ selectedAppointment.barber?.name }}</h4>
+            <p>{{ selectedAppointment.barber?.barberTitle }}</p>
           </div>
         </div>
       </div>

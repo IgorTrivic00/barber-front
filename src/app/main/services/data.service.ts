@@ -68,4 +68,21 @@ export class DataService {
     }
   }
 
+  getAppointmentStateColor(state: AppointmentState) {
+    switch(state) {
+      case AppointmentState.SCHEDULED: return 'status-pending';
+      case AppointmentState.COMPLETED: return 'status-completed';
+      case AppointmentState.CANCELLED: return 'status-cancelled';
+      default: return 'status-default';
+    }
+  }
+
+  getAppointmentStatusIcon(state: AppointmentState) {
+    switch(state) {
+      case AppointmentState.SCHEDULED: return '⏳';
+      case AppointmentState.COMPLETED: return '✅';
+      case AppointmentState.CANCELLED: return '✗';
+      default: return '📅';
+    }
+  }
 }

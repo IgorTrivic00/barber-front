@@ -27,7 +27,7 @@ import {
   selectAppointment,
   clearSelectedAppointment,
   findAppointmentByUuid,
-  scheduleAppointmentSuccess, findAppointmentByUuidSuccess
+  scheduleAppointmentSuccess, findAppointmentByUuidSuccess, findMyAppointments, searchAppointmentsSuccess
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -248,6 +248,17 @@ export class MainEffects {
         return of(
           findAppointmentByUuidSuccess({ appointment: response }),
           selectAppointment({ appointment: response })
+        );
+      })
+    ))
+  ));
+
+  findMyAppointmentsEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(findMyAppointments),
+    switchMap(action => this.mainApi.findMyAppointments(action.filter).pipe(
+      switchMap(response => {
+        return of(
+          searchAppointmentsSuccess({response})
         );
       })
     ))

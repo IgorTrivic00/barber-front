@@ -14,6 +14,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {Router} from "@angular/router";
 import {selectService} from "../../../store/actions";
 import {DataService} from "../../../services/data.service";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-service-item',
@@ -25,7 +26,21 @@ import {DataService} from "../../../services/data.service";
     ConfirmDialogModule
   ],
   templateUrl: './service-item.component.html',
-  styleUrls: ['./service-item.component.scss']
+  styleUrls: ['./service-item.component.scss'],
+  animations: [
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(30px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ]),
+    trigger('slideInLeft', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-50px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ])
+  ]
 })
 export class ServiceItemComponent {
 
