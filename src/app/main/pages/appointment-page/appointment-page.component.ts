@@ -10,11 +10,12 @@ import {animate, query, stagger, style, transition, trigger} from '@angular/anim
 import {DataService} from "../../services/data.service";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Button} from "primeng/button";
 
 @Component({
   selector: 'app-appointment-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Button],
   templateUrl: './appointment-page.component.html',
   styleUrls: ['./appointment-page.component.scss'],
   animations: [
@@ -22,12 +23,6 @@ import {ActivatedRoute, Router} from "@angular/router";
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(30px)' }),
         animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ]),
-    trigger('slideInLeft', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-50px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ])
   ]
@@ -78,10 +73,6 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
     return this.dataService.getAppointmentStatusIcon(state);
   }
 
-  onCheck(): void {
-    this.router.navigate(['my-appointments']);
-  }
-
   onCancel(): void {
     console.log('Cancel appointment:', this.selectedAppointment.uuid);
   }
@@ -97,5 +88,11 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   private initDispatch() {
     this.store$.dispatch(hideNavBar());
     this.store$.dispatch(findAppointmentByUuid({appointmentUuid: this.appointmentUuid}));
+  }
+
+  protected readonly AppointmentState = AppointmentState;
+
+  return() {
+    this.router.navigate(['my-appointments']);
   }
 }

@@ -1,29 +1,31 @@
-<p-card (click)="onAppointmentClick()" [@fadeInUp] header="✂️ {{ appointment.service?.serviceName }}">
-  <div style="display: flex; gap: 15px; align-items: center; text-align: center">
-    <div class="col-4">
-      <div class="date-time-section">
-        <div class="date">{{appointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
-        <div class="time">{{appointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{appointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
-      </div>
-    </div>
-    <div class="col-3">
-      <div class="barber-details">
-        <div class="barber-avatar">👨‍💼</div>
-        <div class="barber-info">
-          <h4>{{ appointment.barber?.name }}</h4>
-          <p>{{ appointment.barber?.barberTitle }}</p>
+<div [@slideInLeft]>
+  <p-card (click)="onAppointmentClick()" header="✂️ {{ appointment.service?.serviceName }}">
+    <div style="display: flex; gap: 15px; align-items: center; text-align: center">
+      <div class="col-4">
+        <div class="date-time-section">
+          <div class="date">{{appointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
+          <div class="time">{{appointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{appointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
         </div>
       </div>
-    </div>
-    <div class="col-4">
-      <div class="service-details">
-        <div class="service-info">
-          <div class="service-meta">
-            <span>⏱️ {{ getDuration(appointment.service?.duration) }}</span>
-            <span>💰 {{appointment.service?.price }} RSD</span>
+      <div class="col-3">
+        <div class="barber-details">
+          <i class="pi pi-user"></i>
+          <div class="barber-info">
+            <h4>{{ appointment.barber?.name }}</h4>
+            <p>{{ appointment.barber?.barberTitle }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="service-details">
+          <div class="service-info">
+            <div class="service-meta">
+              <span><i class="pi pi-clock"></i> {{ getDuration(appointment.service?.duration) }}</span>
+              <span><i class="pi pi-wallet"></i> {{appointment.service?.price }} RSD</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</p-card>
+  </p-card>
+</div>

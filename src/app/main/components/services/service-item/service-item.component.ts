@@ -28,16 +28,10 @@ import {animate, style, transition, trigger} from "@angular/animations";
   templateUrl: './service-item.component.html',
   styleUrls: ['./service-item.component.scss'],
   animations: [
-    trigger('fadeInUp', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(30px)' }),
-        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ]),
     trigger('slideInLeft', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-50px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+        style({ opacity: 0, transform: 'translateX(-100px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ])
   ]

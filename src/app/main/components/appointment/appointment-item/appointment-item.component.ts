@@ -5,7 +5,6 @@ import {CardModule} from "primeng/card";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {DataService} from "../../../services/data.service";
 import {DatePipe, NgClass, TitleCasePipe} from "@angular/common";
-import {AppointmentState} from "../../../model/enums/appointment-state.enum";
 import {Router} from "@angular/router";
 
 @Component({
@@ -21,16 +20,10 @@ import {Router} from "@angular/router";
   ],
   styleUrls: ['./appointment-item.component.scss'],
   animations: [
-    trigger('fadeInUp', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(30px)' }),
-        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ]),
     trigger('slideInLeft', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-50px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+        style({ opacity: 0, transform: 'translateX(-100px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ])
   ]

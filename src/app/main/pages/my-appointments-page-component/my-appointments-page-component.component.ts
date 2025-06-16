@@ -26,6 +26,7 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
 
   appointments!: Appointment[];
   filter!: AppointmentFilter;
+  selectedState: AppointmentState = AppointmentState.SCHEDULED;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -68,6 +69,7 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
   protected readonly AppointmentState = AppointmentState;
 
   filterAppointments(state: AppointmentState) {
+    this.selectedState = state;
     this.filter = {
       ...this.filter,
       states: [state]

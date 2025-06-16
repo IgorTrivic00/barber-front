@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {filter, Subject, takeUntil} from "rxjs";
 import {CalendarModule} from "primeng/calendar";
@@ -57,6 +57,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
 
   constructor(private store$: Store,
               private authService: AuthService,
+              private router: Router,
               private dialogService: DialogService,
               private datePipe: DatePipe) {
     this.setCalendar();
@@ -165,5 +166,9 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   private setCalendar() {
     this.from = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.to = this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
+  }
+
+  return() {
+    this.router.navigate(['services', this.barber?.uuid]);
   }
 }

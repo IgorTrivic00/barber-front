@@ -1,46 +1,48 @@
-<p-card [@fadeInUp]>
-  <div style="display: flex; gap: 15px; align-items: center">
-    <div class="col-2">
-      <p-avatar
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-        styleClass="mr-2"
-        size="xlarge"/>
-    </div>
-    <div class="col-10">
-      <h2>{{service?.serviceName}}</h2>
-      <p class="m-0" *ngIf="service?.duration">
-        Trajanje: {{getDuration(service?.duration)}}
-      </p>
-      <p class="m-0">
-        Cena: {{getPrice(service?.price)}} RSD
-      </p>
-    </div>
-  </div>
-  <ng-template pTemplate="footer">
-    <div *ngIf="!user ||user?.userRole === UserRole.CUSTOMER">
-      <div style="display: flex; justify-content: flex-end">
-        <div class="col-5">
-          <p-button iconPos="left" (onClick)="navigate('reservation')" icon="pi pi-calendar" severity="secondary" label="Rezerviši"
-                    [raised]="true" [style]="{'border-radius': '0.25rem', 'width': '100%'}"/>
-        </div>
+<div [@slideInLeft]>
+  <p-card>
+    <div style="display: flex; gap: 15px; align-items: center">
+      <div class="col-2">
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          styleClass="mr-2"
+          size="xlarge"/>
+      </div>
+      <div class="col-10">
+        <h2>{{service?.serviceName}}</h2>
+        <p class="m-0" *ngIf="service?.duration">
+          Trajanje: {{getDuration(service?.duration)}}
+        </p>
+        <p class="m-0">
+          Cena: {{getPrice(service?.price)}} RSD
+        </p>
       </div>
     </div>
-    <div *ngIf="user?.userRole === UserRole.BARBER || user?.userRole === UserRole.ADMIN">
-      <div style="display: flex; justify-content: flex-end;">
-        <div *ngIf="service" class="col-2">
-          <p-button iconPos="left" icon="pi pi-pen-to-square" severity="secondary"
-                    [raised]="true" [style]="{'border-radius': '0.25rem','background-color': '#3B82F6'}"
-                    (click)="onEditService()"
+    <ng-template pTemplate="footer">
+      <div *ngIf="!user ||user?.userRole === UserRole.CUSTOMER">
+        <div style="display: flex; justify-content: flex-end">
+          <div class="col-5">
+            <p-button iconPos="left" (onClick)="navigate('reservation')" icon="pi pi-calendar" severity="secondary" label="Rezerviši"
+                      [raised]="true" [style]="{'border-radius': '0.25rem', 'width': '100%'}"/>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="user?.userRole === UserRole.BARBER || user?.userRole === UserRole.ADMIN">
+        <div style="display: flex; justify-content: flex-end;">
+          <div *ngIf="service" class="col-2">
+            <p-button iconPos="left" icon="pi pi-pen-to-square" severity="secondary"
+                      [raised]="true" [style]="{'border-radius': '0.25rem','background-color': '#3B82F6'}"
+                      (click)="onEditService()"
+            >
+            </p-button>
+          </div>
+          <div>
+          </div>
+          <p-button icon="pi pi-trash" class="p-button-danger" [style]="{'background-color': '#dc3545','font-size': '1rem','border-radius': '0.25rem'}"
+                    (click)="confirmDelete()"
           >
           </p-button>
         </div>
-        <div>
-        </div>
-        <p-button icon="pi pi-trash" class="p-button-danger" [style]="{'background-color': '#dc3545','font-size': '1rem','border-radius': '0.25rem'}"
-                  (click)="confirmDelete()"
-        >
-        </p-button>
       </div>
-    </div>
-  </ng-template>
-</p-card>
+    </ng-template>
+  </p-card>
+</div>

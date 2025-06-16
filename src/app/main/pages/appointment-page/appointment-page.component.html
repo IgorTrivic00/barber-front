@@ -1,6 +1,9 @@
-<div class="appointment-page" *ngIf="selectedAppointment">
+<div class="appointment-page flex-row align-items-center justify-content-center" *ngIf="selectedAppointment">
+  <div style="padding: 10px; position: fixed; z-index: 1000; top: 0; left: 0;">
+    <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" (click)="return()"
+              label="Nazad" [raised]="true" [style]="{'border-radius': '0.25rem'}"/>
+  </div>
   <div class="container" [@fadeInUp]>
-
     <div class="header-section">
       <h1>Termin</h1>
     </div>
@@ -26,14 +29,14 @@
           <div class="service-info">
             <h3>{{ selectedAppointment.service?.serviceName }}</h3>
             <div class="service-meta">
-              <span>⏱️ {{ getDuration(selectedAppointment.service?.duration) }}</span>
-              <span>💰 {{ selectedAppointment.service?.price }} RSD</span>
+              <span><i class="pi pi-clock"></i> {{ getDuration(selectedAppointment.service?.duration) }}</span>
+              <span><i class="pi pi-wallet"></i> {{ selectedAppointment.service?.price }} RSD</span>
             </div>
           </div>
         </div>
 
         <div class="barber-details">
-          <div class="barber-avatar">👨‍💼</div>
+          <i class="pi pi-user"></i>
           <div class="barber-info">
             <h4>{{ selectedAppointment.barber?.name }}</h4>
             <p>{{ selectedAppointment.barber?.barberTitle }}</p>
@@ -43,12 +46,8 @@
 
       <div class="action-section">
         <div class="action-buttons">
-          <button class="btn btn-success" (click)="onCheck()">
-            <span class="btn-icon">✅</span>
-            Potvrdi
-          </button>
-          <button class="btn btn-danger" (click)="onCancel()">
-            <span class="btn-icon">❌</span>
+          <button *ngIf="selectedAppointment.appointmentState === AppointmentState.SCHEDULED" class="btn button-danger" (click)="onCancel()">
+            <i class="pi pi-times"></i>
             Otkaži termin
           </button>
         </div>
