@@ -11,6 +11,8 @@ import {DataService} from "../../services/data.service";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Button} from "primeng/button";
+import {User} from "../../../auth/model/user.model";
+import {AuthService} from "../../../auth/service/auth.service";
 
 @Component({
   selector: 'app-appointment-page',
@@ -31,12 +33,14 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
 
   selectedAppointment!: Appointment;
   appointmentUuid!: string;
+  loggedUser!: User;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   dateTimeFormat = 'HH:mm';
 
   constructor(private store$: Store,
               private router: Router,
+              private authService: AuthService,
               private route: ActivatedRoute,
               private dataService: DataService) {
     this.initSelectors();
@@ -53,6 +57,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   }
 
   private initSelectors(): void {
+    this.authService.getLoggedUser()?.subscribe(value => this.loggedUser = value);
     this.appointmentUuid = this.route.snapshot.params['appointmentUuid'];
     this.selectScheduledAppointment();
   }

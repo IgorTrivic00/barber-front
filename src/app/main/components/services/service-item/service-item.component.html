@@ -26,21 +26,21 @@
           </div>
         </div>
       </div>
-      <div *ngIf="user?.userRole === UserRole.BARBER || user?.userRole === UserRole.ADMIN">
-        <div style="display: flex; justify-content: flex-end;">
-          <div *ngIf="service" class="col-2">
-            <p-button iconPos="left" icon="pi pi-pen-to-square" severity="secondary"
-                      [raised]="true" [style]="{'border-radius': '0.25rem','background-color': '#3B82F6'}"
-                      (click)="onEditService()"
-            >
-            </p-button>
-          </div>
-          <div>
-          </div>
-          <p-button icon="pi pi-trash" class="p-button-danger" [style]="{'background-color': '#dc3545','font-size': '1rem','border-radius': '0.25rem'}"
-                    (click)="confirmDelete()"
-          >
-          </p-button>
+      <div *ngIf="!user ||user?.userRole === UserRole.BARBER" class="col-12">
+        <div style="display: flex; justify-content: flex-end">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="onEditService()" mat-menu-item>
+              <mat-icon>update</mat-icon>
+              <span>Izmeni</span>
+            </button>
+            <button (click)="confirmDelete()" mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Obriši</span>
+            </button>
+          </mat-menu>
         </div>
       </div>
     </ng-template>

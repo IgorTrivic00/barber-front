@@ -11,9 +11,9 @@ import {filter, Observable, Subject, takeUntil} from "rxjs";
 })
 export class AuthService {
 
-  private _user$: Observable<User> | undefined;
-  private _barber$: Observable<Barber> | undefined;
-  private _customer$: Observable<Customer> | undefined;
+  private _user$!: Observable<User>;
+  private _barber$!: Observable<Barber>;
+  private _customer$!: Observable<Customer>;
 
   private ngUnsubscribe = new Subject();
 

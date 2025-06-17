@@ -135,7 +135,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       appointmentState: AppointmentState.SCHEDULED,
       slot: this.selectedTimeSlot,
       service: this.service,
-      customerUuid: this.loggedCustomer?.uuid
+      customer: this.loggedCustomer
     };
     this.dialogService.open(ConfirmAppointmentModalComponent, {
       header: 'Zakažite termin',

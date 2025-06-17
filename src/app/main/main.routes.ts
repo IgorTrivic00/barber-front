@@ -65,7 +65,7 @@ export const mainRoutes: Routes = [
       {
         path: 'my-appointments',
         component: MyAppointmentsPageComponentComponent,
-        canActivate: [authGuard, customerGuard]
+        canActivate: [authGuard]
       },
       {
         path: 'auth',

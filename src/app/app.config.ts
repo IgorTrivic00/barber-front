@@ -17,6 +17,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import {MainEffects} from "./main/store/effects";
 import {DecimalPipe} from "@angular/common";
 import {DialogService} from "primeng/dynamicdialog";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export const appConfig: ApplicationConfig = {
@@ -35,5 +36,5 @@ export const appConfig: ApplicationConfig = {
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'
-    })]
+    }), provideAnimationsAsync()]
 };

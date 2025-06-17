@@ -35,11 +35,19 @@
           </div>
         </div>
 
-        <div class="barber-details">
+        <div *ngIf="loggedUser.userRole === 'CUSTOMER'" class="barber-details">
           <i class="pi pi-user"></i>
           <div class="barber-info">
             <h4>{{ selectedAppointment.barber?.name }}</h4>
             <p>{{ selectedAppointment.barber?.barberTitle }}</p>
+          </div>
+        </div>
+
+        <div *ngIf="loggedUser.userRole === 'BARBER'" class="barber-details">
+          <i class="pi pi-user"></i>
+          <div class="barber-info">
+            <h4>{{ selectedAppointment.customer?.name }}</h4>
+            <p>{{ selectedAppointment.customer?.mobile }}</p>
           </div>
         </div>
       </div>

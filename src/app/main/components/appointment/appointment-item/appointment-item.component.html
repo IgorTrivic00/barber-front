@@ -1,5 +1,5 @@
 <div [@slideInLeft]>
-  <p-card (click)="onAppointmentClick()" header="✂️ {{ appointment.service?.serviceName }}">
+  <p-card header="✂️ {{ appointment.service?.serviceName }}">
     <div style="display: flex; gap: 15px; align-items: center; text-align: center">
       <div class="col-4">
         <div class="date-time-section">
@@ -7,12 +7,21 @@
           <div class="time">{{appointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{appointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
         </div>
       </div>
-      <div class="col-3">
+      <div *ngIf="loggedUser.userRole === 'CUSTOMER'" class="col-3">
         <div class="barber-details">
           <i class="pi pi-user"></i>
           <div class="barber-info">
             <h4>{{ appointment.barber?.name }}</h4>
             <p>{{ appointment.barber?.barberTitle }}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="loggedUser.userRole === 'BARBER'" class="col-3">
+        <div class="barber-details">
+          <i class="pi pi-user"></i>
+          <div class="barber-info">
+            <h4>{{ appointment.customer?.name }}</h4>
+            <p>{{ appointment.customer?.mobile }}</p>
           </div>
         </div>
       </div>
@@ -27,5 +36,24 @@
         </div>
       </div>
     </div>
+    <ng-template pTemplate="footer">
+      <div class="col-12">
+        <div style="display: flex; justify-content: flex-end">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="viewAppointment()" mat-menu-item>
+              <mat-icon>remove_red_eye</mat-icon>
+              <span>Vidi</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Otkaži termin</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </ng-template>
   </p-card>
 </div>

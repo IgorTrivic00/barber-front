@@ -15,6 +15,9 @@ import {Router} from "@angular/router";
 import {selectService} from "../../../store/actions";
 import {DataService} from "../../../services/data.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'app-service-item',
@@ -23,7 +26,12 @@ import {animate, style, transition, trigger} from "@angular/animations";
     PrimengModule,
     AppSharedModule,
     ServiceModalComponent,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MatIconButton,
+    MatIcon,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuItem
   ],
   templateUrl: './service-item.component.html',
   styleUrls: ['./service-item.component.scss'],
@@ -43,7 +51,7 @@ export class ServiceItemComponent {
   @Output() deleteEmitter: EventEmitter<Service> = new EventEmitter<Service>();
   @Output() updateEmitter: EventEmitter<Service> = new EventEmitter<Service>();
 
-  user: User | undefined;
+  user!: User;
 
   constructor(private decimalPipe: DecimalPipe,
               private userService: AuthService,
