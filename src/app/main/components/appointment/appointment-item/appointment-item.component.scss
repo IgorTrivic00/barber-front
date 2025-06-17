@@ -15,3 +15,43 @@
   display: flex;
   flex-direction: column;
 }
+
+.status-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+
+    &.status-pending {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+
+    &.status-completed {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    &.status-cancelled {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    &.status-default {
+      background-color: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .status-icon {
+      font-size: 1rem;
+    }
+  }
+}

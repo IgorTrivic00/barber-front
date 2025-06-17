@@ -8,5 +8,13 @@ body {
   font-family: monospace !important;
 }
 
+.p-dialog .p-dialog-content{
+  padding: 1rem 1.5rem 2rem 1.5rem;
+}
+
+.p-dialog .p-dialog-footer{
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

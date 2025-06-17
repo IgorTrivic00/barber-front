@@ -3,16 +3,20 @@
     <img src="../../../../../assets/sitemgr_1%20The%20Fold%20Southern%20Highlands%20Barbers.png">
     <div class="header">
       <div class="modal-fullscreen">
-        <h1 [class.active]="selectedState === AppointmentState.SCHEDULED" (click)="filterAppointments(AppointmentState.SCHEDULED)">Budući</h1>
+        <h1 [class.active]="selectedState.includes(AppointmentState.SCHEDULED)" (click)="filterAppointments([AppointmentState.SCHEDULED])">Budući</h1>
       </div>
       <div class="modal-fullscreen">
-        <h1 [class.active]="selectedState === AppointmentState.COMPLETED" (click)="filterAppointments(AppointmentState.COMPLETED)">Prošli</h1>
+        <h1 [class.active]="selectedState.includes(AppointmentState.COMPLETED)"
+            (click)="filterAppointments([AppointmentState.COMPLETED, AppointmentState.CANCELLED])">
+          Prošli
+        </h1>
       </div>
     </div>
   </div>
   <div class="appointment-list">
     <app-appointment-list
       [appointments]="appointments"
+      (cancelEmitter)="cancelAppointment($event)"
     >
     </app-appointment-list>
   </div>

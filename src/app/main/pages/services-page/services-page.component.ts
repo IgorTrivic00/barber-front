@@ -30,7 +30,7 @@ import {clearServiceSearch, searchServices} from "../../store/actions";
 })
 export class ServicesPageComponent implements OnInit, OnDestroy{
 
-  services: Service[] | undefined;
+  services!: Service[];
   barberUuid: string | undefined;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();

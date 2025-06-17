@@ -42,7 +42,13 @@
     </div>
     <ng-template pTemplate="footer">
       <div class="col-12">
-        <div style="display: flex; justify-content: flex-end">
+        <div style="display: flex" class="align-items-center justify-content-between">
+          <div class="status-section">
+            <div class="status-badge" [ngClass]="getStatusColor(appointment.appointmentState)">
+              <span class="status-icon">{{ getStatusIcon(appointment.appointmentState) }}</span>
+              <span class="status-text">{{ translateAppointmentState(appointment.appointmentState) | titlecase }}</span>
+            </div>
+          </div>
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -51,7 +57,7 @@
               <mat-icon>remove_red_eye</mat-icon>
               <span>Vidi</span>
             </button>
-            <button mat-menu-item>
+            <button *ngIf="appointment.appointmentState !== AppointmentState.CANCELLED" (click)="cancelAppointment()" mat-menu-item>
               <mat-icon>delete</mat-icon>
               <span>Otkaži termin</span>
             </button>

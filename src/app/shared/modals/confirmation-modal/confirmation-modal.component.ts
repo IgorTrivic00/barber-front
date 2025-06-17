@@ -9,15 +9,17 @@ import { PrimengModule } from '../../primeng.module';
   styleUrl: './confirmation-modal.component.scss'
 })
 export class ConfirmationModalComponent {
+
   @Input() label:string | undefined;
-  @Output() confirm = new EventEmitter<void>(); 
-  @Output() cancel = new EventEmitter<void>(); 
+
+  @Output() confirm = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
 
   onConfirm() {
-    this.confirm.emit(); 
+    this.confirm.emit();
   }
 
   onCancel() {
-    this.cancel.emit(); 
+    this.cancel.emit();
   }
 }

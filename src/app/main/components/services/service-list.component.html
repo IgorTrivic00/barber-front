@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="services.length > 0">
   @for (service of services; track service) {
     <app-service-item
       [service]="service"
@@ -7,4 +7,8 @@
     >
     </app-service-item>
   }
+</div>
+<div *ngIf="services.length === 0" class="no-results">
+  <img src="../../../../../assets/no-result-found.png" alt="No Results" class="no-results-icon" />
+  <span class="no-results-text">Trenutno nema usluga za ovog frizera.</span>
 </div>

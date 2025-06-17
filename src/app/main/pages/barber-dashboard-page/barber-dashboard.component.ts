@@ -39,7 +39,7 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 })
 export class BarberDashboardComponent implements OnInit, OnDestroy {
 
-  services: Service[] | undefined;
+  services!: Service[];
   barber: Barber | undefined;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();

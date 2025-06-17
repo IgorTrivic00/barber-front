@@ -68,4 +68,8 @@ export class MainApiService {
   findMyAppointments(filter: AppointmentFilter) {
     return this.httpClient.post<SearchResponse<Appointment>>(this.APPOINTMENT_API + '/my-appointments', filter);
   }
+
+  cancelAppointment(appointment: Appointment) {
+    return this.httpClient.post<Appointment>(this.APPOINTMENT_API + '/cancel', appointment);
+  }
 }

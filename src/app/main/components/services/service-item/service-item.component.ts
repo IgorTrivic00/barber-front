@@ -46,7 +46,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 })
 export class ServiceItemComponent {
 
-  @Input() service: Service | undefined;
+  @Input() service!: Service;
 
   @Output() deleteEmitter: EventEmitter<Service> = new EventEmitter<Service>();
   @Output() updateEmitter: EventEmitter<Service> = new EventEmitter<Service>();

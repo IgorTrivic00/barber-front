@@ -5,11 +5,12 @@ import {Store} from "@ngrx/store";
 import {selectAppointments} from "../../store/selectors";
 import {AppointmentFilter} from "../../model/appointment-filter.model";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
-import {clearAppointmentSearch, findMyAppointments} from "../../store/actions";
+import {cancelAppointment, clearAppointmentSearch, findMyAppointments} from "../../store/actions";
 import {showNavBar} from "../../../shared/store/actions";
 import {Button} from "primeng/button";
 import {ServiceListComponent} from "../../components/services/service-list.component";
 import {AppointmentListComponent} from "../../components/appointment/appointment-list.component";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-my-appointments-page-component',
@@ -26,11 +27,12 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
 
   appointments!: Appointment[];
   filter!: AppointmentFilter;
-  selectedState: AppointmentState = AppointmentState.SCHEDULED;
+  selectedState: AppointmentState[] = [AppointmentState.SCHEDULED];
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private store$: Store) {
+  constructor(private store$: Store,
+              private confirmationService: ConfirmationService) {
     this.initSelectors();
   }
 
@@ -68,16 +70,31 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
 
   protected readonly AppointmentState = AppointmentState;
 
-  filterAppointments(state: AppointmentState) {
-    this.selectedState = state;
+  filterAppointments(states: AppointmentState[]) {
+    this.selectedState = states;
     this.filter = {
       ...this.filter,
-      states: [state]
+      states: states
     }
     this.searchAppointments();
   }
 
-  private searchAppointments() {
+  searchAppointments = ()=> {
     this.store$.dispatch(findMyAppointments({filter: this.filter}));
+  }
+
+  cancelAppointment(appointment: Appointment) {
+    this.confirmationService.confirm({
+      message: 'Da li ste sigurni da želite da otkažete termin?',
+      header: 'Otkazivanje termina',
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Ne',
+      rejectButtonStyleClass: 'secondary',
+      acceptLabel: 'Da',
+      accept: () => {
+        this.store$.dispatch(cancelAppointment({appointment, callbackFn: this.searchAppointments}));
+      }
+    });
   }
 }

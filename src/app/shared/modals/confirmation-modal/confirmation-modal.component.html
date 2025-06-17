@@ -1,12 +1,9 @@
 <div class="modal">
     <div class="modal-content">
       <h2>{{label}}</h2>
-      <div class="modal-actions">
-       <!-- <button (click)="onConfirm()">Da</button>
-        <button (click)="onCancel()">Ne</button>-->
-     
-        <p-button (click)="onCancel()" label="Ne" icon="pi pi-times" iconPos="right" background-color="blue" />
-        <p-button (click)="onConfirm()" label="Da" icon="pi pi-check" iconPos="right" background-color="blue" />
-    </div>
+      <div class="button-container">
+        <p-button (click)="onCancel()" label="Ne" icon="pi pi-times" iconPos="right" class="custom-cancel-button p-button-secondary" />
+        <p-button (click)="onConfirm()" label="Da" icon="pi pi-check" iconPos="right" class="custom-cancel-button p-button-success" />
+      </div>
     </div>
   </div>

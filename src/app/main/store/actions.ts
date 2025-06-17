@@ -92,6 +92,12 @@ export const searchAppointmentsSuccess = createAction(MainActionsConstants.Searc
 
 export const clearAppointmentSearch = createAction(MainActionsConstants.ClearAppointmentSearch);
 
+export const cancelAppointment = createAction(MainActionsConstants.CancelAppointment,
+  props< {appointment: Appointment, callbackFn?: () => any} >());
+
+export const cancelAppointmentSuccess = createAction(MainActionsConstants.CancelAppointmentSuccess,
+  props< {appointment: Appointment, callbackFn?: () => any} >());
+
 
 const all = union({
   getBarbers,
@@ -120,7 +126,9 @@ const all = union({
   findAppointmentByUuidSuccess,
   findMyAppointments,
   searchAppointmentsSuccess,
-  clearAppointmentSearch
+  clearAppointmentSearch,
+  cancelAppointment,
+  cancelAppointmentSuccess
 });
 
 export type MainActions = typeof all;

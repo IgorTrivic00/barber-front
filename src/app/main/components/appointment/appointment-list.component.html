@@ -1,8 +1,13 @@
-<div>
+<div *ngIf="appointments.length > 0">
   @for (appointment of appointments; track appointment) {
   <app-appointment-item
     [appointment]="appointment"
+    (cancelEmitter)="cancelAppointment($event)"
   >
   </app-appointment-item>
   }
+</div>
+<div *ngIf="appointments.length === 0" class="no-results">
+  <img src="../../../../../assets/no-result-found.png" alt="No Results" class="no-results-icon" />
+  <span class="no-results-text">Trenutno nemate rezervacija.</span>
 </div>

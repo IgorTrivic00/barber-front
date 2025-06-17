@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Appointment} from "../../../model/appointment.model";
 import {AvatarModule} from "primeng/avatar";
 import {CardModule} from "primeng/card";
@@ -14,6 +14,7 @@ import { UserRole } from '../../../../auth/model/user-role.model';
 import {Button} from "primeng/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {AppointmentState} from "../../../model/enums/appointment-state.enum";
 
 @Component({
   selector: 'app-appointment-item',
@@ -49,6 +50,8 @@ export class AppointmentItemComponent implements OnInit {
 
   @Input() appointment!: Appointment;
 
+  @Output() cancelEmitter: EventEmitter<Appointment> = new EventEmitter<Appointment>();
+
   loggedUser!: User;
   dateTimeFormat = 'HH:mm';
 
@@ -68,4 +71,22 @@ export class AppointmentItemComponent implements OnInit {
   viewAppointment() {
     this.router.navigate(['appointment', this.appointment.uuid]);
   }
+
+  cancelAppointment() {
+    this.cancelEmitter.emit(this.appointment);
+  }
+
+  translateAppointmentState(appointmentState: AppointmentState) {
+    return this.dataService.translateAppointmentState(appointmentState);
+  }
+
+  getStatusIcon(appointmentState: AppointmentState) {
+    return this.dataService.getAppointmentStatusIcon(appointmentState);
+  }
+
+  getStatusColor(appointmentState: AppointmentState) {
+    return this.dataService.getAppointmentStateColor(appointmentState);
+  }
+
+  protected readonly AppointmentState = AppointmentState;
 }
