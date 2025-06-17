@@ -5,7 +5,7 @@ import {Store} from "@ngrx/store";
 import {selectAppointments} from "../../store/selectors";
 import {AppointmentFilter} from "../../model/appointment-filter.model";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
-import {cancelAppointment, clearAppointmentSearch, findMyAppointments} from "../../store/actions";
+import {cancelAppointment, clearAppointmentSearch, completeAppointment, findMyAppointments} from "../../store/actions";
 import {showNavBar} from "../../../shared/store/actions";
 import {Button} from "primeng/button";
 import {ServiceListComponent} from "../../components/services/service-list.component";
@@ -94,6 +94,21 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
       acceptLabel: 'Da',
       accept: () => {
         this.store$.dispatch(cancelAppointment({appointment, callbackFn: this.searchAppointments}));
+      }
+    });
+  }
+
+  completeAppointment(appointment: Appointment) {
+    this.confirmationService.confirm({
+      message: 'Da li ste sigurni da želite da završite termin?',
+      header: 'Zatvaranje termina',
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Ne',
+      rejectButtonStyleClass: 'secondary',
+      acceptLabel: 'Da',
+      accept: () => {
+        this.store$.dispatch(completeAppointment({appointment, callbackFn: this.searchAppointments}));
       }
     });
   }

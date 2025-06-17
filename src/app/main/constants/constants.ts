@@ -42,5 +42,8 @@ export enum MainActionsConstants {
   ClearAppointmentSearch = '[MainActions] Clear Appointment Search',
 
   CancelAppointment = '[MainActions] Cancel Appointment',
-  CancelAppointmentSuccess = '[MainActions] Cancel Appointment Success'
+  CancelAppointmentSuccess = '[MainActions] Cancel Appointment Success',
+
+  CompleteAppointment = '[MainActions] Complete Appointment',
+  CompleteAppointmentSuccess = '[MainActions] Complete Appointment Success'
 }

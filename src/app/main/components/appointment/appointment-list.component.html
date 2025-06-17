@@ -3,6 +3,7 @@
   <app-appointment-item
     [appointment]="appointment"
     (cancelEmitter)="cancelAppointment($event)"
+    (completeEmitter)="completeAppointment($event)"
   >
   </app-appointment-item>
   }

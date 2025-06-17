@@ -31,7 +31,7 @@ import {
   findAppointmentByUuidSuccess,
   findMyAppointments,
   searchAppointmentsSuccess,
-  cancelAppointment, cancelAppointmentSuccess
+  cancelAppointment, cancelAppointmentSuccess, completeAppointment, completeAppointmentSuccess
 } from "./actions";
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
@@ -282,6 +282,27 @@ export class MainEffects {
 
   cancelAppointmentSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(cancelAppointmentSuccess),
+    map(action => {
+      if(action.callbackFn){
+        action.callbackFn();
+      }
+    })
+  ), {dispatch: false});
+
+  completeAppointmentEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(completeAppointment),
+    switchMap(action => this.mainApi.completeAppointment(action.appointment).pipe(
+      switchMap(response => {
+        return of(
+          completeAppointmentSuccess({appointment: response, callbackFn: action.callbackFn}),
+          showMessage({ severity: Severity.SUCCESS, detail: "Uspešno ste zatvorili termin!" })
+        );
+      })
+    ))
+  ));
+
+  completeAppointmentSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(completeAppointmentSuccess),
     map(action => {
       if(action.callbackFn){
         action.callbackFn();

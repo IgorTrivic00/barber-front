@@ -18,6 +18,7 @@ export class AppointmentListComponent implements OnInit {
   @Input() appointments!: Appointment[];
 
   @Output() cancelEmitter: EventEmitter<Appointment> = new EventEmitter<Appointment>();
+  @Output() completeEmitter: EventEmitter<Appointment> = new EventEmitter<Appointment>();
 
   constructor() { }
 
@@ -26,6 +27,10 @@ export class AppointmentListComponent implements OnInit {
 
   cancelAppointment(appointment: Appointment) {
     this.cancelEmitter.emit(appointment);
+  }
+
+  completeAppointment(appointment: Appointment) {
+    this.completeEmitter.emit(appointment);
   }
 
 }

@@ -57,6 +57,10 @@
               <mat-icon>remove_red_eye</mat-icon>
               <span>Vidi</span>
             </button>
+            <button *ngIf="loggedUser.userRole === 'BARBER' && appointment.appointmentState === AppointmentState.SCHEDULED" (click)="completeAppointment()" mat-menu-item>
+              <mat-icon>check_circle_outline</mat-icon>
+              <span>Završi termin</span>
+            </button>
             <button *ngIf="appointment.appointmentState !== AppointmentState.CANCELLED" (click)="cancelAppointment()" mat-menu-item>
               <mat-icon>delete</mat-icon>
               <span>Otkaži termin</span>

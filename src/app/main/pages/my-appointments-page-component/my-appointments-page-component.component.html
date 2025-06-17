@@ -17,6 +17,7 @@
     <app-appointment-list
       [appointments]="appointments"
       (cancelEmitter)="cancelAppointment($event)"
+      (completeEmitter)="completeAppointment($event)"
     >
     </app-appointment-list>
   </div>

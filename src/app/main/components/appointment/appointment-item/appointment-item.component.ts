@@ -10,7 +10,6 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatRadioButton} from "@angular/material/radio";
 import {AuthService} from "../../../../auth/service/auth.service";
 import {User} from "../../../../auth/model/user.model";
-import { UserRole } from '../../../../auth/model/user-role.model';
 import {Button} from "primeng/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
@@ -51,6 +50,7 @@ export class AppointmentItemComponent implements OnInit {
   @Input() appointment!: Appointment;
 
   @Output() cancelEmitter: EventEmitter<Appointment> = new EventEmitter<Appointment>();
+  @Output() completeEmitter: EventEmitter<Appointment> = new EventEmitter<Appointment>();
 
   loggedUser!: User;
   dateTimeFormat = 'HH:mm';
@@ -89,4 +89,8 @@ export class AppointmentItemComponent implements OnInit {
   }
 
   protected readonly AppointmentState = AppointmentState;
+
+  completeAppointment() {
+    this.completeEmitter.emit(this.appointment);
+  }
 }

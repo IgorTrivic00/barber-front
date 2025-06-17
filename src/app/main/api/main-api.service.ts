@@ -72,4 +72,8 @@ export class MainApiService {
   cancelAppointment(appointment: Appointment) {
     return this.httpClient.post<Appointment>(this.APPOINTMENT_API + '/cancel', appointment);
   }
+
+  completeAppointment(appointment: Appointment) {
+    return this.httpClient.post<Appointment>(this.APPOINTMENT_API + '/complete', appointment);
+  }
 }

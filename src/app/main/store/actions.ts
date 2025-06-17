@@ -98,6 +98,12 @@ export const cancelAppointment = createAction(MainActionsConstants.CancelAppoint
 export const cancelAppointmentSuccess = createAction(MainActionsConstants.CancelAppointmentSuccess,
   props< {appointment: Appointment, callbackFn?: () => any} >());
 
+export const completeAppointment = createAction(MainActionsConstants.CompleteAppointment,
+  props< {appointment: Appointment, callbackFn?: () => any} >());
+
+export const completeAppointmentSuccess = createAction(MainActionsConstants.CompleteAppointmentSuccess,
+  props< {appointment: Appointment, callbackFn?: () => any} >());
+
 
 const all = union({
   getBarbers,
@@ -128,7 +134,9 @@ const all = union({
   searchAppointmentsSuccess,
   clearAppointmentSearch,
   cancelAppointment,
-  cancelAppointmentSuccess
+  cancelAppointmentSuccess,
+  completeAppointment,
+  completeAppointmentSuccess
 });
 
 export type MainActions = typeof all;
