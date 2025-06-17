@@ -3,25 +3,29 @@
     <div style="display: flex; gap: 15px; align-items: center; text-align: center">
       <div class="col-4">
         <div class="date-time-section">
-          <div class="date">{{appointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
-          <div class="time">{{appointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{appointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
+          <div class="date" >{{appointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
+          <div class="time fw-bold">{{appointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{appointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
         </div>
       </div>
       <div *ngIf="loggedUser.userRole === 'CUSTOMER'" class="col-3">
         <div class="barber-details">
-          <i class="pi pi-user"></i>
-          <div class="barber-info">
-            <h4>{{ appointment.barber?.name }}</h4>
-            <p>{{ appointment.barber?.barberTitle }}</p>
+          <div class="align-items-center justify-content-center gap-2" style="display: flex">
+            <span class="pi pi-user fw-bold"></span><span class="fw-bold">{{ appointment.barber?.name }}</span>
+          </div>
+          <div class="align-items-center justify-content-center gap-2" style="display: flex">
+            <span>{{ appointment.barber?.barberTitle }}</span>
           </div>
         </div>
       </div>
       <div *ngIf="loggedUser.userRole === 'BARBER'" class="col-3">
         <div class="barber-details">
-          <i class="pi pi-user"></i>
           <div class="barber-info">
-            <h4>{{ appointment.customer?.name }}</h4>
-            <p>{{ appointment.customer?.mobile }}</p>
+            <div class="align-items-center justify-content-center gap-2" style="display: flex">
+              <span class="pi pi-user fw-bold"></span><span class="fw-bold">{{ appointment.customer?.name }}</span>
+            </div>
+            <div class="align-items-center justify-content-center gap-3" style="display: flex">
+              <span class="pi pi-phone"></span><span>{{ appointment.customer?.mobile }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -30,7 +34,7 @@
           <div class="service-info">
             <div class="service-meta">
               <span><i class="pi pi-clock"></i> {{ getDuration(appointment.service?.duration) }}</span>
-              <span><i class="pi pi-wallet"></i> {{appointment.service?.price }} RSD</span>
+              <span class="fw-bold"><i class="pi pi-wallet fw-bold"></i> {{appointment.service?.price }} RSD</span>
             </div>
           </div>
         </div>

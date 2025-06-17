@@ -6,4 +6,5 @@ export interface Barber {
   id?: number;
   name?: string;
   barberTitle?: BarberTitle;
+  mobile?: string;
 }

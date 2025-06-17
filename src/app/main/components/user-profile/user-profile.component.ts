@@ -63,7 +63,8 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   updateCustomer() {
     this.customer = {
       ...this.customer,
-      name: this.form?.get('name')?.value
+      name: this.form?.get('name')?.value,
+      mobile: this.form?.get('mobile')?.value,
     };
     this.store$.dispatch(updateCustomer({customer: this.customer!}));
   }
