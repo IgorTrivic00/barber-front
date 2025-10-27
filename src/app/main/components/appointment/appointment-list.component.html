@@ -8,7 +8,9 @@
   </app-appointment-item>
   }
 </div>
-<div *ngIf="appointments.length === 0" class="no-results">
-  <img src="../../../../../assets/no-result-found.png" alt="No Results" class="no-results-icon" />
-  <span class="no-results-text">Trenutno nemate rezervacija.</span>
+<div *ngIf="appointments.length === 0">
+  <app-no-result
+    [label]="'Trenutno nemate rezervacija.'"
+  >
+  </app-no-result>
 </div>

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Slot} from "../../model/slot.model";
 import {SlotItemComponent} from "./slot-item/slot-item.component";
 import {CommonModule} from "@angular/common";
+import {NoResultComponent} from "../no-result/no-result.component";
 
 @Component({
   selector: 'app-slot-list',
@@ -9,7 +10,8 @@ import {CommonModule} from "@angular/common";
   standalone: true,
   imports: [
     SlotItemComponent,
-    CommonModule
+    CommonModule,
+    NoResultComponent
   ],
   styleUrls: ['./slot-list.component.scss']
 })

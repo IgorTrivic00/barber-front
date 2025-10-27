@@ -8,7 +8,10 @@
       </app-slot-item>
     </ng-container>
     <ng-container *ngIf="slots?.length === 0">
-      <h4 style="margin: 20px; text-align: center;">Nema slobodnih mesta za ovaj dan</h4>
+      <app-no-result
+        [label]="'Nema slobodnih mesta za ovaj dan'"
+      >
+      </app-no-result>
     </ng-container>
   </div>
 </div>

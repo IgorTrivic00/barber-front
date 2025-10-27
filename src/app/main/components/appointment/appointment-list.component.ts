@@ -2,13 +2,15 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Appointment} from "../../model/appointment.model";
 import {AppointmentItemComponent} from "./appointment-item/appointment-item.component";
 import {NgIf} from "@angular/common";
+import {NoResultComponent} from "../no-result/no-result.component";
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
   imports: [
     AppointmentItemComponent,
-    NgIf
+    NgIf,
+    NoResultComponent
   ],
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.scss']

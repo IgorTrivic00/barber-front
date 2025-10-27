@@ -13,6 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Button} from "primeng/button";
 import {User} from "../../../auth/model/user.model";
 import {AuthService} from "../../../auth/service/auth.service";
+import {MainService} from "../../services/main.service";
 
 @Component({
   selector: 'app-appointment-page',
@@ -40,6 +41,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
 
   constructor(private store$: Store,
               private router: Router,
+              private mainService: MainService,
               private authService: AuthService,
               private route: ActivatedRoute,
               private dataService: DataService) {
@@ -79,7 +81,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   }
 
   onCancel(): void {
-    console.log('Cancel appointment:', this.selectedAppointment.uuid);
+    this.mainService.cancelAppointment(this.selectedAppointment, this.return);
   }
 
   translateAppointmentState(appointmentState: AppointmentState) {
@@ -97,7 +99,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
 
   protected readonly AppointmentState = AppointmentState;
 
-  return() {
+  return = () => {
     this.router.navigate(['my-appointments']);
   }
 }

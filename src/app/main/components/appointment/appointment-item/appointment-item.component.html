@@ -61,7 +61,7 @@
               <mat-icon>check_circle_outline</mat-icon>
               <span>Završi termin</span>
             </button>
-            <button *ngIf="appointment.appointmentState !== AppointmentState.CANCELLED" (click)="cancelAppointment()" mat-menu-item>
+            <button *ngIf="appointment.appointmentState === AppointmentState.SCHEDULED" (click)="cancelAppointment()" mat-menu-item>
               <mat-icon>delete</mat-icon>
               <span>Otkaži termin</span>
             </button>

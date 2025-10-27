@@ -2,15 +2,17 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ServiceItemComponent} from "./service-item/service-item.component";
 import {Service} from "../../model/service.model";
 import {NgIf} from "@angular/common";
+import {NoResultComponent} from "../no-result/no-result.component";
 
 
 @Component({
   selector: 'app-service-list',
   standalone: true,
-    imports: [
-        ServiceItemComponent,
-        NgIf
-    ],
+  imports: [
+    ServiceItemComponent,
+    NgIf,
+    NoResultComponent
+  ],
   templateUrl: './service-list.component.html',
   styleUrl: './service-list.component.scss'
 })

@@ -11,6 +11,7 @@ import {Button} from "primeng/button";
 import {ServiceListComponent} from "../../components/services/service-list.component";
 import {AppointmentListComponent} from "../../components/appointment/appointment-list.component";
 import {ConfirmationService} from "primeng/api";
+import {MainService} from "../../services/main.service";
 
 @Component({
   selector: 'app-my-appointments-page-component',
@@ -32,7 +33,7 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private store$: Store,
-              private confirmationService: ConfirmationService) {
+              private mainService: MainService) {
     this.initSelectors();
   }
 
@@ -84,32 +85,10 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
   }
 
   cancelAppointment(appointment: Appointment) {
-    this.confirmationService.confirm({
-      message: 'Da li ste sigurni da želite da otkažete termin?',
-      header: 'Otkazivanje termina',
-      closeOnEscape: true,
-      icon: 'pi pi-exclamation-triangle',
-      rejectLabel: 'Ne',
-      rejectButtonStyleClass: 'secondary',
-      acceptLabel: 'Da',
-      accept: () => {
-        this.store$.dispatch(cancelAppointment({appointment, callbackFn: this.searchAppointments}));
-      }
-    });
+    this.mainService.cancelAppointment(appointment, this.searchAppointments);
   }
 
   completeAppointment(appointment: Appointment) {
-    this.confirmationService.confirm({
-      message: 'Da li ste sigurni da želite da završite termin?',
-      header: 'Zatvaranje termina',
-      closeOnEscape: true,
-      icon: 'pi pi-exclamation-triangle',
-      rejectLabel: 'Ne',
-      rejectButtonStyleClass: 'secondary',
-      acceptLabel: 'Da',
-      accept: () => {
-        this.store$.dispatch(completeAppointment({appointment, callbackFn: this.searchAppointments}));
-      }
-    });
+    this.mainService.completeAppointment(appointment, this.searchAppointments);
   }
 }
