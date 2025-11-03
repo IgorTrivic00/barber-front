@@ -32,7 +32,7 @@ export const updateCustomerSuccess = createAction(MainActionsConstants.UpdateCus
   props< {customer: Customer} >());
 
 export const addService = createAction(MainActionsConstants.AddService,
-  props< {service: Service, callbackFn?: () => any} >());
+  props< {service: Service, file?: any, callbackFn?: () => any} >());
 
 export const addServiceSuccess = createAction(MainActionsConstants.AddServiceSuccess,
   props< {service: Service, callbackFn?: () => any} >());

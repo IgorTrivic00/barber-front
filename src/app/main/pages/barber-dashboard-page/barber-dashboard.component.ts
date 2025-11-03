@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {ServiceListComponent} from '../../components/services/service-list.component';
 import {filter, Subject, takeUntil} from "rxjs";
-import {select, Store} from "@ngrx/store";
+import {Store} from "@ngrx/store";
 import { CommonModule } from '@angular/common';
 import {BarberListComponent} from "../../components/barber/barber-list.component";
 import {cloneDeep} from "lodash";
@@ -13,12 +13,9 @@ import {ServiceModalComponent} from "../../modal/service-modal/service-modal.com
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectServices} from "../../store/selectors";
-import { v4 as uuidv4 } from 'uuid';
-import {addService, clearServiceSearch, deleteService, findMyServices, searchServices, updateService} from "../../store/actions";
-import {showMessage} from "../../../shared/store/actions";
-import {Severity} from "../../../shared/constants/constants";
+import {addService, clearServiceSearch, deleteService, findMyServices, updateService} from "../../store/actions";
 import {AuthService} from "../../../auth/service/auth.service";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {DialogService} from "primeng/dynamicdialog";
 
 
 @Component({
@@ -78,21 +75,18 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
       baseZIndex: 10000
     }).onClose.subscribe(response => {
       if(response){
-        if(!response.uuid){
-          this.addService(response);
-        }
+        this.addService(response);
       }
     });
   }
 
-  addService(service: Service) {
+  addService(response: {service: Service, file: any}) {
     if (this.barber){
-      service = {
-        ...service,
-        uuid: uuidv4(),
+      const service = {
+        ...response.service,
         barber: this.barber
       };
-      this.store$.dispatch(addService({ service, callbackFn: this.findMyServices }));
+      this.store$.dispatch(addService({ service, file: response.file, callbackFn: this.findMyServices }));
     }
   }
 

@@ -100,7 +100,7 @@ export class MainEffects {
 
   addServiceEffect$ = createEffect(() => this.actions$.pipe(
     ofType(addService),
-    switchMap(action => this.mainApi.addService(action.service).pipe(
+    switchMap(action => this.mainApi.addService(action.service, action.file).pipe(
       switchMap(response => {
         return of(
           addServiceSuccess({ service: response, callbackFn: action.callbackFn }),
