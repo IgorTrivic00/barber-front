@@ -3,7 +3,7 @@
     <div style="display: flex; gap: 15px; align-items: center">
       <div class="col-2">
         <p-avatar
-          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          [image]="(api + service.uuid + '/' + service.photoId) | secure | async"
           styleClass="mr-2"
           size="xlarge"/>
       </div>

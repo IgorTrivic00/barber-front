@@ -20,9 +20,8 @@ import { HttpClientModule } from "@angular/common/http";
     PrimengModule,
     CommonModule,
     AppSharedModule,
-    RouterOutlet,
-  ],
-  declarations: []
+    RouterOutlet
+  ]
 })
 export class AppModule{
 

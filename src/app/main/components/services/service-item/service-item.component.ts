@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {PrimengModule} from "../../../../shared/primeng.module";
 import {AppSharedModule} from "../../../../shared/app-shared.module";
 import {ServiceModalComponent} from "../../../modal/service-modal/service-modal.component";
@@ -18,6 +18,10 @@ import {animate, style, transition, trigger} from "@angular/animations";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {enviroment} from "../../../../enviroments/enviroment";
+import {ContentService} from "../../../services/content.service";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {SecurePipe} from "../../../pipes/secure.pipe";
 
 @Component({
   selector: 'app-service-item',
@@ -31,7 +35,8 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     MatIcon,
     MatMenu,
     MatMenuTrigger,
-    MatMenuItem
+    MatMenuItem,
+    SecurePipe
   ],
   templateUrl: './service-item.component.html',
   styleUrls: ['./service-item.component.scss'],
@@ -44,7 +49,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
     ])
   ]
 })
-export class ServiceItemComponent {
+export class ServiceItemComponent{
 
   @Input() service!: Service;
 
@@ -126,6 +131,10 @@ export class ServiceItemComponent {
 
   getDuration(duration: number | undefined) {
     return this.dataService.getDuration(duration);
+  }
+
+  get api(){
+    return enviroment.baseUrl + '/api/v1/content/photo/';
   }
 }
 
