@@ -37,8 +37,13 @@ export class MainApiService {
     return this.httpClient.post<Customer>(this.CUSTOMER_API + '/update', customer);
   }
 
-  addService(service: Service){
-    return this.httpClient.post<Service>(this.SERVICE_API + '/add', service);
+  addService(service: Service, file?: any){
+    const formData = new FormData();
+    formData.append('service', new Blob([JSON.stringify(service)], {type: 'application/json'}));
+    if(file){
+      formData.append('photo', file);
+    }
+    return this.httpClient.post<Service>(this.SERVICE_API + '/add', formData);
   }
 
   deleteService(uuid: string | undefined) {

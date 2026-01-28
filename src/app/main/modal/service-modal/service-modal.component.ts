@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { PrimengModule } from '../../../shared/primeng.module';
 import {DialogModule} from 'primeng/dialog';
@@ -7,23 +7,30 @@ import {Service} from "../../model/service.model";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from "primeng/api";
+import {UploadPhotoComponent} from "../../components/upload-photo/upload-photo.component";
+import {AppModule} from "../../../app.module";
+import {ContentService} from "../../services/content.service";
+import {v4 as uuidv4} from "uuid";
 
 @Component({
   selector: 'app-service-modal',
-  standalone: true,
-  imports: [PrimengModule, DialogModule, AppSharedModule, ConfirmDialogModule],
+  imports: [PrimengModule, DialogModule, AppSharedModule, ConfirmDialogModule, UploadPhotoComponent, AppModule],
   templateUrl: './service-modal.component.html',
-  styleUrl: './service-modal.component.scss'
+  styleUrl: './service-modal.component.scss',
+  standalone: true
 })
 export class ServiceModalComponent implements OnInit {
 
-  service: Service | undefined;
-  form: FormGroup | undefined;
+  service!: Service;
+  form!: FormGroup;
+
+  @ViewChild('photo', {static: false}) uploadPhoto!: UploadPhotoComponent;
 
   constructor(private ref: DynamicDialogRef,
               private fb: FormBuilder,
               private confirmationService: ConfirmationService,
-              private config: DynamicDialogConfig) {
+              private config: DynamicDialogConfig,
+              private contentService: ContentService) {
     this.initService();
   }
 
@@ -39,8 +46,12 @@ export class ServiceModalComponent implements OnInit {
     const service = {
       ...this.service,
       ...this.form?.getRawValue()
-    };
-    this.ref.close(service);
+    } as Service;
+    if(!this.service.uuid){
+      service.uuid = uuidv4();
+    }
+    service.photo = this.contentService.setPhoto(this.uploadPhoto.filePreview, service.uuid!);
+    this.ref.close({service, file: this.uploadPhoto.selectedFile});
   }
 
   private initService() {

@@ -1,0 +1,8 @@
+<button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
+  <mat-icon>attach_file</mat-icon> Izaberi sliku
+</button>
+<input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file" accept=".png,.jpg">
+
+<div *ngIf="selectedFile">
+  Selected file: {{ selectedFile?.name }}
+</div>

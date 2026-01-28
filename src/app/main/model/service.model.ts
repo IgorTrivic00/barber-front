@@ -1,4 +1,5 @@
 import {Barber} from "../../auth/model/barber.model";
+import {Photo} from "./photo.model";
 
 
 export interface Service {
@@ -7,4 +8,6 @@ export interface Service {
   duration?: number;
   price?: number;
   barber?: Barber;
+  photoId?: number;
+  photo?: Photo;
 }

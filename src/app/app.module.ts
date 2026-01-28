@@ -12,6 +12,7 @@ import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http"
         CommonModule,
         AppSharedModule,
         RouterOutlet,
+        HttpClientModule,
     ],
     declarations: [], imports: [RouterOutlet,
         AuthModule,
