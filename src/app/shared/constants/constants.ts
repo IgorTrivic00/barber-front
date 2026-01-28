@@ -1,5 +1,4 @@
 export enum CommonActions {
-  SuccessMessage = '[CommonActions] Success Message',
   UpdateLastUrl = '[CommonActions] Update Last Url',
   UpdateCurrentUrl = '[CommonActions] Update Currnet Url',
   ReturnToPreviousPage = '[CommonActions] Return To Previous Page',

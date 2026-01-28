@@ -17,8 +17,9 @@ export class ToastrService{
 
   constructor() {
     effect(() => {
+      if(!this.message()) return;
       this.messageService.add({severity: this.message()?.severity, summary: SeverityMap.get(<Severity>this.message()?.severity), detail: this.message()?.detail});
-    })
+    });
   }
 
   showMessage(severity: Severity, detail?: string){

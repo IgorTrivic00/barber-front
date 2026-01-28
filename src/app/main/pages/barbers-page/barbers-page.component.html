@@ -7,7 +7,7 @@
   </div>
   <div class="barber-list">
     <app-barber-list
-      [barbers]="barbers"
+      [barbers]="barberService.barbers()"
       [callBack]="redirectToServices"
     >
     </app-barber-list>

@@ -6,7 +6,6 @@ import {Slot} from "../model/slot.model";
 import {Appointment} from "../model/appointment.model";
 
 export interface MainState {
-  barbers: Barber[] | null;
   lastServiceFilter: ServiceFilter | null;
   serviceSearchResponse: SearchResponse<Service> | null;
   slotSearchResponse: SearchResponse<Slot> | null;
@@ -17,7 +16,6 @@ export interface MainState {
 }
 
 export const INIT_MAIN_STATE: MainState = {
-  barbers: null,
   lastServiceFilter: null,
   serviceSearchResponse: null,
   slotSearchResponse: null,

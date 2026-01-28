@@ -7,10 +7,8 @@ import {
   addServiceSuccess,
   deleteService,
   deleteServiceSuccess,
-  getBarbers,
   searchServices,
   searchServicesSuccess,
-  getBarbersSuccess,
   updateCustomer,
   updateCustomerSuccess,
   updateService,
@@ -32,7 +30,6 @@ import {
   searchAppointmentsSuccess,
   cancelAppointment, cancelAppointmentSuccess, completeAppointment, completeAppointmentSuccess
 } from "./actions";
-import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
 import {ToastrService} from "../../shared/service/toastr.service";
@@ -47,17 +44,6 @@ export class MainEffects {
               private storageService: LocalStorageService,
               private router: Router) {
   }
-
-  getBarbersEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(getBarbers),
-    switchMap(action => this.mainApi.getBarbers().pipe(
-      switchMap(response => {
-        return of(
-          getBarbersSuccess({barbers: response})
-        )
-      })
-    ))
-  ));
 
   searchServicesEffect$ = createEffect(() => this.actions$.pipe(
     ofType(searchServices),

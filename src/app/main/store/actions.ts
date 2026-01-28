@@ -10,11 +10,6 @@ import {Slot} from "../model/slot.model";
 import {Appointment} from "../model/appointment.model";
 import {AppointmentFilter} from "../model/appointment-filter.model";
 
-export const getBarbers = createAction(MainActionsConstants.GetBarbers);
-
-export const getBarbersSuccess = createAction(MainActionsConstants.GetBarbersSuccess,
-  props< {barbers: Barber[]} >());
-
 export const searchServices = createAction(MainActionsConstants.SearchServices,
   props< {filter: ServiceFilter} >());
 
@@ -106,8 +101,6 @@ export const completeAppointmentSuccess = createAction(MainActionsConstants.Comp
 
 
 const all = union({
-  getBarbers,
-  getBarbersSuccess,
   searchServices,
   searchServicesSuccess,
   updateCustomer,
