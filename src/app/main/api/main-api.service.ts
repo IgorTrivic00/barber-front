@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {Barber} from "../../auth/model/barber.model";
 import {enviroment} from "../../enviroments/enviroment";
 import {Service} from "../model/service.model";

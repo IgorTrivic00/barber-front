@@ -1,10 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandlerFn, HttpInterceptorFn,
-  HttpRequest
-} from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
 import {
   BehaviorSubject,
   catchError,

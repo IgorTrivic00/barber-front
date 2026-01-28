@@ -2,7 +2,7 @@ import {provideZoneChangeDetection, isDevMode, Provider, EnvironmentProviders, A
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import {appReducer} from "./root-store/reducers";
 import {provideStore} from "@ngrx/store";
 import {provideEffects} from "@ngrx/effects";

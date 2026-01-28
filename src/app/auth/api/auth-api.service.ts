@@ -6,7 +6,7 @@ import {LogoutRequest} from "../model/request_response/logout.request";
 import {KeepAliveRequest} from "../model/request_response/keep-alive.request";
 import {KeepAliveResponse} from "../model/request_response/keep-alive.response";
 import {UserSession} from "../model/user-session.model";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {Customer} from "../model/customer.model";
 import {AuthenticationRequest} from "../model/request_response/authentication-request.model";
 

@@ -1,10 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {
-  HttpRequest,
-  HttpEvent,
-  HttpInterceptorFn,
-  HttpHandlerFn
-} from '@angular/common/http';
+import { HttpRequest, HttpEvent, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Store} from "@ngrx/store";
