@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NavBarComponent} from "../nav-bar/nav-bar.component";
 import {RouterOutlet} from "@angular/router";
-import {Store} from "@ngrx/store";
-import {selectShowNavBar} from "../../store/selectors";
-import {Observable} from "rxjs";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {NavBarService} from "../../service/nav-bar.service";
 
 @Component({
   selector: 'app-main-panel',
@@ -20,13 +18,6 @@ import {AsyncPipe, NgIf} from "@angular/common";
 })
 export class MainPanelComponent {
 
-  showNavBar$: Observable<boolean> | undefined;
+  navBarService = inject(NavBarService);
 
-  constructor(private store$: Store) {
-    this.initSelectors();
-  }
-
-  private initSelectors() {
-    this.showNavBar$ = this.store$.select(selectShowNavBar);
-  }
 }

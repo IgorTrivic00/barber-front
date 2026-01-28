@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {AppSharedModule} from "../../../shared/app-shared.module";
 import {Button} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {ReactiveFormsModule} from "@angular/forms";
-import {Router, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {selectLastUrl} from "../../../shared/store/selectors";
-import {filter, Subject, takeUntil} from "rxjs";
-import {hideNavBar, returnToPreviousPage} from "../../../shared/store/actions";
+import {returnToPreviousPage} from "../../../shared/store/actions";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 @Component({
   selector: 'app-login-options',
@@ -24,6 +23,8 @@ import {hideNavBar, returnToPreviousPage} from "../../../shared/store/actions";
 })
 export class LoginOptionsComponent implements OnInit{
 
+  navBarService = inject(NavBarService);
+
   constructor(private store$: Store) {
   }
 
@@ -32,6 +33,6 @@ export class LoginOptionsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(hideNavBar());
+    this.navBarService.hide();
   }
 }

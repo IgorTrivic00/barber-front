@@ -2,7 +2,7 @@
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-  <div *ngIf="showNavBar$ | async" class="navbar">
+  <div *ngIf="navBarService.showNavBar()" class="navbar">
     <app-nav-bar></app-nav-bar>
   </div>
 </div>

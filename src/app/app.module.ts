@@ -4,7 +4,7 @@ import {PrimengModule} from "./shared/primeng.module";
 import {AppSharedModule} from "./shared/app-shared.module";
 import {AuthModule} from "./auth/auth.module";
 import {CommonModule} from "@angular/common";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import {HttpClientModule, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 
 @NgModule({ exports: [
         AuthModule,

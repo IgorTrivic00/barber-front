@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {Router, RouterLink} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {filter, Subject, takeUntil} from "rxjs";
 import {CalendarModule} from "primeng/calendar";
-import {hideNavBar} from "../../../shared/store/actions";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectedBarber, selectedService, selectSlots} from "../../store/selectors";
@@ -25,7 +24,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {
   ConfirmAppointmentModalComponent
 } from "../../modal/confirm-appointment-modal/confirm-appointment-modal.component";
-import {resolve} from "@angular/compiler-cli";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 @Component({
   selector: 'app-reservation',
@@ -52,6 +51,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
   selectedTimeSlot: Slot | undefined;
+  navBarService = inject(NavBarService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -86,7 +86,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   }
 
   private initDispatch() {
-    this.store$.dispatch(hideNavBar());
+    this.navBarService.hide();
     this.searchSlots();
   }
 

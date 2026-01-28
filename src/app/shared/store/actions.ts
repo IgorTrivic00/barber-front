@@ -14,10 +14,6 @@ export const updateLastUrl = createAction(CommonActions.UpdateLastUrl,
 export const updateCurrentUrl = createAction(CommonActions.UpdateCurrentUrl,
   props< { currentUrl: string }>());
 
-export const showNavBar = createAction(CommonActions.ShowNavBar);
-
-export const hideNavBar = createAction(CommonActions.HideNavBar);
-
 export const returnToPreviousPage = createAction(CommonActions.ReturnToPreviousPage);
 
 const all = union({
@@ -26,8 +22,6 @@ const all = union({
   showMessage,
   updateCurrentUrl,
   updateLastUrl,
-  showNavBar,
-  hideNavBar,
   returnToPreviousPage
 });
 

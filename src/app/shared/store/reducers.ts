@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {CommonState, INIT_COMMON_STATE} from "./state";
-import {Actions, closeSpinner, hideNavBar, openSpinner, showNavBar, updateCurrentUrl, updateLastUrl} from "./actions";
+import {Actions, closeSpinner, openSpinner, updateCurrentUrl, updateLastUrl} from "./actions";
 
 export const _commonReducer = createReducer(INIT_COMMON_STATE,
   on(openSpinner, (state) => {
@@ -25,18 +25,6 @@ export const _commonReducer = createReducer(INIT_COMMON_STATE,
     return {
       ...state,
       currentUrl: action.currentUrl
-    }
-  }),
-  on(showNavBar, (state) => {
-    return {
-      ...state,
-      showNavBar: true
-    }
-  }),
-  on(hideNavBar, (state) => {
-    return {
-      ...state,
-      showNavBar: false
     }
   })
 );

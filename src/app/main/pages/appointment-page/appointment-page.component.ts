@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {filter, Subject, takeUntil} from "rxjs";
 import {Store} from "@ngrx/store";
 import {selectedAppointment} from "../../store/selectors";
 import {Appointment} from "../../model/appointment.model";
 import {clearSelectedAppointment, findAppointmentByUuid} from "../../store/actions";
-import {hideNavBar} from "../../../shared/store/actions";
 import {CommonModule} from '@angular/common';
 import {animate, query, stagger, style, transition, trigger} from '@angular/animations';
 import {DataService} from "../../services/data.service";
@@ -14,6 +13,7 @@ import {Button} from "primeng/button";
 import {User} from "../../../auth/model/user.model";
 import {AuthService} from "../../../auth/service/auth.service";
 import {MainService} from "../../services/main.service";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 @Component({
   selector: 'app-appointment-page',
@@ -35,6 +35,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   selectedAppointment!: Appointment;
   appointmentUuid!: string;
   loggedUser!: User;
+  navBarService = inject(NavBarService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   dateTimeFormat = 'HH:mm';
@@ -93,7 +94,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   }
 
   private initDispatch() {
-    this.store$.dispatch(hideNavBar());
+    this.navBarService.hide();
     this.store$.dispatch(findAppointmentByUuid({appointmentUuid: this.appointmentUuid}));
   }
 

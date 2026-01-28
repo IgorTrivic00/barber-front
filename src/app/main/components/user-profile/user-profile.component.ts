@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {RouterLink} from "@angular/router";
 import {InputTextModule} from "primeng/inputtext";
@@ -11,7 +11,8 @@ import {Customer} from "../../../auth/model/customer.model";
 import {AvatarModule} from "primeng/avatar";
 import {updateCustomer} from "../../store/actions";
 import {AuthService} from "../../../auth/service/auth.service";
-import {hideNavBar, returnToPreviousPage, showNavBar} from "../../../shared/store/actions";
+import {returnToPreviousPage} from "../../../shared/store/actions";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -32,6 +33,7 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   form: FormGroup | undefined;
   user: User | undefined;
   customer: Customer | undefined;
+  navBarService = inject(NavBarService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -44,7 +46,7 @@ export class UserProfileComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.initForm();
-    this.store$.dispatch(hideNavBar());
+    this.navBarService.hide();
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {BarberListComponent} from "../../components/barber/barber-list.component";
 import {Button} from "primeng/button";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -8,11 +8,11 @@ import {Store} from "@ngrx/store";
 import {selectServices} from "../../store/selectors";
 import {filter, Subject, takeUntil} from "rxjs";
 import {cloneDeep} from "lodash";
-import {hideNavBar} from "../../../shared/store/actions";
 import {DialogService} from "primeng/dynamicdialog";
 import {AuthService} from "../../../auth/service/auth.service";
 import {NgIf} from "@angular/common";
 import {clearServiceSearch, searchServices} from "../../store/actions";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 
 @Component({
@@ -32,6 +32,7 @@ export class ServicesPageComponent implements OnInit, OnDestroy{
 
   services!: Service[];
   barberUuid: string | undefined;
+  navBarService = inject(NavBarService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -61,7 +62,7 @@ export class ServicesPageComponent implements OnInit, OnDestroy{
   }
 
   private initDispatch() {
-    this.store$.dispatch(hideNavBar());
+    this.navBarService.hide();
     this.store$.dispatch(searchServices({filter: {barberUuids: [this.barberUuid!]}}));
   }
 

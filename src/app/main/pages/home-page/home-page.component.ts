@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {enviroment} from "../../../enviroments/enviroment";
 import {WorkDaySwiperComponent} from "../../components/work-day-swiper/work-day-swiper.component";
-import {Store} from "@ngrx/store";
-import {showNavBar} from "../../../shared/store/actions";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 @Component({
   selector: 'app-home-page',
@@ -16,6 +15,8 @@ import {showNavBar} from "../../../shared/store/actions";
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements OnInit{
+
+  navBarService = inject(NavBarService);
 
   redirectToInstagram() {
     const instagramUserName = enviroment.instagramUserName;
@@ -31,14 +32,11 @@ export class HomePageComponent implements OnInit{
     }
   }
 
-  constructor(private store$: Store) {
-  }
-
   redirectToCall() {
     window.location.href = `tel:${enviroment.mobileNumber}`;
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(showNavBar());
+    this.navBarService.show();
   }
 }

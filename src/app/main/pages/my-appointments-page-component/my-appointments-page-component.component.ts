@@ -1,17 +1,16 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {filter, Subject, takeUntil} from "rxjs";
 import {Appointment} from "../../model/appointment.model";
 import {Store} from "@ngrx/store";
 import {selectAppointments} from "../../store/selectors";
 import {AppointmentFilter} from "../../model/appointment-filter.model";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
-import {cancelAppointment, clearAppointmentSearch, completeAppointment, findMyAppointments} from "../../store/actions";
-import {showNavBar} from "../../../shared/store/actions";
+import {clearAppointmentSearch, findMyAppointments} from "../../store/actions";
 import {Button} from "primeng/button";
 import {ServiceListComponent} from "../../components/services/service-list.component";
 import {AppointmentListComponent} from "../../components/appointment/appointment-list.component";
-import {ConfirmationService} from "primeng/api";
 import {MainService} from "../../services/main.service";
+import {NavBarService} from "../../../shared/service/nav-bar.service";
 
 @Component({
   selector: 'app-my-appointments-page-component',
@@ -29,6 +28,7 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
   appointments!: Appointment[];
   filter!: AppointmentFilter;
   selectedState: AppointmentState[] = [AppointmentState.SCHEDULED];
+  navBarService = inject(NavBarService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -59,7 +59,7 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
   }
 
   private initDispatch() {
-    this.store$.dispatch(showNavBar());
+    this.navBarService.show();
     this.searchAppointments();
   }
 
