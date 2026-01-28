@@ -19,8 +19,9 @@ import {jwtDecode} from 'jwt-decode';
 import {Actions, ofType} from "@ngrx/effects";
 import {extendTokenExpirationDate, extendTokenExpirationDateSuccess, logout} from "../auth/store/actions";
 import {KeepAliveRequest} from "../auth/model/request_response/keep-alive.request";
-import {closeSpinner, showMessage} from "../shared/store/actions";
 import {Severity} from "../shared/constants/constants";
+import {SpinnerService} from "../shared/service/spinner.service";
+import {ToastrService} from "../shared/service/toastr.service";
 
 interface BackErrorResponse {
   message: string;
@@ -36,6 +37,8 @@ export class AuthInterceptorService{
 
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private isRefreshing = false;
+  spinnerService = inject(SpinnerService);
+  toastService = inject(ToastrService);
 
   constructor(private authConfig: AuthConfiguration,
               private action$: Actions,
@@ -120,7 +123,7 @@ export class AuthInterceptorService{
         if (err.status === 401 || err.status === 403 || err.status === 0) {
           if (token) {
             this.store$.dispatch(logout());
-            this.store$.dispatch(showMessage({severity: Severity.INFO, detail: 'Vaša sesija je istekla. Prijavite se ponovo.'}));
+            this.toastService.showMessage(Severity.INFO, 'Vaša sesija je istekla. Prijavite se ponovo.');
           }
         }
         if (err.error instanceof Blob) {
@@ -168,8 +171,8 @@ export class AuthInterceptorService{
   private showErrorMessage(error: HttpErrorResponse): void {
     const backError = error.error as BackErrorResponse;
     const message = backError.message === 'unknown.error' ? backError.errorCode : backError.message;
-    this.store$.dispatch(showMessage({severity: Severity.ERROR, detail: 'Greška: ' + message}));
-    this.store$.dispatch(closeSpinner());
+    this.toastService.showMessage(Severity.ERROR, 'Greška: ' + message);
+    this.spinnerService.hide();
   }
 }
 

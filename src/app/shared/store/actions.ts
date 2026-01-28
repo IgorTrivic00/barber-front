@@ -1,9 +1,5 @@
 import {createAction, props, union} from "@ngrx/store";
-import {CommonActions, Severity} from "../constants/constants";
-
-
-export const showMessage = createAction(CommonActions.SuccessMessage,
-  props< { severity: Severity, detail?: string }>());
+import {CommonActions} from "../constants/constants";
 
 export const updateLastUrl = createAction(CommonActions.UpdateLastUrl,
   props< { lastUrl: string }>());
@@ -14,7 +10,6 @@ export const updateCurrentUrl = createAction(CommonActions.UpdateCurrentUrl,
 export const returnToPreviousPage = createAction(CommonActions.ReturnToPreviousPage);
 
 const all = union({
-  showMessage,
   updateCurrentUrl,
   updateLastUrl,
   returnToPreviousPage

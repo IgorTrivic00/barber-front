@@ -3,6 +3,8 @@ import {Button} from "primeng/button";
 import {enviroment} from "../../../enviroments/enviroment";
 import {WorkDaySwiperComponent} from "../../components/work-day-swiper/work-day-swiper.component";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
+import {ToastrService} from "../../../shared/service/toastr.service";
+import {Severity} from "../../../shared/constants/constants";
 
 @Component({
   selector: 'app-home-page',
@@ -17,6 +19,7 @@ import {NavBarService} from "../../../shared/service/nav-bar.service";
 export class HomePageComponent implements OnInit{
 
   navBarService = inject(NavBarService);
+  navBarService1 = inject(ToastrService);
 
   redirectToInstagram() {
     const instagramUserName = enviroment.instagramUserName;

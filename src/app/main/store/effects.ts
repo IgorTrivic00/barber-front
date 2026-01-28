@@ -1,8 +1,7 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {MainApiService} from "../api/main-api.service";
 import {map, of, switchMap, tap} from "rxjs";
-import {showMessage} from "../../shared/store/actions";
 import {
   addService,
   addServiceSuccess,
@@ -36,9 +35,12 @@ import {
 import {Severity} from "../../shared/constants/constants";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
+import {ToastrService} from "../../shared/service/toastr.service";
 
 @Injectable()
 export class MainEffects {
+
+  toastService = inject(ToastrService);
 
   constructor(private actions$: Actions,
               private mainApi: MainApiService,
@@ -85,7 +87,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           updateCustomerSuccess({customer: response}),
-          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano!"}),
+          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno sačuvano!")
         )
       })
     ))
@@ -104,7 +106,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           addServiceSuccess({ service: response, callbackFn: action.callbackFn }),
-          showMessage({severity: Severity.SUCCESS, detail: "Uspešno sačuvano!"}),
+          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno sačuvano!")
         )
       })
     ))
@@ -125,7 +127,7 @@ export class MainEffects {
       switchMap((response) => {
         return of(
           deleteServiceSuccess({ service: response, callbackFn: action.callbackFn }),
-          showMessage({ severity: Severity.SUCCESS, detail: "Usluga je uspešno obrisana!" })
+        // this.toastService.showMessage(Severity.SUCCESS,"Usluga je uspešno obrisana!")
         );
       })
     ))
@@ -146,7 +148,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           updateServiceSuccess({ service: response, callbackFn: action.callbackFn }),
-          showMessage({ severity: Severity.SUCCESS, detail: "Usluga uspešno ažurirana!" })
+        // this.toastService.showMessage(Severity.SUCCESS,"Usluga uspešno ažurirana!")
         );
       })
     ))
@@ -218,7 +220,7 @@ export class MainEffects {
         return of(
           selectAppointment({ appointment: response }),
           scheduleAppointmentSuccess({ appointment: response }),
-          showMessage({ severity: Severity.SUCCESS, detail: "Uspešno ste zakazali termin!" })
+          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno ste zakazali termin!")
         );
       })
     ))
@@ -274,7 +276,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           cancelAppointmentSuccess({appointment: response, callbackFn: action.callbackFn}),
-          showMessage({ severity: Severity.SUCCESS, detail: "Uspešno ste otkazali termin!" })
+          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno ste otkazali termin!")
         );
       })
     ))
@@ -295,7 +297,7 @@ export class MainEffects {
       switchMap(response => {
         return of(
           completeAppointmentSuccess({appointment: response, callbackFn: action.callbackFn}),
-          showMessage({ severity: Severity.SUCCESS, detail: "Uspešno ste zatvorili termin!" })
+          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno ste zatvorili termin!")
         );
       })
     ))

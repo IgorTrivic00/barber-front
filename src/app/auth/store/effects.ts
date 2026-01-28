@@ -1,5 +1,5 @@
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {
   extendTokenExpirationDate,
   extendTokenExpirationDateSuccess,
@@ -10,21 +10,21 @@ import {
   registerCustomer,
   registerCustomerSuccess
 } from "./actions";
-import {concatMap, map, of, switchMap, tap, timeout, withLatestFrom} from "rxjs";
+import {concatMap, of, switchMap, tap, withLatestFrom} from "rxjs";
 import {AuthApiService} from "../api/auth-api.service";
 import {select, Store} from "@ngrx/store";
-import {closeSpinner, openSpinner, showMessage} from "../../shared/store/actions";
 import {Severity} from "../../shared/constants/constants";
 import {selectUserSession} from "./selectors";
-import {User} from "../model/user.model";
 import {KeepAliveResponse} from "../model/request_response/keep-alive.response";
-import {UserSession} from "../model/user-session.model";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
-import {selectCurrentUrl, selectLastUrl} from "../../shared/store/selectors";
+import {selectCurrentUrl} from "../../shared/store/selectors";
+import {ToastrService} from "../../shared/service/toastr.service";
 
 @Injectable()
 export class AuthEffects {
+
+  toastService = inject(ToastrService);
 
   constructor(private actions$: Actions,
               private store$: Store,
@@ -43,7 +43,7 @@ export class AuthEffects {
         switchMap(response => of(
           loginSuccess({user: response}),
           redirectAfterLogin({redirectUrl: currentUrl}),
-          showMessage({severity: Severity.SUCCESS, detail: 'Uspešna prijava'}),
+          // this.toastService.showMessage(Severity.SUCCESS,'Uspešna prijava')
         )));
     })
   ));
@@ -54,7 +54,7 @@ export class AuthEffects {
       switchMap(response => {
         return of(
           registerCustomerSuccess({customer: response}),
-          showMessage({severity: Severity.SUCCESS, detail: 'Uspešna registracija'}),
+          // this.toastService.showMessage(Severity.SUCCESS,'Uspešna registracija'),
           redirectToLoginPage(),
         )
       })
@@ -70,7 +70,7 @@ export class AuthEffects {
       return this.authApiService.logout(userSession).pipe(
         switchMap(response => of(
           logoutSuccess(),
-          showMessage({severity: Severity.SUCCESS, detail: 'Uspešna odjava'}),
+          // this.toastService.showMessage(Severity.SUCCESS,'Uspešna odjava'),
         )));
     })
   ));
