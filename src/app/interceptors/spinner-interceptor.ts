@@ -2,26 +2,24 @@ import {inject, Injectable} from '@angular/core';
 import { HttpRequest, HttpEvent, HttpInterceptorFn, HttpHandlerFn } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {finalize} from 'rxjs/operators';
-import {Store} from "@ngrx/store";
-import {closeSpinner, openSpinner} from "../shared/store/actions";
+import {SpinnerService} from "../shared/service/spinner.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerInterceptorService {
 
-  constructor(private store$: Store) {
-  }
+  spinnerService = inject(SpinnerService);
 
   intercept(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const request = req.clone({
       headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
     });
 
-    this.store$.dispatch(openSpinner());
+    this.spinnerService.spin();
     return next(request).pipe(
       finalize(() => {
-        this.store$.dispatch(closeSpinner());
+        this.spinnerService.hide();
       })
     );
   }

@@ -1,20 +1,8 @@
 import {createReducer, on} from "@ngrx/store";
 import {CommonState, INIT_COMMON_STATE} from "./state";
-import {Actions, closeSpinner, openSpinner, updateCurrentUrl, updateLastUrl} from "./actions";
+import {Actions, updateCurrentUrl, updateLastUrl} from "./actions";
 
 export const _commonReducer = createReducer(INIT_COMMON_STATE,
-  on(openSpinner, (state) => {
-    return {
-      ...state,
-      isLoading: true
-    }
-  }),
-  on(closeSpinner, (state) => {
-    return {
-      ...state,
-      isLoading: false
-    }
-  }),
   on(updateLastUrl, (state, action) => {
     return {
       ...state,

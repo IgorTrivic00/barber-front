@@ -1,11 +1,7 @@
 export enum CommonActions {
-  OpenSpinner = '[CommonActions] Open Spinner',
-  CloseSpinner = '[CommonActions] Close Spinner',
   SuccessMessage = '[CommonActions] Success Message',
   UpdateLastUrl = '[CommonActions] Update Last Url',
   UpdateCurrentUrl = '[CommonActions] Update Currnet Url',
-  ShowNavBar = '[CommonActions] Show Nav Bar',
-  HideNavBar = '[CommonActions] Hide Nav Bar',
   ReturnToPreviousPage = '[CommonActions] Return To Previous Page',
 }
 
