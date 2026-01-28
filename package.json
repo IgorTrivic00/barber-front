@@ -19,7 +19,7 @@
     "@angular/material": "~19.2.19",
     "@angular/platform-browser": "^19.2.18",
     "@angular/platform-browser-dynamic": "^19.2.18",
-    "@angular/pwa": "^18.2.21",
+    "@angular/pwa": "^19.2.19",
     "@angular/router": "^19.2.18",
     "@angular/service-worker": "^19.2.18",
     "@ngrx/effects": "^17.2.0",
