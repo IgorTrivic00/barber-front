@@ -19,7 +19,7 @@ import {BarbersService} from "../../services/barbers.service";
 })
 export class BarbersPageComponent implements OnInit, OnDestroy{
 
-  navBarService = inject(NavBarService);
+  private navBarService = inject(NavBarService);
   barberService = inject(BarbersService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -30,7 +30,7 @@ export class BarbersPageComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.navBarService.show();
-    this.barberService.getBarbers();
+    this.barberService.findAll();
   }
 
   redirectToServices = (barber: Barber) => {

@@ -13,7 +13,7 @@ import {ServiceModalComponent} from "../../modal/service-modal/service-modal.com
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectServices} from "../../store/selectors";
-import {addService, clearServiceSearch, deleteService, findMyServices, updateService} from "../../store/actions";
+import {addService, deleteService, findMyServices, updateService} from "../../store/actions";
 import {AuthService} from "../../../auth/service/auth.service";
 import {DialogService} from "primeng/dynamicdialog";
 
@@ -59,7 +59,6 @@ export class BarberDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store$.dispatch(clearServiceSearch());
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

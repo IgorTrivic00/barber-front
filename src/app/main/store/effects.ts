@@ -7,8 +7,6 @@ import {
   addServiceSuccess,
   deleteService,
   deleteServiceSuccess,
-  searchServices,
-  searchServicesSuccess,
   updateCustomer,
   updateCustomerSuccess,
   updateService,
@@ -44,28 +42,6 @@ export class MainEffects {
               private storageService: LocalStorageService,
               private router: Router) {
   }
-
-  searchServicesEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(searchServices),
-    switchMap(action => this.mainApi.searchServices(action.filter).pipe(
-      switchMap(response => {
-        return of(
-          searchServicesSuccess({searchResponse: response})
-        )
-      })
-    ))
-  ));
-
-  findMyServicesEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(findMyServices),
-    switchMap(action => this.mainApi.findMyServices().pipe(
-      switchMap(response => {
-        return of(
-          searchServicesSuccess({searchResponse: response})
-        )
-      })
-    ))
-  ));
 
   updateCustomerEffect$ = createEffect(() => this.actions$.pipe(
     ofType(updateCustomer),

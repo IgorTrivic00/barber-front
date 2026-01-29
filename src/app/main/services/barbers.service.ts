@@ -7,10 +7,10 @@ import {Barber} from "../../auth/model/barber.model";
 })
 export class BarbersService {
 
-  apiService = inject(MainApiService);
+  private apiService = inject(MainApiService);
   barbers = signal<Barber[]>([]);
 
-  getBarbers(){
+  findAll(){
     this.apiService.getBarbers().subscribe(value => {
       this.barbers.set(value);
     });

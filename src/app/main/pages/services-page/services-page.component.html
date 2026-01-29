@@ -11,7 +11,7 @@
   </div>
   <div class="barber-list">
     <app-service-list
-      [services]="services"
+      [services]="serviceService.getResponse(searchId)?.data ?? []"
     >
     </app-service-list>
   </div>

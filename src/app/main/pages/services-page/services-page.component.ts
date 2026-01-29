@@ -1,19 +1,11 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {BarberListComponent} from "../../components/barber/barber-list.component";
 import {Button} from "primeng/button";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {ServiceListComponent} from "../../components/services/service-list.component";
-import {Service} from "../../model/service.model";
-import {Store} from "@ngrx/store";
-import {selectServices} from "../../store/selectors";
-import {filter, Subject, takeUntil} from "rxjs";
-import {cloneDeep} from "lodash";
-import {DialogService} from "primeng/dynamicdialog";
-import {AuthService} from "../../../auth/service/auth.service";
 import {NgIf} from "@angular/common";
-import {clearServiceSearch, searchServices} from "../../store/actions";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
-
+import {ServiceService} from "../../services/service.service";
 
 @Component({
   selector: 'app-services',
@@ -28,42 +20,21 @@ import {NavBarService} from "../../../shared/service/nav-bar.service";
   templateUrl: './services-page.component.html',
   styleUrl: './services-page.component.scss'
 })
-export class ServicesPageComponent implements OnInit, OnDestroy{
+export class ServicesPageComponent implements OnInit{
 
-  services!: Service[];
-  barberUuid: string | undefined;
-  navBarService = inject(NavBarService);
+  private readonly barberUuid: string | undefined;
+  private navBarService = inject(NavBarService);
+  serviceService = inject(ServiceService);
+  searchId = 'barber-services';
 
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(private store$: Store,
-              private dialogService: DialogService,
-              private router: Router,
-              private authService: AuthService,
+  constructor(private router: Router,
               private route: ActivatedRoute) {
-    this.selectServices();
     this.barberUuid = this.route.snapshot.params['barberUuid'];
   }
 
   ngOnInit(): void {
-    this.initDispatch();
-  }
-
-  private selectServices() {
-    this.store$.select(selectServices)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.services = cloneDeep(value));
-  }
-
-  ngOnDestroy(): void {
-    this.store$.dispatch(clearServiceSearch());
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
-  private initDispatch() {
     this.navBarService.hide();
-    this.store$.dispatch(searchServices({filter: {barberUuids: [this.barberUuid!]}}));
+    this.serviceService.search(this.searchId, {barberUuids: [this.barberUuid!]});
   }
 
   return() {
