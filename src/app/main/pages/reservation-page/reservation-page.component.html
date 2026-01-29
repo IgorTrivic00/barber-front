@@ -3,7 +3,7 @@
     <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" (click)="return()"
               label="Nazad" [raised]="true" [style]="{'border-radius': '0.25rem'}"/>
   </div>
-  <h4 class="barber-service-header">{{barber?.name}} - {{service?.serviceName}}</h4>
+  <h4 class="barber-service-header">{{barber()?.name}} - {{service()?.serviceName}}</h4>
   <div class="calendar">
     <p-calendar
       class="max-w-full"

@@ -6,6 +6,7 @@ import {ServiceApiService} from "../api/service-api.service";
 import {MINE_SERVICE_SEARCH_ID} from "../constants/constants";
 import {Severity} from "../../shared/constants/constants";
 import {ToastrService} from "../../shared/service/toastr.service";
+import {LocalStorageService} from "../../shared/service/local-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,11 @@ import {ToastrService} from "../../shared/service/toastr.service";
 export class ServiceService {
 
   private searchCache = signal(new Map<String, SearchResponse<Service>>());
+  private _selectedService= signal<Service | undefined>(undefined);
   private filterCache = new Map<String, ServiceFilter>();
   private apiService = inject(ServiceApiService);
   private toastrService = inject(ToastrService);
+  private storageService = inject(LocalStorageService);
 
   search(id: string, filter: ServiceFilter){
     const resultFilter = this.updateFilterCache(id, filter);
@@ -56,6 +59,15 @@ export class ServiceService {
         callbackFn();
       }
     });
+  }
+
+  selectService(service: Service){
+    this._selectedService.set(service);
+    this.storageService.setSavedState(service, "selectedService");
+  }
+
+  get selectedService() {
+    return this._selectedService;
   }
 
   private _search(id: string, filter: ServiceFilter | undefined){

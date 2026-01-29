@@ -14,7 +14,6 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {AuthEffects} from "./auth/store/effects";
 import { provideServiceWorker } from '@angular/service-worker';
-import {MainEffects} from "./main/store/effects";
 import {DecimalPipe} from "@angular/common";
 import {DialogService} from "primeng/dynamicdialog";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -27,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor, spinnerInterceptor])),
     provideStore(appReducer),
-    provideEffects([CommonEffects, AuthEffects, MainEffects]),
+    provideEffects([CommonEffects, AuthEffects]),
     provideStoreDevtools({ maxAge: 25 }),
     MessageService,
     DecimalPipe,

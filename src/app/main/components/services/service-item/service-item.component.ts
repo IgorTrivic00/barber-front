@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, inject, Input, OnInit, Output} from "@angular/core";
 import {PrimengModule} from "../../../../shared/primeng.module";
 import {AppSharedModule} from "../../../../shared/app-shared.module";
 import {ServiceModalComponent} from "../../../modal/service-modal/service-modal.component";
@@ -12,16 +12,14 @@ import {DialogService} from "primeng/dynamicdialog";
 import {ConfirmationService} from "primeng/api";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {Router} from "@angular/router";
-import {selectService} from "../../../store/actions";
 import {DataService} from "../../../services/data.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {enviroment} from "../../../../enviroments/enviroment";
-import {ContentService} from "../../../services/content.service";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {SecurePipe} from "../../../pipes/secure.pipe";
+import {ServiceService} from "../../../services/service.service";
 
 @Component({
   selector: 'app-service-item',
@@ -57,6 +55,7 @@ export class ServiceItemComponent{
   @Output() updateEmitter: EventEmitter<Service> = new EventEmitter<Service>();
 
   user!: User;
+  private serviceService= inject(ServiceService);
 
   constructor(private decimalPipe: DecimalPipe,
               private userService: AuthService,
@@ -125,7 +124,7 @@ export class ServiceItemComponent{
   protected readonly UserRole = UserRole;
 
   navigate(route: string) {
-    this.store$.dispatch(selectService({service: this.service!}));
+    this.serviceService.selectService(this.service);
     this.router.navigate([route]);
   }
 

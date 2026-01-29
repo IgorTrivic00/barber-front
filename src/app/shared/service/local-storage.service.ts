@@ -1,17 +1,20 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {UserSession} from "../../auth/model/user-session.model";
 import {Store} from "@ngrx/store";
 import {loginSuccess} from "../../auth/store/actions";
 import {updateCurrentUrl, updateLastUrl} from "../store/actions";
 import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../../main/model/service.model";
-import {selectBarber, selectService} from "../../main/store/actions";
-import {Appointment} from "../../main/model/appointment.model";
+import {ServiceService} from "../../main/services/service.service";
+import {BarberService} from "../../main/services/barber.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
+
+  private serviceService = inject(ServiceService);
+  private barberService = inject(BarberService);
 
   constructor(private store$: Store) {}
 
@@ -40,10 +43,10 @@ export class LocalStorageService {
       this.store$.dispatch(updateCurrentUrl({currentUrl}));
     }
     if(selectedBarber){
-      this.store$.dispatch(selectBarber({barber: selectedBarber}));
+      this.barberService.selectBarber(selectedBarber);
     }
     if(selectedService){
-      this.store$.dispatch(selectService({service: selectedService}));
+      this.serviceService.selectService(selectedService);
     }
   }
 

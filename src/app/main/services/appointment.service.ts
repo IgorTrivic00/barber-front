@@ -28,9 +28,8 @@ export class AppointmentService{
   }
 
   findByUuid(uuid: string){
-    this.apiService.findByUuid(uuid).subscribe(value => {
-      this._selectedAppointment.set(value);
-    });
+    this.apiService.findByUuid(uuid)
+      .subscribe(value => this._selectedAppointment.set(value));
   }
 
   findMine(filter: AppointmentFilter){

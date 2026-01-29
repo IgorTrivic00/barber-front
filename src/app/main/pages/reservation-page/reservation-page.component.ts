@@ -1,13 +1,8 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {Router, RouterLink} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {filter, Subject, takeUntil} from "rxjs";
 import {CalendarModule} from "primeng/calendar";
-import {Service} from "../../model/service.model";
-import {Barber} from "../../../auth/model/barber.model";
-import {selectedBarber, selectedService} from "../../store/selectors";
-import {clearSelectService} from "../../store/actions";
 import {SlotFilter} from "../../model/slot-filter.model";
 import {DatePipe} from "@angular/common";
 import {Slot} from "../../model/slot.model";
@@ -27,6 +22,8 @@ import {
 import {NavBarService} from "../../../shared/service/nav-bar.service";
 import {AppointmentService} from "../../services/appointment.service";
 import {SlotService} from "../../services/slot.service";
+import {BarberService} from "../../services/barber.service";
+import {ServiceService} from "../../services/service.service";
 
 @Component({
   selector: 'app-reservation',
@@ -42,23 +39,23 @@ import {SlotService} from "../../services/slot.service";
   styleUrl: './reservation-page.component.scss',
   providers: [DatePipe]
 })
-export class ReservationPageComponent implements OnInit, OnDestroy{
+export class ReservationPageComponent implements OnInit{
 
   from: any;
   to: any;
   nowDate = new Date();
-  service: Service | undefined;
-  barber: Barber | undefined;
   loggedCustomer: Customer | undefined;
-  slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
   selectedTimeSlot: Slot | undefined;
   private id = 'reservation-page';
   private navBarService = inject(NavBarService);
   private appointmentService = inject(AppointmentService);
   private slotService= inject(SlotService);
-
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private barberService = inject(BarberService);
+  private serviceService = inject(ServiceService);
+  slots = this.slotService.getResponse(this.id)?.data;
+  barber = this.barberService.selectedBarber;
+  service = this.serviceService.selectedService;
 
   constructor(private store$: Store,
               private authService: AuthService,
@@ -67,12 +64,6 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
               private datePipe: DatePipe) {
     this.setCalendar();
     this.initSelectors();
-  }
-
-  ngOnDestroy(): void {
-    this.store$.dispatch(clearSelectService());
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
   }
 
   ngOnInit() {
@@ -96,21 +87,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   }
 
   private initSelectors() {
-    this.selectedService();
-    this.selectedBarber();
     this.authService.getLoggedCustomer()?.subscribe(value => this.loggedCustomer = value);
-  }
-
-  private selectedService() {
-    this.store$.select(selectedService)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.service = value);
-  }
-
-  private selectedBarber() {
-    this.store$.select(selectedBarber)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.barber = value);
   }
 
   searchSlots(){
@@ -122,17 +99,17 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       from: this.from,
       to: this.to,
       states: [SlotState.FREE, SlotState.CANCELED],
-      barberUuids: [this.barber?.uuid!]
+      barberUuids: [this.barber()?.uuid!]
     }
   }
 
   scheduleAppointment() {
     const appointment: Appointment = {
       uuid: uuidv4(),
-      barber: this.barber,
+      barber: this.barber(),
       appointmentState: AppointmentState.SCHEDULED,
       slot: this.selectedTimeSlot,
-      service: this.service,
+      service: this.service(),
       customer: this.loggedCustomer
     };
     this.dialogService.open(ConfirmAppointmentModalComponent, {
@@ -167,6 +144,6 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   }
 
   return() {
-    this.router.navigate(['services', this.barber?.uuid]);
+    this.router.navigate(['services', this.barber()?.uuid]);
   }
 }

@@ -1,12 +1,10 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {BarberListComponent} from "../../components/barber/barber-list.component";
 import {Barber} from "../../../auth/model/barber.model";
-import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
-import {selectBarber} from "../../store/actions";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
-import {BarbersService} from "../../services/barbers.service";
+import {BarberService} from "../../services/barber.service";
 
 @Component({
   selector: 'app-barbers',
@@ -17,15 +15,12 @@ import {BarbersService} from "../../services/barbers.service";
   templateUrl: './barbers-page.component.html',
   styleUrl: './barbers-page.component.scss'
 })
-export class BarbersPageComponent implements OnInit, OnDestroy{
+export class BarbersPageComponent implements OnInit{
 
   private navBarService = inject(NavBarService);
-  barberService = inject(BarbersService);
+  barberService = inject(BarberService);
 
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(private store$: Store,
-              private router: Router) {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -35,13 +30,7 @@ export class BarbersPageComponent implements OnInit, OnDestroy{
 
   redirectToServices = (barber: Barber) => {
     this.navBarService.hide();
-    this.store$.dispatch(selectBarber({barber}));
+    this.barberService.selectBarber(barber);
     this.router.navigate(['services', barber.uuid]);
   }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
 }
