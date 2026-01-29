@@ -17,13 +17,8 @@ import {AppointmentFilter} from "../model/appointment-filter.model";
 export class MainApiService {
 
   private readonly SLOT_API = enviroment.baseUrl + '/api/v1/slot';
-  private readonly CUSTOMER_API = enviroment.baseUrl + '/api/v1/customer';
 
   constructor(private httpClient: HttpClient) {
-  }
-
-  updateCustomer(customer: Customer) {
-    return this.httpClient.post<Customer>(this.CUSTOMER_API + '/update', customer);
   }
 
   searchSlots(filter: SlotFilter) {

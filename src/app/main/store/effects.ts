@@ -1,10 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {MainApiService} from "../api/main-api.service";
-import {map, of, switchMap, tap} from "rxjs";
+import {map, of, switchMap} from "rxjs";
 import {
-  updateCustomer,
-  updateCustomerSuccess,
   searchSlots,
   searchSlotsSuccess,
   selectBarber,
@@ -14,7 +12,6 @@ import {
   selectAppointment,
   clearSelectedAppointment,
 } from "./actions";
-import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
 
 @Injectable()
@@ -22,28 +19,8 @@ export class MainEffects {
 
   constructor(private actions$: Actions,
               private mainApi: MainApiService,
-              private storageService: LocalStorageService,
-              private router: Router) {
+              private storageService: LocalStorageService) {
   }
-
-  updateCustomerEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(updateCustomer),
-    switchMap(action => this.mainApi.updateCustomer(action.customer).pipe(
-      switchMap(response => {
-        return of(
-          updateCustomerSuccess({customer: response}),
-          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno sačuvano!")
-        )
-      })
-    ))
-  ));
-
-  updateCustomerSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(updateCustomerSuccess),
-    tap(() => {
-      this.router.navigate(['settings']);
-    })
-  ), {dispatch: false});
 
   searchSlotsEffect$ = createEffect(() => this.actions$.pipe(
     ofType(searchSlots),

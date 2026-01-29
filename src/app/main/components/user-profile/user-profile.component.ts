@@ -9,10 +9,10 @@ import {Subject} from "rxjs";
 import {Store} from "@ngrx/store";
 import {Customer} from "../../../auth/model/customer.model";
 import {AvatarModule} from "primeng/avatar";
-import {updateCustomer} from "../../store/actions";
 import {AuthService} from "../../../auth/service/auth.service";
 import {returnToPreviousPage} from "../../../shared/store/actions";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
+import {CustomerService} from "../../services/customer.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -33,7 +33,8 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   form: FormGroup | undefined;
   user: User | undefined;
   customer: Customer | undefined;
-  navBarService = inject(NavBarService);
+  private navBarService = inject(NavBarService);
+  private customerService = inject(CustomerService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -63,12 +64,12 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   }
 
   updateCustomer() {
-    this.customer = {
+    const customer = {
       ...this.customer,
       name: this.form?.get('name')?.value,
       mobile: this.form?.get('mobile')?.value,
     };
-    this.store$.dispatch(updateCustomer({customer: this.customer!}));
+    this.customerService.update(customer);
   }
 
   return() {

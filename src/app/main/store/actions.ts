@@ -2,18 +2,10 @@ import {createAction, props, union} from "@ngrx/store";
 import {MainActionsConstants} from "../constants/constants";
 import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../model/service.model";
-import {Customer} from "../../auth/model/customer.model";
 import {SearchResponse} from "../model/search-response.model";
 import {SlotFilter} from "../model/slot-filter.model";
 import {Slot} from "../model/slot.model";
 import {Appointment} from "../model/appointment.model";
-import {AppointmentFilter} from "../model/appointment-filter.model";
-
-export const updateCustomer = createAction(MainActionsConstants.UpdateCustomer,
-  props< {customer: Customer} >());
-
-export const updateCustomerSuccess = createAction(MainActionsConstants.UpdateCustomerSuccess,
-  props< {customer: Customer} >());
 
 export const searchSlots = createAction(MainActionsConstants.SearchSlots,
   props< {filter: SlotFilter} >());
@@ -45,8 +37,6 @@ export const clearAppointmentSearch = createAction(MainActionsConstants.ClearApp
 
 
 const all = union({
-  updateCustomer,
-  updateCustomerSuccess,
   searchSlots,
   searchSlotsSuccess,
   clearSlotSearch,
