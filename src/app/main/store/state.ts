@@ -6,13 +6,11 @@ import {Slot} from "../model/slot.model";
 import {Appointment} from "../model/appointment.model";
 
 export interface MainState {
-  slotSearchResponse: SearchResponse<Slot> | null;
   selectedBarber: Barber | null;
   selectedService: Service | null;
 }
 
 export const INIT_MAIN_STATE: MainState = {
-  slotSearchResponse: null,
   selectedBarber: null,
   selectedService: null
 }

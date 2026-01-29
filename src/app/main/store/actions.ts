@@ -2,18 +2,6 @@ import {createAction, props, union} from "@ngrx/store";
 import {MainActionsConstants} from "../constants/constants";
 import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../model/service.model";
-import {SearchResponse} from "../model/search-response.model";
-import {SlotFilter} from "../model/slot-filter.model";
-import {Slot} from "../model/slot.model";
-import {Appointment} from "../model/appointment.model";
-
-export const searchSlots = createAction(MainActionsConstants.SearchSlots,
-  props< {filter: SlotFilter} >());
-
-export const searchSlotsSuccess = createAction(MainActionsConstants.SearchSlotsSuccess,
-  props< {searchResponse: SearchResponse<Slot>} >());
-
-export const clearSlotSearch = createAction(MainActionsConstants.ClearSlotSearch);
 
 export const selectBarber = createAction(MainActionsConstants.SelectBarber,
   props< {barber: Barber} >());
@@ -25,22 +13,12 @@ export const selectService = createAction(MainActionsConstants.SelectService,
 
 export const clearSelectService = createAction(MainActionsConstants.ClearSelectService);
 
-export const searchAppointmentsSuccess = createAction(MainActionsConstants.SearchAppointmentsSuccess,
-  props< {response: SearchResponse<Appointment>} >());
-
-export const clearAppointmentSearch = createAction(MainActionsConstants.ClearAppointmentSearch);
-
 
 const all = union({
-  searchSlots,
-  searchSlotsSuccess,
-  clearSlotSearch,
   selectBarber,
   selectService,
   clearSelectBarber,
-  clearSelectService,
-  searchAppointmentsSuccess,
-  clearAppointmentSearch
+  clearSelectService
 });
 
 export type MainActions = typeof all;

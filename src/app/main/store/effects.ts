@@ -1,10 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {MainApiService} from "../api/main-api.service";
-import {map, of, switchMap} from "rxjs";
+import {map} from "rxjs";
 import {
-  searchSlots,
-  searchSlotsSuccess,
   selectBarber,
   selectService,
   clearSelectBarber,
@@ -16,31 +13,8 @@ import {LocalStorageService} from "../../shared/service/local-storage.service";
 export class MainEffects {
 
   constructor(private actions$: Actions,
-              private mainApi: MainApiService,
               private storageService: LocalStorageService) {
   }
-
-  searchSlotsEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(searchSlots),
-    switchMap(action => this.mainApi.searchSlots(action.filter).pipe(
-      map(response => {
-        return {
-          ...response,
-          data: response.data.map(slot => {
-            return {
-              ...slot,
-              selected: false
-            }
-          })
-        };
-      }),
-      switchMap(response => {
-        return of(
-          searchSlotsSuccess({searchResponse: response})
-        )
-      })
-    ))
-  ));
 
   selectBarberEffect$ = createEffect(() => this.actions$.pipe(
     ofType(selectBarber),

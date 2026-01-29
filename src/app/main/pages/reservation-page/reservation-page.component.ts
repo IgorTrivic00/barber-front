@@ -6,8 +6,8 @@ import {filter, Subject, takeUntil} from "rxjs";
 import {CalendarModule} from "primeng/calendar";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
-import {selectedBarber, selectedService, selectSlots} from "../../store/selectors";
-import {clearSelectService, searchSlots} from "../../store/actions";
+import {selectedBarber, selectedService} from "../../store/selectors";
+import {clearSelectService} from "../../store/actions";
 import {SlotFilter} from "../../model/slot-filter.model";
 import {DatePipe} from "@angular/common";
 import {Slot} from "../../model/slot.model";
@@ -26,6 +26,7 @@ import {
 } from "../../modal/confirm-appointment-modal/confirm-appointment-modal.component";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
 import {AppointmentService} from "../../services/appointment.service";
+import {SlotService} from "../../services/slot.service";
 
 @Component({
   selector: 'app-reservation',
@@ -52,8 +53,10 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
   selectedTimeSlot: Slot | undefined;
+  private id = 'reservation-page';
   private navBarService = inject(NavBarService);
   private appointmentService = inject(AppointmentService);
+  private slotService= inject(SlotService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -95,7 +98,6 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   private initSelectors() {
     this.selectedService();
     this.selectedBarber();
-    this.selectSlots();
     this.authService.getLoggedCustomer()?.subscribe(value => this.loggedCustomer = value);
   }
 
@@ -111,14 +113,8 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       .subscribe(value => this.barber = value);
   }
 
-  private selectSlots() {
-    this.store$.select(selectSlots)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.slots = cloneDeep(value));
-  }
-
   searchSlots(){
-    this.store$.dispatch(searchSlots({filter: this.filter!}));
+    this.slotService.search(this.id, this.filter);
   }
 
   private initFilter() {
