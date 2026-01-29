@@ -14,7 +14,7 @@ export class ServiceApiService {
 
   private httpClient = inject(HttpClient);
 
-  search(filter: ServiceFilter) {
+  search(filter: ServiceFilter | undefined) {
     return this.httpClient.post<SearchResponse<Service>>(this.SERVICE_API + '/search', filter);
   }
 

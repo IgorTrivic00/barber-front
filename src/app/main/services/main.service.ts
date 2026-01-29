@@ -15,7 +15,7 @@ export class MainService {
               private store$: Store) {
   }
 
-  cancelAppointment(appointment: Appointment, callbackFn: any) {
+    cancelAppointment(appointment: Appointment | undefined, callbackFn: any) {
     this.confirmationService.confirm({
       message: 'Da li ste sigurni da želite da otkažete termin?',
       header: 'Otkazivanje termina',

@@ -15,7 +15,7 @@
   </div>
   <div class="appointment-list">
     <app-appointment-list
-      [appointments]="appointments"
+      [appointments]="appointmentService.getResponse(MINE_APPOINTMENT_SEARCH_ID)?.data ?? []"
       (cancelEmitter)="cancelAppointment($event)"
       (completeEmitter)="completeAppointment($event)"
     >

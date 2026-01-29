@@ -10,10 +10,15 @@ export class BarbersService {
   private apiService = inject(BarberApiService);
   barbers = signal<Barber[]>([]);
 
+
   findAll(){
     this.apiService.findAll().subscribe(value => {
       this.barbers.set(value);
     });
+  }
+
+  selectBarber(barber: Barber){
+
   }
 
 }

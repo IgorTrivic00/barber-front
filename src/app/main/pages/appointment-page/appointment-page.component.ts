@@ -1,9 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {filter, Subject, takeUntil} from "rxjs";
-import {Store} from "@ngrx/store";
-import {selectedAppointment} from "../../store/selectors";
-import {Appointment} from "../../model/appointment.model";
-import {clearSelectedAppointment} from "../../store/actions";
+import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {DataService} from "../../services/data.service";
@@ -31,19 +26,16 @@ import {AppointmentService} from "../../services/appointment.service";
     ])
   ]
 })
-export class AppointmentPageComponent implements OnInit, OnDestroy {
+export class AppointmentPageComponent implements OnInit {
 
-  selectedAppointment!: Appointment;
   appointmentUuid!: string;
   loggedUser!: User;
   dateTimeFormat = 'HH:mm';
   navBarService = inject(NavBarService);
   appointmentService = inject(AppointmentService);
+  selectedAppointment = this.appointmentService.selectedAppointment;
 
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
-  constructor(private store$: Store,
-              private router: Router,
+  constructor(private router: Router,
               private mainService: MainService,
               private authService: AuthService,
               private route: ActivatedRoute,
@@ -56,24 +48,9 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
     this.appointmentService.findByUuid(this.appointmentUuid);
   }
 
-  ngOnDestroy(): void {
-    this.store$.dispatch(clearSelectedAppointment());
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
   private initSelectors(): void {
     this.authService.getLoggedUser()?.subscribe(value => this.loggedUser = value);
     this.appointmentUuid = this.route.snapshot.params['appointmentUuid'];
-    this.selectScheduledAppointment();
-  }
-
-  private selectScheduledAppointment(): void {
-    this.store$.select(selectedAppointment)
-      .pipe(filter(Boolean), takeUntil(this.ngUnsubscribe))
-      .subscribe(value => {
-        this.selectedAppointment = value;
-      });
   }
 
   getStatusColor(state: AppointmentState): string {
@@ -85,7 +62,7 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   }
 
   onCancel(): void {
-    this.mainService.cancelAppointment(this.selectedAppointment, this.return);
+    this.mainService.cancelAppointment(this.selectedAppointment(), this.return);
   }
 
   translateAppointmentState(appointmentState: AppointmentState) {

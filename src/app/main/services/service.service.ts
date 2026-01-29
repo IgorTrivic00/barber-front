@@ -12,19 +12,14 @@ import {ToastrService} from "../../shared/service/toastr.service";
 })
 export class ServiceService {
 
-  private searchCache = signal<Map<String, SearchResponse<Service>>>(new Map<String, SearchResponse<Service>>());
+  private searchCache = signal(new Map<String, SearchResponse<Service>>());
   private filterCache = new Map<String, ServiceFilter>();
   private apiService = inject(ServiceApiService);
   private toastrService = inject(ToastrService);
 
   search(id: string, filter: ServiceFilter){
-    const filterFromCache = this.filterCache.get(id);
-    const merged = {
-    ...filterFromCache,
-    ...filter
-    } as ServiceFilter;
-    this.filterCache.set(id, merged);
-    this._search(id, merged);
+    const resultFilter = this.updateFilterCache(id, filter);
+    this._search(id, resultFilter);
   }
 
   getResponse(id: string){
@@ -63,7 +58,7 @@ export class ServiceService {
     });
   }
 
-  private _search(id: string, filter: ServiceFilter){
+  private _search(id: string, filter: ServiceFilter | undefined){
     this.apiService.search(filter)
       .subscribe(value => this.updateSearchCache(id, value));
   }
@@ -74,5 +69,15 @@ export class ServiceService {
       next.set(id, value);
       return next;
     });
+  }
+
+  private updateFilterCache(id: string, filter: ServiceFilter){
+    const filterFromCache = this.filterCache.get(id);
+    const merged = {
+      ...filterFromCache,
+      ...filter
+    } as ServiceFilter;
+    this.filterCache.set(id, merged);
+    return this.filterCache.get(id);
   }
 }

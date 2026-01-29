@@ -26,7 +26,7 @@ export class AppointmentApiService {
     return this.httpClient.post<SearchResponse<Appointment>>(this.APPOINTMENT_API + '/my-appointments', filter);
   }
 
-  cancel(appointment: Appointment) {
+    cancel(appointment: Appointment | undefined) {
     return this.httpClient.post<Appointment>(this.APPOINTMENT_API + '/cancel', appointment);
   }
 

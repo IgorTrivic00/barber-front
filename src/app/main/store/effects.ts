@@ -8,9 +8,7 @@ import {
   selectBarber,
   selectService,
   clearSelectBarber,
-  clearSelectService,
-  selectAppointment,
-  clearSelectedAppointment,
+  clearSelectService
 } from "./actions";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
 
@@ -51,13 +49,6 @@ export class MainEffects {
     })
   ), {dispatch: false});
 
-  selectServiceEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(selectService),
-    map(action => {
-      this.storageService.setSavedState(action.service, "selectedService");
-    })
-  ), {dispatch: false});
-
   clearSelectBarberEffect$ = createEffect(() => this.actions$.pipe(
     ofType(clearSelectBarber),
     map(action => {
@@ -65,24 +56,17 @@ export class MainEffects {
     })
   ), {dispatch: false});
 
+  selectServiceEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(selectService),
+    map(action => {
+      this.storageService.setSavedState(action.service, "selectedService");
+    })
+  ), {dispatch: false});
+
   clearSelectServiceEffect$ = createEffect(() => this.actions$.pipe(
     ofType(clearSelectService),
     map(action => {
       this.storageService.setSavedState(null, "selectedService");
-    })
-  ), {dispatch: false});
-
-  selectAppointmentEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(selectAppointment),
-    map(action => {
-      this.storageService.setSavedState(action.appointment, "selectedAppointment");
-    })
-  ), {dispatch: false});
-
-  clearSelectedAppointmentEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(clearSelectedAppointment),
-    map(action => {
-      this.storageService.setSavedState(null, "selectedAppointment");
     })
   ), {dispatch: false});
 }

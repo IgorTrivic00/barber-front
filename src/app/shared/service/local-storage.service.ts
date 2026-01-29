@@ -5,7 +5,7 @@ import {loginSuccess} from "../../auth/store/actions";
 import {updateCurrentUrl, updateLastUrl} from "../store/actions";
 import {Barber} from "../../auth/model/barber.model";
 import {Service} from "../../main/model/service.model";
-import {selectAppointment, selectBarber, selectService} from "../../main/store/actions";
+import {selectBarber, selectService} from "../../main/store/actions";
 import {Appointment} from "../../main/model/appointment.model";
 
 @Injectable({
@@ -30,7 +30,6 @@ export class LocalStorageService {
     const currentUrl: string = this.getSavedState('currentUrl');
     const selectedService: Service = this.getSavedState('selectedService');
     const selectedBarber: Barber = this.getSavedState('selectedBarber');
-    const selectedAppointment: Appointment = this.getSavedState('selectedAppointment');
     if(userSession){
       this.store$.dispatch(loginSuccess({user: userSession}))
     }
@@ -45,9 +44,6 @@ export class LocalStorageService {
     }
     if(selectedService){
       this.store$.dispatch(selectService({service: selectedService}));
-    }
-    if(selectedAppointment){
-      this.store$.dispatch(selectAppointment({appointment: selectedAppointment}));
     }
   }
 

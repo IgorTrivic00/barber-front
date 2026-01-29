@@ -1,65 +1,68 @@
-<div class="appointment-page flex-row align-items-center justify-content-center" *ngIf="selectedAppointment">
-  <div style="padding: 10px; position: fixed; z-index: 1000; top: 0; left: 0;">
-    <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" (click)="return()"
-              label="Nazad" [raised]="true" [style]="{'border-radius': '0.25rem'}"/>
-  </div>
-  <div class="container" [@fadeInUp]>
-    <div class="header-section">
-      <h1>Termin</h1>
+<ng-container *ngIf="selectedAppointment() as selectedAppointment">
+  <div class="appointment-page flex-row align-items-center justify-content-center">
+    <div style="padding: 10px; position: fixed; z-index: 1000; top: 0; left: 0;">
+      <p-button icon="pi pi-arrow-left" iconPos="left" severity="secondary" (click)="return()"
+                label="Nazad" [raised]="true" [style]="{'border-radius': '0.25rem'}"/>
     </div>
-
-    <div class="status-section">
-      <div class="status-badge" [ngClass]="getStatusColor(selectedAppointment.appointmentState)">
-        <span class="status-icon">{{ getStatusIcon(selectedAppointment.appointmentState) }}</span>
-        <span class="status-text">{{ translateAppointmentState(selectedAppointment.appointmentState) | titlecase }}</span>
+    <div class="container" [@fadeInUp]>
+      <div class="header-section">
+        <h1>Termin</h1>
       </div>
-    </div>
 
-    <div class="main-card" [@fadeInUp]>
-      <div class="card-header">
-        <div class="date-time-section">
-          <div class="date">{{selectedAppointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
-          <div class="time">{{selectedAppointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{selectedAppointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
+      <div class="status-section">
+        <div class="status-badge" [ngClass]="getStatusColor(selectedAppointment.appointmentState)">
+          <span class="status-icon">{{ getStatusIcon(selectedAppointment.appointmentState) }}</span>
+          <span class="status-text">{{ translateAppointmentState(selectedAppointment.appointmentState) | titlecase }}</span>
         </div>
       </div>
 
-      <div class="card-body">
-        <div class="service-details">
-          <div class="service-avatar">✂️</div>
-          <div class="service-info">
-            <h3>{{ selectedAppointment.service?.serviceName }}</h3>
-            <div class="service-meta">
-              <span><i class="pi pi-clock"></i> {{ getDuration(selectedAppointment.service?.duration) }}</span>
-              <span><i class="pi pi-wallet"></i> {{ selectedAppointment.service?.price }} RSD</span>
+      <div class="main-card" [@fadeInUp]>
+        <div class="card-header">
+          <div class="date-time-section">
+            <div class="date">{{selectedAppointment.slot?.start! | date: 	'EEEE, MMMM d, y': 'UTC' }}</div>
+            <div class="time">{{selectedAppointment.slot?.start! | date: dateTimeFormat: 'UTC' }} - {{selectedAppointment.slot?.end! | date: dateTimeFormat: 'UTC' }}</div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="service-details">
+            <div class="service-avatar">✂️</div>
+            <div class="service-info">
+              <h3>{{ selectedAppointment.service?.serviceName }}</h3>
+              <div class="service-meta">
+                <span><i class="pi pi-clock"></i> {{ getDuration(selectedAppointment.service?.duration) }}</span>
+                <span><i class="pi pi-wallet"></i> {{ selectedAppointment.service?.price }} RSD</span>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="loggedUser.userRole === 'CUSTOMER'" class="barber-details">
+            <i class="pi pi-user"></i>
+            <div class="barber-info">
+              <h4>{{ selectedAppointment.barber?.name }}</h4>
+              <p>{{ selectedAppointment.barber?.barberTitle }}</p>
+            </div>
+          </div>
+
+          <div *ngIf="loggedUser.userRole === 'BARBER'" class="barber-details">
+            <i class="pi pi-user"></i>
+            <div class="barber-info">
+              <h4>{{ selectedAppointment.customer?.name }}</h4>
+              <p>{{ selectedAppointment.customer?.mobile }}</p>
             </div>
           </div>
         </div>
 
-        <div *ngIf="loggedUser.userRole === 'CUSTOMER'" class="barber-details">
-          <i class="pi pi-user"></i>
-          <div class="barber-info">
-            <h4>{{ selectedAppointment.barber?.name }}</h4>
-            <p>{{ selectedAppointment.barber?.barberTitle }}</p>
+        <div class="action-section">
+          <div class="action-buttons">
+            <button *ngIf="selectedAppointment.appointmentState === AppointmentState.SCHEDULED" class="btn button-danger" (click)="onCancel()">
+              <i class="pi pi-times"></i>
+              Otkaži termin
+            </button>
           </div>
-        </div>
-
-        <div *ngIf="loggedUser.userRole === 'BARBER'" class="barber-details">
-          <i class="pi pi-user"></i>
-          <div class="barber-info">
-            <h4>{{ selectedAppointment.customer?.name }}</h4>
-            <p>{{ selectedAppointment.customer?.mobile }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-section">
-        <div class="action-buttons">
-          <button *ngIf="selectedAppointment.appointmentState === AppointmentState.SCHEDULED" class="btn button-danger" (click)="onCancel()">
-            <i class="pi pi-times"></i>
-            Otkaži termin
-          </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+</ng-container>

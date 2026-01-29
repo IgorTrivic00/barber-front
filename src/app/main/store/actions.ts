@@ -25,11 +25,6 @@ export const selectService = createAction(MainActionsConstants.SelectService,
 
 export const clearSelectService = createAction(MainActionsConstants.ClearSelectService);
 
-export const selectAppointment = createAction(MainActionsConstants.SelectAppointment,
-  props< {appointment: Appointment} >());
-
-export const clearSelectedAppointment = createAction(MainActionsConstants.ClearSelectedAppointment);
-
 export const searchAppointmentsSuccess = createAction(MainActionsConstants.SearchAppointmentsSuccess,
   props< {response: SearchResponse<Appointment>} >());
 
@@ -44,8 +39,6 @@ const all = union({
   selectService,
   clearSelectBarber,
   clearSelectService,
-  selectAppointment,
-  clearSelectedAppointment,
   searchAppointmentsSuccess,
   clearAppointmentSearch
 });

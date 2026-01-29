@@ -19,3 +19,4 @@ export enum MainActionsConstants {
 }
 
 export const MINE_SERVICE_SEARCH_ID = 'mine-services';
+export const MINE_APPOINTMENT_SEARCH_ID = 'mine-appointments';
