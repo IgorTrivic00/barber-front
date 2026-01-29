@@ -3,15 +3,8 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {MainApiService} from "../api/main-api.service";
 import {map, of, switchMap, tap} from "rxjs";
 import {
-  addService,
-  addServiceSuccess,
-  deleteService,
-  deleteServiceSuccess,
   updateCustomer,
   updateCustomerSuccess,
-  updateService,
-  updateServiceSuccess,
-  findMyServices,
   searchSlots,
   searchSlotsSuccess,
   selectBarber,
@@ -31,6 +24,7 @@ import {
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
 import {ToastrService} from "../../shared/service/toastr.service";
+import {ServiceApiService} from "../api/service-api.service";
 
 @Injectable()
 export class MainEffects {
@@ -59,69 +53,6 @@ export class MainEffects {
     ofType(updateCustomerSuccess),
     tap(() => {
       this.router.navigate(['settings']);
-    })
-  ), {dispatch: false});
-
-  addServiceEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(addService),
-    switchMap(action => this.mainApi.addService(action.service, action.file).pipe(
-      switchMap(response => {
-        return of(
-          addServiceSuccess({ service: response, callbackFn: action.callbackFn }),
-          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno sačuvano!")
-        )
-      })
-    ))
-  ));
-
-  addServiceSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(addServiceSuccess),
-    map(action => {
-      if(action.callbackFn){
-        action.callbackFn();
-      }
-    })
-  ), {dispatch: false});
-
-  deleteServiceEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteService),
-    switchMap(action => this.mainApi.deleteService(action.uuid).pipe(
-      switchMap((response) => {
-        return of(
-          deleteServiceSuccess({ service: response, callbackFn: action.callbackFn }),
-        // this.toastService.showMessage(Severity.SUCCESS,"Usluga je uspešno obrisana!")
-        );
-      })
-    ))
-  ));
-
-  deleteServiceSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteServiceSuccess),
-    map(action => {
-      if(action.callbackFn){
-        action.callbackFn();
-      }
-    })
-  ), {dispatch: false});
-
-  updateServiceEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(updateService),
-    switchMap(action => this.mainApi.updateService(action.service).pipe(
-      switchMap(response => {
-        return of(
-          updateServiceSuccess({ service: response, callbackFn: action.callbackFn }),
-        // this.toastService.showMessage(Severity.SUCCESS,"Usluga uspešno ažurirana!")
-        );
-      })
-    ))
-  ));
-
-  updateServiceSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(updateServiceSuccess),
-    map(action => {
-      if(action.callbackFn){
-        action.callbackFn();
-      }
     })
   ), {dispatch: false});
 

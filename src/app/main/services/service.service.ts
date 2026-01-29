@@ -1,8 +1,11 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {ServiceFilter} from "../model/service-filter.model";
 import {Service} from "../model/service.model";
-import {MainApiService} from "../api/main-api.service";
 import {SearchResponse} from "../model/search-response.model";
+import {ServiceApiService} from "../api/service-api.service";
+import {MINE_SERVICE_SEARCH_ID} from "../constants/constants";
+import {Severity} from "../../shared/constants/constants";
+import {ToastrService} from "../../shared/service/toastr.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,9 @@ import {SearchResponse} from "../model/search-response.model";
 export class ServiceService {
 
   private searchCache = signal<Map<String, SearchResponse<Service>>>(new Map<String, SearchResponse<Service>>());
-  private apiService = inject(MainApiService);
   private filterCache = new Map<String, ServiceFilter>();
+  private apiService = inject(ServiceApiService);
+  private toastrService = inject(ToastrService);
 
   search(id: string, filter: ServiceFilter){
     const filterFromCache = this.filterCache.get(id);
@@ -27,13 +31,48 @@ export class ServiceService {
     return this.searchCache().get(id);
   }
 
+  findMine(){
+    this.apiService.findMine()
+      .subscribe(value => this.updateSearchCache(MINE_SERVICE_SEARCH_ID, value));
+  }
+
+  add(service: Service, file?: any, callbackFn?: () => any){
+    this.apiService.add(service, file).subscribe(value => {
+      this.toastrService.showMessage(Severity.SUCCESS,"Usluga je uspešno dodata!");
+      if(callbackFn){
+        callbackFn();
+      }
+    });
+  }
+
+  delete(uuid: string | undefined, callbackFn?: () => any){
+    this.apiService.delete(uuid).subscribe(value => {
+      this.toastrService.showMessage(Severity.SUCCESS,"Usluga je uspešno obrisana!");
+      if(callbackFn){
+        callbackFn();
+      }
+    });
+  }
+
+  update(service: Service, callbackFn?: () => any){
+    this.apiService.update(service).subscribe(value => {
+      this.toastrService.showMessage(Severity.SUCCESS,"Usluga uspešno ažurirana!");
+      if(callbackFn){
+        callbackFn();
+      }
+    });
+  }
+
   private _search(id: string, filter: ServiceFilter){
-    this.apiService.searchServices(filter).subscribe(value => {
-      this.searchCache.update(cache => {
-        const next = new Map(cache);
-        next.set(id, value);
-        return next;
-      });
+    this.apiService.search(filter)
+      .subscribe(value => this.updateSearchCache(id, value));
+  }
+
+  private updateSearchCache(id: string, value: any){
+    this.searchCache.update(cache => {
+      const next = new Map(cache);
+      next.set(id, value);
+      return next;
     });
   }
 }

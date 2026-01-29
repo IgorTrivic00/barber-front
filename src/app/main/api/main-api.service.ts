@@ -29,33 +29,8 @@ export class MainApiService {
     return this.httpClient.get<Barber[]>(this.BARBER_API + '/find-all');
   }
 
-  searchServices(filter: ServiceFilter) {
-    return this.httpClient.post<SearchResponse<Service>>(this.SERVICE_API + '/search', filter);
-  }
-
   updateCustomer(customer: Customer) {
     return this.httpClient.post<Customer>(this.CUSTOMER_API + '/update', customer);
-  }
-
-  addService(service: Service, file?: any){
-    const formData = new FormData();
-    formData.append('service', new Blob([JSON.stringify(service)], {type: 'application/json'}));
-    if(file){
-      formData.append('photo', file);
-    }
-    return this.httpClient.post<Service>(this.SERVICE_API + '/add', formData);
-  }
-
-  deleteService(uuid: string | undefined) {
-    return this.httpClient.delete<Service>(this.SERVICE_API + '/' + uuid);
-  }
-
-  updateService(service: Service) {
-    return this.httpClient.put<Service>(this.SERVICE_API , service);
-  }
-
-  findMyServices() {
-    return this.httpClient.get<SearchResponse<Service>>(this.SERVICE_API + '/my-services');
   }
 
   searchSlots(filter: SlotFilter) {

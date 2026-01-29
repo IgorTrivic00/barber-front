@@ -18,24 +18,6 @@ export const updateCustomer = createAction(MainActionsConstants.UpdateCustomer,
 export const updateCustomerSuccess = createAction(MainActionsConstants.UpdateCustomerSuccess,
   props< {customer: Customer} >());
 
-export const addService = createAction(MainActionsConstants.AddService,
-  props< {service: Service, file?: any, callbackFn?: () => any} >());
-
-export const addServiceSuccess = createAction(MainActionsConstants.AddServiceSuccess,
-  props< {service: Service, callbackFn?: () => any} >());
-
-export const deleteService = createAction(MainActionsConstants.DeleteService,
-  props<{uuid: string | undefined, callbackFn?: () => any}>());
-
-export const deleteServiceSuccess = createAction(MainActionsConstants.DeleteServiceSuccess,
-  props<{service: Service, callbackFn?: () => any} >());
-
-export const updateService = createAction(MainActionsConstants.UpdateService,
-  props< {service: Service, callbackFn?: () => any} >());
-
-export const updateServiceSuccess = createAction(MainActionsConstants.UpdateServiceSuccess,
-  props< {service: Service, callbackFn?: () => any} >());
-
 export const searchSlots = createAction(MainActionsConstants.SearchSlots,
   props< {filter: SlotFilter} >());
 
@@ -95,12 +77,6 @@ export const completeAppointmentSuccess = createAction(MainActionsConstants.Comp
 const all = union({
   updateCustomer,
   updateCustomerSuccess,
-  addService,
-  addServiceSuccess,
-  deleteService,
-  deleteServiceSuccess,
-  updateService,
-  updateServiceSuccess,
   searchSlots,
   searchSlotsSuccess,
   clearSlotSearch,

@@ -16,7 +16,7 @@
     </div>
     <div class="barber-list">
       <app-service-list
-        [services]="services"
+        [services]="serviceService.getResponse(MINE_SERVICE_SEARCH_ID)?.data ?? []"
         (deleteEmitter)="deleteService($event)"
         (updateEmitter)="updateService($event)"
       >

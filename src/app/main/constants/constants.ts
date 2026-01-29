@@ -1,20 +1,8 @@
 export enum MainActionsConstants {
-  SearchServices = '[MainActions] Search Services',
-  SearchServicesSuccess = '[MainActions] Search Services Success',
   FindMyServices = '[MainActions] Find My Services',
-  ClearServiceSearch = '[MainActions] Clear Service Search',
 
   UpdateCustomer = '[MainActions] Update Customer',
   UpdateCustomerSuccess = '[MainActions] Update Customer Success',
-
-  AddService = '[MainActions] Add Service',
-  AddServiceSuccess = '[MainActions] Add Service Success',
-
-  DeleteService = '[MainActions] Delete Service',
-  DeleteServiceSuccess = '[MainActions] Delete Service Success',
-
-  UpdateService = '[MainActions] Update Service',
-  UpdateServiceSuccess = '[MainActions] Update Service Success',
 
   SearchSlots = '[MainActions] Search Slots',
   SearchSlotsSuccess = '[MainActions] Search Slots Success',
@@ -44,3 +32,5 @@ export enum MainActionsConstants {
   CompleteAppointment = '[MainActions] Complete Appointment',
   CompleteAppointmentSuccess = '[MainActions] Complete Appointment Success'
 }
+
+export const MINE_SERVICE_SEARCH_ID = 'mine-services';
