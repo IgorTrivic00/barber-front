@@ -7,7 +7,7 @@ import {CalendarModule} from "primeng/calendar";
 import {Service} from "../../model/service.model";
 import {Barber} from "../../../auth/model/barber.model";
 import {selectedBarber, selectedService, selectSlots} from "../../store/selectors";
-import {clearSelectService, scheduleAppointment, searchSlots} from "../../store/actions";
+import {clearSelectService, searchSlots} from "../../store/actions";
 import {SlotFilter} from "../../model/slot-filter.model";
 import {DatePipe} from "@angular/common";
 import {Slot} from "../../model/slot.model";
@@ -25,6 +25,7 @@ import {
   ConfirmAppointmentModalComponent
 } from "../../modal/confirm-appointment-modal/confirm-appointment-modal.component";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
+import {AppointmentService} from "../../services/appointment.service";
 
 @Component({
   selector: 'app-reservation',
@@ -51,7 +52,8 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
   slots: Slot[] | undefined;
   filter: SlotFilter | undefined;
   selectedTimeSlot: Slot | undefined;
-  navBarService = inject(NavBarService);
+  private navBarService = inject(NavBarService);
+  private appointmentService = inject(AppointmentService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -150,7 +152,7 @@ export class ReservationPageComponent implements OnInit, OnDestroy{
       }
     }).onClose.subscribe(response => {
       if (response){
-        this.store$.dispatch(scheduleAppointment({appointment}));
+        this.appointmentService.schedule(appointment);
       }
     })
   }

@@ -1,4 +1,4 @@
-import {inject, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {MainApiService} from "../api/main-api.service";
 import {map, of, switchMap, tap} from "rxjs";
@@ -11,25 +11,14 @@ import {
   selectService,
   clearSelectBarber,
   clearSelectService,
-  scheduleAppointment,
   selectAppointment,
   clearSelectedAppointment,
-  findAppointmentByUuid,
-  scheduleAppointmentSuccess,
-  findAppointmentByUuidSuccess,
-  findMyAppointments,
-  searchAppointmentsSuccess,
-  cancelAppointment, cancelAppointmentSuccess, completeAppointment, completeAppointmentSuccess
 } from "./actions";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "../../shared/service/local-storage.service";
-import {ToastrService} from "../../shared/service/toastr.service";
-import {ServiceApiService} from "../api/service-api.service";
 
 @Injectable()
 export class MainEffects {
-
-  toastService = inject(ToastrService);
 
   constructor(private actions$: Actions,
               private mainApi: MainApiService,
@@ -106,26 +95,6 @@ export class MainEffects {
     })
   ), {dispatch: false});
 
-  scheduleAppointmentEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(scheduleAppointment),
-    switchMap(action => this.mainApi.scheduleAppointment(action.appointment).pipe(
-      switchMap(response => {
-        return of(
-          selectAppointment({ appointment: response }),
-          scheduleAppointmentSuccess({ appointment: response }),
-          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno ste zakazali termin!")
-        );
-      })
-    ))
-  ));
-
-  scheduleAppointmentSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(scheduleAppointmentSuccess),
-    map(action => {
-      this.router.navigate(['appointment', action.appointment.uuid]);
-    })
-  ), {dispatch: false});
-
   selectAppointmentEffect$ = createEffect(() => this.actions$.pipe(
     ofType(selectAppointment),
     map(action => {
@@ -137,71 +106,6 @@ export class MainEffects {
     ofType(clearSelectedAppointment),
     map(action => {
       this.storageService.setSavedState(null, "selectedAppointment");
-    })
-  ), {dispatch: false});
-
-  findAppointmentByUuidEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(findAppointmentByUuid),
-    switchMap(action => this.mainApi.findAppointmentByUuid(action.appointmentUuid).pipe(
-      switchMap(response => {
-        return of(
-          findAppointmentByUuidSuccess({ appointment: response }),
-          selectAppointment({ appointment: response })
-        );
-      })
-    ))
-  ));
-
-  findMyAppointmentsEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(findMyAppointments),
-    switchMap(action => this.mainApi.findMyAppointments(action.filter).pipe(
-      switchMap(response => {
-        return of(
-          searchAppointmentsSuccess({response})
-        );
-      })
-    ))
-  ));
-
-  cancelAppointmentEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(cancelAppointment),
-    switchMap(action => this.mainApi.cancelAppointment(action.appointment).pipe(
-      switchMap(response => {
-        return of(
-          cancelAppointmentSuccess({appointment: response, callbackFn: action.callbackFn}),
-          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno ste otkazali termin!")
-        );
-      })
-    ))
-  ));
-
-  cancelAppointmentSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(cancelAppointmentSuccess),
-    map(action => {
-      if(action.callbackFn){
-        action.callbackFn();
-      }
-    })
-  ), {dispatch: false});
-
-  completeAppointmentEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(completeAppointment),
-    switchMap(action => this.mainApi.completeAppointment(action.appointment).pipe(
-      switchMap(response => {
-        return of(
-          completeAppointmentSuccess({appointment: response, callbackFn: action.callbackFn}),
-          // this.toastService.showMessage(Severity.SUCCESS,"Uspešno ste zatvorili termin!")
-        );
-      })
-    ))
-  ));
-
-  completeAppointmentSuccessEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(completeAppointmentSuccess),
-    map(action => {
-      if(action.callbackFn){
-        action.callbackFn();
-      }
     })
   ), {dispatch: false});
 }

@@ -1,13 +1,15 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {Appointment} from "../model/appointment.model";
 import {ConfirmationService} from "primeng/api";
 import {Store} from "@ngrx/store";
-import {cancelAppointment, completeAppointment} from "../store/actions";
+import {AppointmentService} from "./appointment.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
+
+  private appointmentService = inject(AppointmentService);
 
   constructor(private confirmationService: ConfirmationService,
               private store$: Store) {
@@ -23,7 +25,7 @@ export class MainService {
       rejectButtonStyleClass: 'secondary',
       acceptLabel: 'Da',
       accept: () => {
-        this.store$.dispatch(cancelAppointment({appointment, callbackFn}));
+        this.appointmentService.cancel(appointment, callbackFn);
       }
     });
   }
@@ -38,7 +40,7 @@ export class MainService {
       rejectButtonStyleClass: 'secondary',
       acceptLabel: 'Da',
       accept: () => {
-        this.store$.dispatch(completeAppointment({appointment, callbackFn}));
+        this.appointmentService.complete(appointment, callbackFn);
       }
     });
   }

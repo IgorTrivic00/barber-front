@@ -5,12 +5,13 @@ import {Store} from "@ngrx/store";
 import {selectAppointments} from "../../store/selectors";
 import {AppointmentFilter} from "../../model/appointment-filter.model";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
-import {clearAppointmentSearch, findMyAppointments} from "../../store/actions";
+import {clearAppointmentSearch} from "../../store/actions";
 import {Button} from "primeng/button";
 import {ServiceListComponent} from "../../components/services/service-list.component";
 import {AppointmentListComponent} from "../../components/appointment/appointment-list.component";
 import {MainService} from "../../services/main.service";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
+import {AppointmentService} from "../../services/appointment.service";
 
 @Component({
   selector: 'app-my-appointments-page-component',
@@ -29,6 +30,7 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
   filter!: AppointmentFilter;
   selectedState: AppointmentState[] = [AppointmentState.SCHEDULED];
   navBarService = inject(NavBarService);
+  appointmentService = inject(AppointmentService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -39,7 +41,8 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initFilter();
-    this.initDispatch();
+    this.navBarService.show();
+    this.findMineAppointments();
   }
 
   ngOnDestroy(): void {
@@ -58,11 +61,6 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
       .subscribe(value => this.appointments = value);
   }
 
-  private initDispatch() {
-    this.navBarService.show();
-    this.searchAppointments();
-  }
-
   private initFilter() {
     this.filter = {
       states: [AppointmentState.SCHEDULED]
@@ -77,18 +75,18 @@ export class MyAppointmentsPageComponentComponent implements OnInit, OnDestroy {
       ...this.filter,
       states: states
     }
-    this.searchAppointments();
+    this.findMineAppointments();
   }
 
-  searchAppointments = ()=> {
-    this.store$.dispatch(findMyAppointments({filter: this.filter}));
+  findMineAppointments = ()=> {
+    this.appointmentService.findMine(this.filter);
   }
 
   cancelAppointment(appointment: Appointment) {
-    this.mainService.cancelAppointment(appointment, this.searchAppointments);
+    this.mainService.cancelAppointment(appointment, this.findMineAppointments);
   }
 
   completeAppointment(appointment: Appointment) {
-    this.mainService.completeAppointment(appointment, this.searchAppointments);
+    this.mainService.completeAppointment(appointment, this.findMineAppointments);
   }
 }

@@ -3,9 +3,9 @@ import {filter, Subject, takeUntil} from "rxjs";
 import {Store} from "@ngrx/store";
 import {selectedAppointment} from "../../store/selectors";
 import {Appointment} from "../../model/appointment.model";
-import {clearSelectedAppointment, findAppointmentByUuid} from "../../store/actions";
+import {clearSelectedAppointment} from "../../store/actions";
 import {CommonModule} from '@angular/common';
-import {animate, query, stagger, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
 import {DataService} from "../../services/data.service";
 import {AppointmentState} from "../../model/enums/appointment-state.enum";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -14,6 +14,7 @@ import {User} from "../../../auth/model/user.model";
 import {AuthService} from "../../../auth/service/auth.service";
 import {MainService} from "../../services/main.service";
 import {NavBarService} from "../../../shared/service/nav-bar.service";
+import {AppointmentService} from "../../services/appointment.service";
 
 @Component({
   selector: 'app-appointment-page',
@@ -35,10 +36,11 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   selectedAppointment!: Appointment;
   appointmentUuid!: string;
   loggedUser!: User;
+  dateTimeFormat = 'HH:mm';
   navBarService = inject(NavBarService);
+  appointmentService = inject(AppointmentService);
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  dateTimeFormat = 'HH:mm';
 
   constructor(private store$: Store,
               private router: Router,
@@ -50,7 +52,8 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initDispatch();
+    this.navBarService.hide();
+    this.appointmentService.findByUuid(this.appointmentUuid);
   }
 
   ngOnDestroy(): void {
@@ -91,11 +94,6 @@ export class AppointmentPageComponent implements OnInit, OnDestroy {
 
   getDuration(duration: number | undefined) {
     return this.dataService.getDuration(duration);
-  }
-
-  private initDispatch() {
-    this.navBarService.hide();
-    this.store$.dispatch(findAppointmentByUuid({appointmentUuid: this.appointmentUuid}));
   }
 
   protected readonly AppointmentState = AppointmentState;
