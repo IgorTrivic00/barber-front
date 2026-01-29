@@ -1,17 +1,17 @@
 import {inject, Injectable, signal} from "@angular/core";
-import {MainApiService} from "../api/main-api.service";
 import {Barber} from "../../auth/model/barber.model";
+import {BarberApiService} from "../api/barber-api.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class BarbersService {
 
-  private apiService = inject(MainApiService);
+  private apiService = inject(BarberApiService);
   barbers = signal<Barber[]>([]);
 
   findAll(){
-    this.apiService.getBarbers().subscribe(value => {
+    this.apiService.findAll().subscribe(value => {
       this.barbers.set(value);
     });
   }

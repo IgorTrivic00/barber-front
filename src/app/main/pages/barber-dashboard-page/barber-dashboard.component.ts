@@ -2,7 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Button} from "primeng/button";
 import {RouterLink} from "@angular/router";
 import {ServiceListComponent} from '../../components/services/service-list.component';
-import {Store} from "@ngrx/store";
 import { CommonModule } from '@angular/common';
 import {BarberListComponent} from "../../components/barber/barber-list.component";
 import {FormsModule} from "@angular/forms";
@@ -36,8 +35,7 @@ export class BarberDashboardComponent implements OnInit {
 
   barber: Barber | undefined;
   serviceService = inject(ServiceService);
-  constructor(private store$: Store,
-              private dialogService: DialogService,
+  constructor(private dialogService: DialogService,
               private userService: AuthService) {
     this.userService.getLoggedBarber()?.subscribe(value => this.barber = value);
   }
